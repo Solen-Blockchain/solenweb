@@ -218,6 +218,30 @@ a:hover { color: var(--gold-light); }
 }
 .arch-arrow { font-size: 1.5rem; color: var(--text-dim); padding: 12px 0; }
 
+/* ===== WHITEPAPER ===== */
+.whitepaper-section { text-align: center; }
+.whitepaper-card {
+  max-width: 720px; margin: 0 auto;
+  background: var(--bg-card); border: 1px solid rgba(245, 166, 35, .2);
+  border-radius: var(--radius); padding: 40px 36px;
+  text-align: left;
+  transition: border-color .3s, transform .3s;
+}
+.whitepaper-card:hover { border-color: rgba(245, 166, 35, .4); transform: translateY(-3px); }
+.whitepaper-icon { width: 48px; height: 48px; color: var(--gold); margin-bottom: 20px; }
+.whitepaper-icon svg { width: 100%; height: 100%; }
+.whitepaper-info h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+.whitepaper-info p { color: var(--text-dim); font-size: .95rem; line-height: 1.65; margin-bottom: 18px; }
+.whitepaper-topics {
+  list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px;
+}
+.whitepaper-topics li {
+  background: rgba(245, 166, 35, .1); color: var(--gold-light);
+  padding: 5px 14px; border-radius: 6px; font-size: .82rem; font-weight: 500;
+}
+.whitepaper-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.whitepaper-meta { color: var(--text-dim); font-size: .82rem; }
+
 /* ===== ECOSYSTEM CARDS ===== */
 .eco-card {
   background: var(--bg-card); border: 1px solid rgba(255,255,255,.06);
