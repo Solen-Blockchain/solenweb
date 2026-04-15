@@ -531,6 +531,13 @@
     }
     checkBridgeStats();
 
+    // Refresh balances and stats every 10 seconds
+    setInterval(async () => {
+      await fetchSolenBalance();
+      await fetchWsolenBalance();
+      await checkBridgeStats();
+    }, 10000);
+
     // Auto-connect wallets if already approved
     if (window.ethereum) {
       window.ethereum.request({ method: "eth_accounts" }).then(accounts => {
