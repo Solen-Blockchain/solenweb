@@ -385,16 +385,15 @@
         }
         const argsHex = baseAddrClean + amountLE;
 
-        // Build operation for Solen Wallet
+        // Build operation for Solen Wallet.
+        // Uses the wallet's action format: { type, target, method, args }
         const operation = {
           actions: [{
-            Call: {
-              target: BRIDGE_SYSTEM_ADDR,
-              method: "bridge_to_base",
-              args: argsHex,
-            }
+            type: "call",
+            target: BRIDGE_SYSTEM_ADDR,
+            method: "bridge_to_base",
+            args: argsHex,
           }],
-          max_fee: 100000,
         };
 
         showStatus("Please approve in Solen Wallet...", "pending");
