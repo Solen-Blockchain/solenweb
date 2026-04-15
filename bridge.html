@@ -430,11 +430,33 @@
         } else if (result && result.accepted === false) {
           showStatus("Transaction rejected: " + (result.reason || "unknown"), "error");
         } else {
-          showStatus(
-            `Bridged ${amountStr} SOLEN to Base! The relayer will mint wSOLEN to ${baseAddress.slice(0,8)}...`,
-            "success"
-          );
+          // Track progress: Solen tx -> relayer -> Base mint
+          showStatus("Step 1/3: Transaction submitted on Solen. Waiting for finalization...", "pending");
           await fetchSolenBalance();
+
+          // Poll for wSOLEN balance increase on Base
+          const startBalance = wsolenBalance ? parseFloat(wsolenBalance) : 0;
+          const expectedAmount = parseFloat(amountStr);
+          let minted = false;
+
+          showStatus("Step 2/3: SOLEN locked on Solen. Waiting for relayer to mint wSOLEN on Base...", "pending");
+
+          for (let i = 0; i < 60; i++) { // poll for up to 5 minutes
+            await new Promise(r => setTimeout(r, 5000));
+            await fetchWsolenBalance();
+            const newBalance = wsolenBalance ? parseFloat(wsolenBalance) : 0;
+            if (newBalance >= startBalance + expectedAmount * 0.99) {
+              minted = true;
+              break;
+            }
+            showStatus(`Step 2/3: Waiting for relayer... (${i * 5}s elapsed)`, "pending");
+          }
+
+          if (minted) {
+            showStatus(`Step 3/3: Complete! ${amountStr} wSOLEN minted to ${baseAddress.slice(0,6)}...${baseAddress.slice(-4)}`, "success");
+          } else {
+            showStatus(`SOLEN locked on Solen. wSOLEN mint is pending — the relayer may take a few minutes to process.`, "pending");
+          }
         }
       } catch (err) {
         showStatus("Bridge failed: " + err.message, "error");
@@ -470,17 +492,36 @@
 
         // Bridge
         btn.textContent = "Bridging...";
-        showStatus("Confirm in MetaMask...", "pending");
+        showStatus("Step 1/4: Confirm burn in MetaMask...", "pending");
         const bridge = new ethers.Contract(BRIDGE_ADDRESS, BRIDGE_ABI, baseSigner);
         const tx = await bridge.bridgeToSolen(solenRecipient, amount);
-        showStatus("Waiting for confirmation...", "pending");
+        showStatus("Step 2/4: wSOLEN burn submitted. Waiting for Base confirmation...", "pending");
         await tx.wait();
-
-        showStatus(
-          `Burned ${amountStr} wSOLEN! The relayer will release SOLEN to ${solenAddress.slice(0,8)}...`,
-          "success"
-        );
         await fetchWsolenBalance();
+
+        showStatus("Step 3/4: wSOLEN burned on Base. Waiting for relayer to release SOLEN...", "pending");
+
+        // Poll Solen balance for the release
+        const startSolenBal = solenBalance ? parseFloat(solenBalance) : 0;
+        const expectedAmount = parseFloat(amountStr);
+        let released = false;
+
+        for (let i = 0; i < 60; i++) {
+          await new Promise(r => setTimeout(r, 5000));
+          await fetchSolenBalance();
+          const newBal = solenBalance ? parseFloat(solenBalance) : 0;
+          if (newBal >= startSolenBal + expectedAmount * 0.99) {
+            released = true;
+            break;
+          }
+          showStatus(`Step 3/4: Waiting for relayer to release SOLEN... (${i * 5}s elapsed)`, "pending");
+        }
+
+        if (released) {
+          showStatus(`Step 4/4: Complete! ${amountStr} SOLEN released to ${solenAddress.slice(0,6)}...${solenAddress.slice(-4)}`, "success");
+        } else {
+          showStatus(`wSOLEN burned on Base. SOLEN release is pending — the relayer may take a few minutes.`, "pending");
+        }
       } catch (err) {
         showStatus("Bridge failed: " + (err.reason || err.message), "error");
       }
