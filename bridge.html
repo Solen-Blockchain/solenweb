@@ -325,9 +325,21 @@
       solenAddress = address;
       solenAddressHex = base58ToHex(solenAddress);
       document.getElementById("solenWalletBox").classList.add("connected");
+      document.getElementById("solenWalletBox").onclick = null;
       document.getElementById("solenWalletStatus").innerHTML =
-        `<span class="addr">${solenAddress.slice(0,6)}...${solenAddress.slice(-4)}</span>`;
+        `<span class="addr">${solenAddress.slice(0,6)}...${solenAddress.slice(-4)}</span>` +
+        `<a href="#" onclick="event.stopPropagation(); disconnectSolen(); return false;" style="display:block;font-size:.65rem;color:var(--text-dim);margin-top:4px;">Disconnect</a>`;
       fetchSolenBalance();
+      updateUI();
+    }
+
+    function disconnectSolen() {
+      solenAddress = null;
+      solenAddressHex = null;
+      solenBalance = null;
+      document.getElementById("solenWalletBox").classList.remove("connected");
+      document.getElementById("solenWalletBox").onclick = connectSolenWallet;
+      document.getElementById("solenWalletStatus").innerHTML = '<span class="not-connected">Connect</span>';
       updateUI();
     }
 
@@ -368,14 +380,27 @@
         baseAddress = await baseSigner.getAddress();
 
         document.getElementById("baseWalletBox").classList.add("connected");
+        document.getElementById("baseWalletBox").onclick = null;
         document.getElementById("baseWalletStatus").innerHTML =
-          `<span class="addr">${baseAddress.slice(0,6)}...${baseAddress.slice(-4)}</span>`;
+          `<span class="addr">${baseAddress.slice(0,6)}...${baseAddress.slice(-4)}</span>` +
+          `<a href="#" onclick="event.stopPropagation(); disconnectBase(); return false;" style="display:block;font-size:.65rem;color:var(--text-dim);margin-top:4px;">Disconnect</a>`;
 
         await fetchWsolenBalance();
         updateUI();
       } catch (err) {
         showStatus("MetaMask: " + err.message, "error");
       }
+    }
+
+    function disconnectBase() {
+      baseAddress = null;
+      baseProvider = null;
+      baseSigner = null;
+      wsolenBalance = null;
+      document.getElementById("baseWalletBox").classList.remove("connected");
+      document.getElementById("baseWalletBox").onclick = connectBaseWallet;
+      document.getElementById("baseWalletStatus").innerHTML = '<span class="not-connected">Connect</span>';
+      updateUI();
     }
 
     async function fetchWsolenBalance() {
