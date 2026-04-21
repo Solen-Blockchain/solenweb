@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solen Presale Token Swap</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .swap-page { min-height: 100vh; padding: 100px 20px 60px; }
+    .swap-container { max-width: 480px; margin: 0 auto; }
+    .swap-header { text-align: center; margin-bottom: 32px; }
+    .swap-header h1 { font-size: 1.8rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+    .swap-header p { color: var(--text-dim); font-size: .95rem; }
+    .swap-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .swap-info {
+      background: rgba(245,166,35,.06);
+      border: 1px solid rgba(245,166,35,.2);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 20px;
+      font-size: .85rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+    .swap-info strong { color: var(--gold); }
+    .swap-field { margin-bottom: 16px; }
+    .swap-field label { display: block; font-size: .8rem; color: var(--text-dim); margin-bottom: 6px; }
+    .swap-field input {
+      width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; background: rgba(0,0,0,.3); color: var(--text);
+      font-size: .95rem; box-sizing: border-box; outline: none;
+    }
+    .swap-field input:focus { border-color: rgba(245,166,35,.4); }
+    .swap-field .balance { font-size: .75rem; color: var(--text-dim); margin-top: 4px; }
+    .swap-field .max-btn {
+      background: rgba(245,166,35,.15); color: var(--gold); border: none;
+      padding: 2px 8px; border-radius: 4px; font-size: .7rem; cursor: pointer;
+      margin-left: 8px;
+    }
+    .swap-output {
+      background: rgba(255,255,255,.03); border-radius: 10px; padding: 14px;
+      margin-bottom: 20px; text-align: center;
+    }
+    .swap-output .label { font-size: .8rem; color: var(--text-dim); }
+    .swap-output .value { font-size: 1.4rem; font-weight: 700; color: var(--text); }
+    .swap-output .unit { color: var(--gold); font-size: .9rem; margin-left: 4px; }
+    .swap-btn {
+      width: 100%; padding: 14px; border: none; border-radius: 12px;
+      background: var(--gold); color: #000; font-weight: 700; font-size: 1rem;
+      cursor: pointer; transition: all .2s;
+    }
+    .swap-btn:hover { background: #e09520; }
+    .swap-btn:disabled { opacity: .4; cursor: not-allowed; }
+    .swap-status {
+      margin-top: 16px; padding: 12px; border-radius: 8px; font-size: .85rem; text-align: center;
+    }
+    .swap-status.pending { background: rgba(59,130,246,.1); color: #60a5fa; }
+    .swap-status.success { background: rgba(34,197,94,.1); color: #4ade80; }
+    .swap-status.error { background: rgba(239,68,68,.1); color: #f87171; }
+    .wallet-connect {
+      text-align: center; padding: 20px;
+    }
+    .wallet-connect button {
+      padding: 12px 24px; border: 1px solid rgba(245,166,35,.4);
+      border-radius: 10px; background: rgba(245,166,35,.1); color: var(--gold);
+      font-weight: 600; font-size: .9rem; cursor: pointer; transition: all .2s;
+    }
+    .wallet-connect button:hover { background: rgba(245,166,35,.2); }
+    .swap-steps { font-size: .8rem; color: var(--text-dim); margin-top: 16px; }
+    .swap-steps ol { padding-left: 20px; }
+    .swap-steps li { margin-bottom: 6px; }
+    .swap-footer { margin-top: 24px; text-align: center; font-size: .75rem; color: var(--text-dim); }
+    .swap-footer a { color: var(--gold); }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="solenlogo.png" alt="Solen" class="nav-logo-img">
+        <span class="nav-logo-text">Solen</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="swap-page">
+    <div class="swap-container">
+      <div class="swap-header">
+        <h1>Presale Token Swap</h1>
+        <p>Swap your BSC presale tokens for mainnet SOLEN</p>
+      </div>
+
+      <div class="swap-card">
+        <div class="swap-info">
+          <strong>1 Presale Token = 1 SOLEN</strong><br>
+          Connect your BSC wallet containing presale tokens and enter your Solen mainnet address to receive SOLEN.
+        </div>
+
+        <div id="connectSection" class="wallet-connect">
+          <button onclick="connectWallet()">Connect BSC Wallet</button>
+        </div>
+
+        <div id="swapSection" style="display:none;">
+          <div class="swap-field">
+            <label>Presale Token Amount
+              <span class="balance" id="presaleBalance"></span>
+              <button class="max-btn" onclick="setMax()">MAX</button>
+            </label>
+            <input type="text" id="amountInput" placeholder="0.0" oninput="updateOutput()">
+          </div>
+
+          <div class="swap-output">
+            <div class="label">You will receive</div>
+            <div><span class="value" id="outputAmount">0</span><span class="unit">SOLEN</span></div>
+          </div>
+
+          <div class="swap-field">
+            <label>Your Solen Mainnet Address</label>
+            <input type="text" id="solenAddress" placeholder="e.g. dJNVRKH1Jh2TYBrjJUfNwQrB5b1S8xiCW926yEKWiur">
+          </div>
+
+          <button class="swap-btn" id="swapBtn" onclick="executeSwap()" disabled>Enter amount and address</button>
+
+          <div id="statusMsg" style="display:none;"></div>
+
+          <div class="swap-steps">
+            <strong>How it works:</strong>
+            <ol>
+              <li>Connect your BSC wallet (MetaMask)</li>
+              <li>Enter the amount of presale tokens to swap</li>
+              <li>Enter your Solen mainnet wallet address</li>
+              <li>Approve &amp; swap — SOLEN arrives in your wallet within minutes</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="swap-footer">
+        <p>
+          <a href="https://bscscan.com/address/0x040454717475D979E55309A53115B6473b0Ef646" target="_blank">Swap Contract on BscScan</a>
+          &middot;
+          <a href="https://bscscan.com/token/0xe1a388d7682c98908b798352e3d415a386cb96b8" target="_blank">Presale Token on BscScan</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.0/ethers.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bs58/6.0.0/bs58.bundle.min.js"></script>
+  <script>
+    const PRESALE_TOKEN = "0xe1a388d7682c98908b798352e3d415a386cb96b8";
+    const SWAP_CONTRACT = "0x040454717475D979E55309A53115B6473b0Ef646";
+    const BSC_CHAIN_ID = "0x38";
+
+    const TOKEN_ABI = [
+      "function balanceOf(address) view returns (uint256)",
+      "function approve(address,uint256) returns (bool)",
+      "function allowance(address,address) view returns (uint256)",
+    ];
+    const SWAP_ABI = [
+      "function swap(bytes32,uint256) external",
+    ];
+
+    let provider, signer, userAddress;
+    let presaleBalance = 0n;
+
+    function showStatus(msg, type) {
+      const el = document.getElementById("statusMsg");
+      el.style.display = "block";
+      el.className = "swap-status " + type;
+      el.textContent = msg;
+    }
+
+    function updateButton() {
+      const btn = document.getElementById("swapBtn");
+      const amount = document.getElementById("amountInput").value;
+      const addr = document.getElementById("solenAddress").value;
+      if (!amount || parseFloat(amount) <= 0) {
+        btn.textContent = "Enter amount";
+        btn.disabled = true;
+      } else if (!addr || addr.length < 32) {
+        btn.textContent = "Enter Solen address";
+        btn.disabled = true;
+      } else {
+        btn.textContent = "Swap for SOLEN";
+        btn.disabled = false;
+      }
+    }
+
+    function updateOutput() {
+      const amount = document.getElementById("amountInput").value;
+      const output = parseFloat(amount) || 0;
+      document.getElementById("outputAmount").textContent = output.toLocaleString(undefined, { maximumFractionDigits: 8 });
+      updateButton();
+    }
+
+    function setMax() {
+      const formatted = ethers.formatUnits(presaleBalance, 18);
+      document.getElementById("amountInput").value = formatted;
+      updateOutput();
+    }
+
+    async function connectWallet() {
+      if (!window.ethereum) {
+        alert("MetaMask not detected. Please install MetaMask.");
+        return;
+      }
+      try {
+        // Switch to BSC
+        try {
+          await window.ethereum.request({ method: "wallet_switchEthereumChain", params: [{ chainId: BSC_CHAIN_ID }] });
+        } catch (switchErr) {
+          if (switchErr.code === 4902) {
+            await window.ethereum.request({
+              method: "wallet_addEthereumChain",
+              params: [{ chainId: BSC_CHAIN_ID, chainName: "BNB Smart Chain", nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 }, rpcUrls: ["https://bsc-dataseed.binance.org"], blockExplorerUrls: ["https://bscscan.com"] }],
+            });
+          }
+        }
+
+        provider = new ethers.BrowserProvider(window.ethereum);
+        signer = await provider.getSigner();
+        userAddress = await signer.getAddress();
+
+        // Get presale token balance
+        const token = new ethers.Contract(PRESALE_TOKEN, TOKEN_ABI, provider);
+        presaleBalance = await token.balanceOf(userAddress);
+
+        document.getElementById("connectSection").style.display = "none";
+        document.getElementById("swapSection").style.display = "block";
+        document.getElementById("presaleBalance").textContent =
+          "Balance: " + parseFloat(ethers.formatUnits(presaleBalance, 18)).toLocaleString() + " tokens";
+
+        updateButton();
+      } catch (err) {
+        alert("Connection failed: " + err.message);
+      }
+    }
+
+    async function executeSwap() {
+      const amountStr = document.getElementById("amountInput").value;
+      const solenAddr = document.getElementById("solenAddress").value.trim();
+      const btn = document.getElementById("swapBtn");
+
+      if (!amountStr || !solenAddr) return;
+
+      // Validate Solen address — decode Base58 to 32 bytes
+      let solenBytes;
+      try {
+        solenBytes = bs58.decode(solenAddr);
+        if (solenBytes.length !== 32) throw new Error("Invalid length");
+      } catch {
+        showStatus("Invalid Solen address. Must be a valid Base58 address.", "error");
+        return;
+      }
+
+      // Convert to bytes32
+      const solenHex = "0x" + Array.from(solenBytes).map(b => b.toString(16).padStart(2, "0")).join("");
+
+      const amount = ethers.parseUnits(amountStr, 18);
+      if (amount <= 0n) return;
+
+      btn.disabled = true;
+
+      try {
+        const token = new ethers.Contract(PRESALE_TOKEN, TOKEN_ABI, signer);
+        const swap = new ethers.Contract(SWAP_CONTRACT, SWAP_ABI, signer);
+
+        // Check allowance
+        btn.textContent = "Checking allowance...";
+        const allowance = await token.allowance(userAddress, SWAP_CONTRACT);
+        if (allowance < amount) {
+          btn.textContent = "Approving...";
+          showStatus("Step 1/3: Approve presale tokens in MetaMask...", "pending");
+          const approveTx = await token.approve(SWAP_CONTRACT, amount);
+          await approveTx.wait();
+        }
+
+        // Execute swap
+        btn.textContent = "Swapping...";
+        showStatus("Step 2/3: Confirm swap in MetaMask...", "pending");
+        const swapTx = await swap.swap(solenHex, amount);
+        showStatus("Step 3/3: Waiting for BSC confirmation...", "pending");
+        await swapTx.wait();
+
+        // Update balance
+        presaleBalance = await token.balanceOf(userAddress);
+        document.getElementById("presaleBalance").textContent =
+          "Balance: " + parseFloat(ethers.formatUnits(presaleBalance, 18)).toLocaleString() + " tokens";
+        document.getElementById("amountInput").value = "";
+        updateOutput();
+
+        showStatus("Swap successful! Your SOLEN will arrive on mainnet within a few minutes.", "success");
+      } catch (err) {
+        showStatus("Swap failed: " + (err.reason || err.message), "error");
+      } finally {
+        btn.disabled = false;
+        updateButton();
+      }
+    }
+  </script>
+
+</body>
+</html>

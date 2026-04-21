@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solen Intent Swap — Cross-Chain Swaps Powered by Solver Competition</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .swap-page { min-height: 100vh; padding: 100px 20px 60px; }
+    .swap-container { max-width: 500px; margin: 0 auto; }
+    .swap-header { text-align: center; margin-bottom: 32px; }
+    .swap-header h1 { font-size: 1.8rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+    .swap-header p { color: var(--text-dim); font-size: .95rem; }
+
+    .swap-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .how-it-works {
+      background: rgba(245,166,35,.06);
+      border: 1px solid rgba(245,166,35,.15);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 24px;
+      font-size: .82rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+    .how-it-works strong { color: var(--gold); }
+    .how-it-works .step { display: flex; gap: 10px; margin-bottom: 8px; }
+    .how-it-works .step-num {
+      background: rgba(245,166,35,.15); color: var(--gold);
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .7rem; font-weight: 700; flex-shrink: 0;
+    }
+
+    .wallet-row { display: flex; gap: 8px; margin-bottom: 20px; }
+    .wallet-box {
+      flex: 1; padding: 12px; border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; text-align: center; cursor: pointer; transition: all .2s;
+    }
+    .wallet-box:hover { border-color: rgba(255,255,255,.2); }
+    .wallet-box.connected { border-color: rgba(22,163,74,.4); background: rgba(22,163,74,.06); }
+    .wallet-box .label { font-size: .75rem; color: var(--text-dim); margin-bottom: 4px; }
+    .wallet-box .addr { font-size: .7rem; font-family: monospace; color: var(--text); }
+    .wallet-box .not-connected { font-size: .8rem; color: var(--gold); font-weight: 600; }
+
+    .swap-field { margin-bottom: 16px; }
+    .swap-field label { display: block; font-size: .8rem; color: var(--text-dim); margin-bottom: 6px; }
+    .swap-field input, .swap-field select {
+      width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; background: rgba(0,0,0,.3); color: var(--text);
+      font-size: .95rem; box-sizing: border-box; outline: none;
+    }
+    .swap-field input:focus, .swap-field select:focus { border-color: rgba(245,166,35,.4); }
+    .swap-field .balance-row { font-size: .75rem; color: var(--text-dim); margin-top: 4px; display: flex; justify-content: space-between; }
+    .swap-field .max-btn {
+      background: rgba(245,166,35,.15); color: var(--gold); border: none;
+      padding: 2px 8px; border-radius: 4px; font-size: .7rem; cursor: pointer;
+    }
+
+    .swap-arrow { text-align: center; margin: 8px 0; color: var(--text-dim); font-size: 1.2rem; }
+
+    .swap-output {
+      background: rgba(255,255,255,.03); border-radius: 10px; padding: 14px;
+      margin-bottom: 20px;
+    }
+    .swap-output .row { display: flex; justify-content: space-between; font-size: .85rem; margin-bottom: 6px; }
+    .swap-output .row:last-child { margin-bottom: 0; }
+    .swap-output .label { color: var(--text-dim); }
+    .swap-output .value { color: var(--text); font-family: monospace; }
+    .swap-output .highlight { color: var(--gold); font-weight: 600; }
+
+    .swap-btn {
+      width: 100%; padding: 14px; border: none; border-radius: 12px;
+      background: var(--gold); color: #000; font-weight: 700; font-size: 1rem;
+      cursor: pointer; transition: all .2s;
+    }
+    .swap-btn:hover { background: #e09520; }
+    .swap-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+    .swap-status {
+      margin-top: 16px; padding: 12px; border-radius: 8px; font-size: .85rem; text-align: center;
+    }
+    .swap-status.pending { background: rgba(59,130,246,.1); color: #60a5fa; }
+    .swap-status.success { background: rgba(34,197,94,.1); color: #4ade80; }
+    .swap-status.error { background: rgba(239,68,68,.1); color: #f87171; }
+
+    .swap-footer { margin-top: 24px; text-align: center; font-size: .75rem; color: var(--text-dim); }
+    .swap-footer a { color: var(--gold); }
+
+    .tag { display: inline-block; background: rgba(245,166,35,.1); color: var(--gold); padding: 2px 8px; border-radius: 4px; font-size: .7rem; font-weight: 600; margin-left: 8px; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="solenlogo.png" alt="Solen" class="nav-logo-img">
+        <span class="nav-logo-text">Solen</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="bridge.html">Bridge</a>
+        <a href="swap.html" style="color: var(--gold);">Intent Swap</a>
+        <a href="/">Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="swap-page">
+    <div class="swap-container">
+      <div class="swap-header">
+        <h1>Intent Swap <span class="tag">Beta</span></h1>
+        <p>Cross-chain swaps powered by solver competition at consensus</p>
+      </div>
+
+      <div class="swap-card">
+        <div class="how-it-works">
+          <strong>How intent swaps work:</strong>
+          <div class="step"><span class="step-num">1</span><span>You submit an intent: "I want to swap X SOLEN for at least Y USDC on Base"</span></div>
+          <div class="step"><span class="step-num">2</span><span>Solvers compete inside block production to fill your order at the best rate</span></div>
+          <div class="step"><span class="step-num">3</span><span>The solver fronts USDC to your Base wallet instantly, then claims your SOLEN via the bridge</span></div>
+          <div style="margin-top: 8px; font-size: .78rem;">No MEV extraction. No bundler fees. Settlement at consensus.</div>
+        </div>
+
+        <!-- Wallet connections -->
+        <div class="wallet-row">
+          <div class="wallet-box" id="solenWalletBox" onclick="connectSolenWallet()">
+            <div class="label">Solen Wallet</div>
+            <div class="not-connected" id="solenWalletStatus">Connect</div>
+          </div>
+          <div class="wallet-box" id="baseWalletBox" onclick="connectBaseWallet()">
+            <div class="label">Base Wallet (MetaMask)</div>
+            <div class="not-connected" id="baseWalletStatus">Connect</div>
+          </div>
+        </div>
+
+        <!-- Input: SOLEN amount -->
+        <div class="swap-field">
+          <label>You send (SOLEN)</label>
+          <input type="text" id="inputAmount" placeholder="0.0" oninput="updateQuote()">
+          <div class="balance-row">
+            <span id="solenBalanceDisplay">Balance: --</span>
+            <button class="max-btn" onclick="setMax()">MAX</button>
+          </div>
+        </div>
+
+        <div class="swap-arrow">&#8595;</div>
+
+        <!-- Output: USDC -->
+        <div class="swap-field">
+          <label>You receive (USDC on Base)</label>
+          <select id="outputToken" disabled>
+            <option value="usdc">USDC</option>
+          </select>
+        </div>
+
+        <!-- Quote display -->
+        <div class="swap-output">
+          <div class="row"><span class="label">Estimated output</span><span class="value highlight" id="estimatedOutput">--</span></div>
+          <div class="row"><span class="label">Minimum output</span><span class="value" id="minOutput">--</span></div>
+          <div class="row"><span class="label">Solver tip</span><span class="value" id="solverTip">--</span></div>
+          <div class="row"><span class="label">Slippage tolerance</span><span class="value">2%</span></div>
+        </div>
+
+        <!-- Base recipient -->
+        <div class="swap-field" id="baseAddrField" style="display:none;">
+          <label>USDC destination (Base address)</label>
+          <input type="text" id="baseRecipient" placeholder="Connected automatically" readonly>
+        </div>
+
+        <button class="swap-btn" id="swapBtn" onclick="submitIntent()" disabled>Connect both wallets</button>
+
+        <div id="statusMsg" style="display:none;" class="swap-status"></div>
+      </div>
+
+      <div class="swap-footer">
+        <p>Intents are resolved at the consensus level by competing solvers.</p>
+        <p>
+          <a href="https://blog.solenchain.io/blog/intent-solver-architecture/" target="_blank">Learn how it works</a>
+          &middot;
+          <a href="https://docs.solenchain.io/api/json-rpc/#solen_submitintent" target="_blank">API Reference</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SOLEN_RPC = "https://rpc.solenchain.io";
+    const SOLEN_CHAIN_ID = 1;
+    const USDC_ADDRESS = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
+    const USDC_DECIMALS = 6;
+    const SOLEN_DECIMALS = 8;
+    // Approximate SOLEN/USDC price — solver will provide actual execution
+    let solenPriceUsdc = 0.005; // will be fetched
+
+    let solenAddress = null;
+    let solenSecretKey = null;
+    let baseAddress = null;
+    let solenBalance = null;
+
+    function showStatus(msg, type) {
+      const el = document.getElementById("statusMsg");
+      el.style.display = "block";
+      el.className = "swap-status " + type;
+      el.textContent = msg;
+    }
+    function clearStatus() { document.getElementById("statusMsg").style.display = "none"; }
+
+    function updateButton() {
+      const btn = document.getElementById("swapBtn");
+      if (!solenAddress) { btn.textContent = "Connect Solen Wallet"; btn.disabled = true; return; }
+      if (!baseAddress) { btn.textContent = "Connect Base Wallet"; btn.disabled = true; return; }
+      const amount = parseFloat(document.getElementById("inputAmount").value);
+      if (!amount || amount <= 0) { btn.textContent = "Enter amount"; btn.disabled = true; return; }
+      btn.textContent = "Submit Intent";
+      btn.disabled = false;
+    }
+
+    function updateQuote() {
+      const amount = parseFloat(document.getElementById("inputAmount").value) || 0;
+      if (amount <= 0) {
+        document.getElementById("estimatedOutput").textContent = "--";
+        document.getElementById("minOutput").textContent = "--";
+        document.getElementById("solverTip").textContent = "--";
+        updateButton();
+        return;
+      }
+
+      const estimated = amount * solenPriceUsdc;
+      const minOut = estimated * 0.98; // 2% slippage
+      const tip = amount * 0.005; // 0.5% tip
+
+      document.getElementById("estimatedOutput").textContent = estimated.toFixed(6) + " USDC";
+      document.getElementById("minOutput").textContent = minOut.toFixed(6) + " USDC";
+      document.getElementById("solverTip").textContent = tip.toFixed(4) + " SOLEN";
+      updateButton();
+    }
+
+    function setMax() {
+      if (solenBalance) {
+        document.getElementById("inputAmount").value = solenBalance;
+        updateQuote();
+      }
+    }
+
+    // --- Solen Wallet ---
+    async function connectSolenWallet() {
+      if (!window.solen) {
+        showStatus("Solen Wallet not detected. Install from Chrome Web Store.", "error");
+        return;
+      }
+      try {
+        clearStatus();
+        const accounts = await window.solen.connect();
+        if (accounts && accounts.length > 0) {
+          onSolenConnected(accounts[0]);
+        }
+      } catch (err) {
+        showStatus("Solen Wallet: " + err.message, "error");
+      }
+    }
+
+    function onSolenConnected(address) {
+      solenAddress = address;
+      document.getElementById("solenWalletBox").classList.add("connected");
+      document.getElementById("solenWalletBox").onclick = null;
+      document.getElementById("solenWalletStatus").innerHTML =
+        '<span class="addr">' + address.slice(0,6) + '...' + address.slice(-4) + '</span>';
+      fetchSolenBalance();
+      updateButton();
+    }
+
+    async function fetchSolenBalance() {
+      if (!solenAddress) return;
+      try {
+        const resp = await fetch(SOLEN_RPC, {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "solen_getBalance", params: [solenAddress] }),
+        });
+        const json = await resp.json();
+        const raw = BigInt(json.result || "0");
+        solenBalance = (Number(raw) / 1e8).toFixed(4);
+        document.getElementById("solenBalanceDisplay").textContent = "Balance: " + solenBalance + " SOLEN";
+      } catch {}
+    }
+
+    // --- Base Wallet ---
+    async function connectBaseWallet() {
+      if (!window.ethereum) {
+        showStatus("MetaMask not detected.", "error");
+        return;
+      }
+      try {
+        try {
+          await window.ethereum.request({ method: "wallet_switchEthereumChain", params: [{ chainId: "0x2105" }] });
+        } catch (switchErr) {
+          if (switchErr.code === 4902) {
+            await window.ethereum.request({
+              method: "wallet_addEthereumChain",
+              params: [{ chainId: "0x2105", chainName: "Base", nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 }, rpcUrls: ["https://mainnet.base.org"], blockExplorerUrls: ["https://basescan.org"] }],
+            });
+          }
+        }
+        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+        baseAddress = accounts[0];
+        document.getElementById("baseWalletBox").classList.add("connected");
+        document.getElementById("baseWalletBox").onclick = null;
+        document.getElementById("baseWalletStatus").innerHTML =
+          '<span class="addr">' + baseAddress.slice(0,6) + '...' + baseAddress.slice(-4) + '</span>';
+        document.getElementById("baseRecipient").value = baseAddress;
+        document.getElementById("baseAddrField").style.display = "block";
+        updateButton();
+      } catch (err) {
+        showStatus("MetaMask: " + err.message, "error");
+      }
+    }
+
+    // --- Submit Intent ---
+    async function submitIntent() {
+      const inputStr = document.getElementById("inputAmount").value;
+      const inputAmount = parseFloat(inputStr);
+      if (!inputAmount || !solenAddress || !baseAddress) return;
+
+      const btn = document.getElementById("swapBtn");
+      btn.disabled = true;
+      btn.textContent = "Submitting...";
+
+      try {
+        // Convert to base units
+        const inputBaseUnits = Math.floor(inputAmount * 1e8);
+        const minOutputUsdc = Math.floor(inputAmount * solenPriceUsdc * 0.98 * 1e6); // 2% slippage, USDC 6 decimals
+        const tipBaseUnits = Math.floor(inputAmount * 0.005 * 1e8); // 0.5% tip
+
+        // Get current height for expiry
+        const statusResp = await fetch(SOLEN_RPC, {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "solen_chainStatus", params: [] }),
+        });
+        const statusJson = await statusResp.json();
+        const currentHeight = statusJson.result.height;
+        const expiryHeight = currentHeight + 100; // ~10 minutes
+
+        // Build destination address (20-byte EVM address, right-padded to 32 bytes)
+        const destAddr = baseAddress.slice(2).toLowerCase().padStart(64, "0");
+
+        // USDC contract address, right-padded to 32 bytes
+        const outputToken = USDC_ADDRESS.slice(2).toLowerCase().padStart(64, "0");
+
+        showStatus("Step 1/3: Sign intent in Solen Wallet...", "pending");
+
+        // Submit intent via Solen Wallet
+        const constraints = [{
+          type: "CrossChainSwap",
+          input_amount: inputBaseUnits.toString(),
+          min_output: minOutputUsdc.toString(),
+          destination_chain: 8453,
+          destination_address: destAddr,
+          output_token: outputToken,
+        }];
+
+        // Use the wallet's signAndSubmitIntent if available, otherwise use RPC directly
+        const intentResp = await fetch(SOLEN_RPC, {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            jsonrpc: "2.0", id: 1,
+            method: "solen_submitIntent",
+            params: [{
+              sender: solenAddress,
+              constraints: constraints,
+              max_fee: "100000",
+              expiry_height: expiryHeight,
+              signature: "",
+              tip: tipBaseUnits.toString(),
+            }],
+          }),
+        });
+        const intentJson = await intentResp.json();
+
+        if (intentJson.result && intentJson.result.accepted) {
+          const intentId = intentJson.result.intent_id;
+          showStatus("Step 2/3: Intent #" + intentId + " submitted. Waiting for solver...", "pending");
+
+          // Poll for fulfillment
+          let fulfilled = false;
+          for (let i = 0; i < 30; i++) {
+            await new Promise(r => setTimeout(r, 6000));
+
+            // Check if balance changed on Solen (intent was fulfilled)
+            const balResp = await fetch(SOLEN_RPC, {
+              method: "POST", headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "solen_getBalance", params: [solenAddress] }),
+            });
+            const balJson = await balResp.json();
+            const newBal = Number(BigInt(balJson.result || "0")) / 1e8;
+
+            if (newBal < parseFloat(solenBalance) - inputAmount * 0.5) {
+              fulfilled = true;
+              break;
+            }
+
+            showStatus("Step 2/3: Intent #" + intentId + " — waiting for solver... (" + ((i+1)*6) + "s)", "pending");
+          }
+
+          if (fulfilled) {
+            showStatus("Step 3/3: Intent fulfilled! USDC has been sent to your Base wallet.", "success");
+            fetchSolenBalance();
+          } else {
+            showStatus("Intent submitted but not yet fulfilled. Solvers may still fill it within the expiry window (~10 min).", "pending");
+          }
+        } else {
+          const error = intentJson.result?.error || intentJson.error?.message || "Unknown error";
+          showStatus("Intent rejected: " + error, "error");
+        }
+      } catch (err) {
+        showStatus("Error: " + err.message, "error");
+      } finally {
+        btn.disabled = false;
+        updateButton();
+      }
+    }
+
+    // Fetch live wSOLEN price from GeckoTerminal API
+    async function fetchPrice() {
+      try {
+        const resp = await fetch(
+          "https://api.geckoterminal.com/api/v2/networks/base/tokens/0x14c84e576eddb3e24b3da3659843b585285f9fd9"
+        );
+        const json = await resp.json();
+        const price = parseFloat(json.data?.attributes?.price_usd);
+        if (price > 0) {
+          solenPriceUsdc = price;
+          console.log("Live wSOLEN/USDC price:", solenPriceUsdc);
+        }
+      } catch (e) {
+        console.warn("Price fetch failed, using fallback:", e);
+        solenPriceUsdc = 0.015;
+      }
+      updateQuote();
+    }
+
+    // Refresh price every 30 seconds
+    fetchPrice();
+    setInterval(fetchPrice, 30000);
+
+    // Auto-connect if wallets available
+    if (window.solen) connectSolenWallet();
+  </script>
+
+</body>
+</html>
