@@ -5,6 +5,8 @@
   --gold: #f5a623;
   --gold-light: #ffd080;
   --gold-dark: #c47d10;
+  --accent-cool: #4dd4e0;
+  --accent-violet: #a855f7;
   --bg: #11141b;
   --bg-card: #1a1e27;
   --bg-section: #161a22;
@@ -18,7 +20,14 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background: var(--bg);
+  background:
+    radial-gradient(ellipse 1300px 900px at 8% 5%,    rgba(245, 166, 35, 0.22), transparent 60%),
+    radial-gradient(ellipse 1100px 800px at 95% 18%,  rgba(77, 212, 224, 0.18), transparent 60%),
+    radial-gradient(ellipse 1500px 1000px at 50% 55%, rgba(168, 85, 247, 0.14), transparent 60%),
+    radial-gradient(ellipse 1000px 700px at 12% 95%,  rgba(245, 166, 35, 0.14), transparent 60%),
+    radial-gradient(ellipse 900px 700px at 90% 100%,  rgba(77, 212, 224, 0.12), transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
   color: var(--text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -290,7 +299,12 @@ a:hover { color: var(--gold-light); }
 
 /* ===== SECTIONS ===== */
 .section { padding: 100px 0; }
-.section-dark { background: var(--bg-section); }
+.section-dark {
+  background:
+    radial-gradient(ellipse 1000px 500px at 80% 0%,   rgba(77, 212, 224, 0.14), transparent 65%),
+    radial-gradient(ellipse 900px 500px at 10% 100%,  rgba(168, 85, 247, 0.12), transparent 65%),
+    var(--bg-section);
+}
 .section-title {
   font-size: clamp(1.8rem, 3.5vw, 2.6rem);
   font-weight: 800; text-align: center; margin-bottom: 12px;
@@ -321,10 +335,17 @@ a:hover { color: var(--gold-light); }
 .card-icon::before {
   content: ""; position: absolute; inset: -14px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(245,166,35,.28), transparent 65%);
-  opacity: .4; pointer-events: none; z-index: 0;
+  background: radial-gradient(circle, var(--icon-glow, rgba(245,166,35,.28)), transparent 65%);
+  opacity: .55; pointer-events: none; z-index: 0;
   animation: icon-pulse 4.5s ease-in-out infinite;
 }
+/* Rotate icon-glow color across cards so they aren't all gold */
+.grid-3 > .card:nth-of-type(3n+1) .card-icon { --icon-glow: rgba(245, 166, 35, .32); }
+.grid-3 > .card:nth-of-type(3n+2) .card-icon { --icon-glow: rgba(77, 212, 224, .32); }
+.grid-3 > .card:nth-of-type(3n+3) .card-icon { --icon-glow: rgba(168, 85, 247, .32); }
+.grid-2 > .eco-card:nth-of-type(3n+1) .card-icon { --icon-glow: rgba(245, 166, 35, .32); }
+.grid-2 > .eco-card:nth-of-type(3n+2) .card-icon { --icon-glow: rgba(77, 212, 224, .32); }
+.grid-2 > .eco-card:nth-of-type(3n+3) .card-icon { --icon-glow: rgba(168, 85, 247, .32); }
 .card-icon::after {
   content: ""; position: absolute; inset: -14px;
   border-radius: 50%;
@@ -780,7 +801,9 @@ a:hover { color: var(--gold-light); }
   border-radius: var(--radius); padding: 32px 28px;
   transition: border-color .3s, transform .3s;
 }
-.eco-card:hover { border-color: rgba(245, 166, 35, .25); transform: translateY(-3px); }
+.eco-card:hover { border-color: rgba(245, 166, 35, .3); transform: translateY(-3px); }
+.eco-card:nth-of-type(3n+2):hover { border-color: rgba(77, 212, 224, .35); }
+.eco-card:nth-of-type(3n+3):hover { border-color: rgba(168, 85, 247, .35); }
 .eco-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
 .eco-card p { color: var(--text-dim); font-size: .93rem; margin-bottom: 16px; line-height: 1.6; }
 .link { font-size: .9rem; font-weight: 600; }
