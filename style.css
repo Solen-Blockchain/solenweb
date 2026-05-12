@@ -1158,7 +1158,8 @@ a:hover { color: var(--gold-light); }
 /* ===== COMMUNITY ALLOCATION BANNER ===== */
 .allocation {
   position: relative;
-  padding: 28px 0 32px;
+  /* nav is position:fixed (~68px tall); clear it with breathing room. */
+  padding: 96px 0 32px;
   background:
     linear-gradient(180deg, rgba(245, 166, 35, 0.10) 0%, rgba(245, 166, 35, 0.02) 100%),
     rgba(17, 20, 27, 0.6);
