@@ -1071,6 +1071,23 @@
     </div>
   </section>
 
+  <!-- MAILING LIST -->
+  <section class="mailing" id="mailing">
+    <div class="container mailing-inner">
+      <div class="mailing-copy">
+        <h2 class="mailing-title">Stay in the loop</h2>
+        <p class="mailing-sub">Get a heads-up on new mainnet drops, allocation rounds, exchange listings, and ecosystem launches. Low volume, no spam.</p>
+      </div>
+      <form class="mailing-form" id="mailingForm" autocomplete="off">
+        <input type="email" id="mailingEmail" class="mailing-input"
+               placeholder="you@email.com"
+               autocomplete="email" required>
+        <button type="submit" class="mailing-btn" id="mailingBtn">Subscribe</button>
+        <div class="mailing-feedback" id="mailingFeedback"></div>
+      </form>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-inner">
@@ -1326,6 +1343,58 @@
           attachStatusPoll(last.id);
         }
       } catch { /* ignore */ }
+    })();
+  </script>
+
+  <!-- Mailing list signup -->
+  <script>
+    (function () {
+      const API = "https://presale.solenchain.io/api/mailing-list/subscribe";
+      const form = document.getElementById("mailingForm");
+      const emailEl = document.getElementById("mailingEmail");
+      const btn = document.getElementById("mailingBtn");
+      const fb = document.getElementById("mailingFeedback");
+      if (!form) return;
+
+      function setFeedback(msg, kind) {
+        fb.className = "mailing-feedback" + (kind ? " " + kind : "");
+        fb.textContent = msg || "";
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = (emailEl.value || "").trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          setFeedback("Enter a valid email address.", "err");
+          return;
+        }
+        btn.disabled = true;
+        setFeedback("Subscribing…", "");
+        try {
+          const res = await fetch(API, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ email, source: "solenchain.io" }),
+          });
+          const j = await res.json();
+          if (!res.ok) {
+            setFeedback(j.error === "bad_email"
+              ? "That doesn't look like a valid email."
+              : "Couldn't subscribe — try again.", "err");
+            return;
+          }
+          if (j.alreadySubscribed) {
+            setFeedback("You're already on the list ✓", "ok");
+          } else {
+            setFeedback("Subscribed — thanks!", "ok");
+            emailEl.value = "";
+          }
+        } catch {
+          setFeedback("Network error — try again.", "err");
+        } finally {
+          btn.disabled = false;
+        }
+      });
     })();
   </script>
 </body>

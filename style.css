@@ -1308,6 +1308,84 @@ a:hover { color: var(--gold-light); }
   .allocation-title { font-size: 1.2rem; }
 }
 
+/* ===== MAILING LIST ===== */
+.mailing {
+  padding: 64px 0 56px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background:
+    radial-gradient(ellipse 700px 280px at 50% 0%, rgba(77, 212, 224, 0.10), transparent 60%),
+    rgba(17, 20, 27, 0.4);
+}
+.mailing-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+.mailing-copy { flex: 1 1 360px; min-width: 280px; }
+.mailing-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  margin-bottom: 8px;
+}
+.mailing-sub {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  max-width: 540px;
+}
+.mailing-form {
+  flex: 0 1 460px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: stretch;
+  min-width: 280px;
+}
+.mailing-input {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 10px;
+  padding: 13px 14px;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.mailing-input:focus {
+  border-color: rgba(77, 212, 224, 0.55);
+  box-shadow: 0 0 0 3px rgba(77, 212, 224, 0.15);
+}
+.mailing-btn {
+  background: linear-gradient(180deg, var(--accent-cool) 0%, #3aa8b4 100%);
+  color: #07111a;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 22px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.15s, opacity 0.15s;
+  box-shadow: 0 6px 20px rgba(77, 212, 224, 0.22);
+}
+.mailing-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(77, 212, 224, 0.32); }
+.mailing-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.mailing-feedback {
+  grid-column: 1 / -1;
+  font-size: 0.85rem;
+  min-height: 1.2em;
+  margin-top: 2px;
+}
+.mailing-feedback.ok { color: #86efac; }
+.mailing-feedback.err { color: #fca5a5; }
+@media (max-width: 768px) {
+  .mailing-form { grid-template-columns: 1fr; }
+}
+
 /* ===== FOOTER ===== */
 .footer {
   border-top: 1px solid rgba(255,255,255,.06);
