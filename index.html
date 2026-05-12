@@ -102,6 +102,9 @@
         <input type="text" id="allocationDestination" class="allocation-input"
                placeholder="Destination address — Solen native (Base58) or 0x on Base"
                required>
+        <input type="email" id="allocationEmail" class="allocation-input"
+               placeholder="Email — for receipt + delivery confirmation"
+               autocomplete="email" required>
         <input type="number" id="allocationAmount" class="allocation-amount"
                placeholder="USD amount (min $50)"
                min="50" step="1" required>
@@ -1177,7 +1180,9 @@
       const LS_LAST = "solen-presale:last-order";
 
       const $ = (id) => document.getElementById(id);
+      const formEl = $("allocationForm");
       const destEl = $("allocationDestination");
+      const emailEl = $("allocationEmail");
       const amtEl  = $("allocationAmount");
       const cardBtn = $("payCardBtn");
       const cryptoBtn = $("payCryptoBtn");
@@ -1187,6 +1192,10 @@
       const progEl = $("allocationProgressText");
       const quoteRow = $("quoteQty");
       const quoteSolen = $("quoteSolen");
+
+      // Block default form submission (Enter in an input would otherwise
+      // try to GET the page itself with the form fields appended).
+      formEl.addEventListener("submit", (e) => e.preventDefault());
 
       const fmtUsd = (n) => "$" + Number(n).toLocaleString("en-US", { maximumFractionDigits: 0 });
       const fmtSolen = (n) => Number(n).toLocaleString("en-US", { maximumFractionDigits: 2 });
@@ -1229,17 +1238,21 @@
       function validate() {
         setError("");
         const dest = destEl.value.trim();
+        const email = emailEl.value.trim();
         const usd = Number(amtEl.value);
         if (!dest) { setError("Enter a destination address."); return null; }
-        // Solen native: Base58 chars, len 32..50; Base: 0x + 40 hex.
         const isEvm = /^0x[0-9a-fA-F]{40}$/.test(dest);
         const isBase58 = /^[1-9A-HJ-NP-Za-km-z]{32,50}$/.test(dest);
         if (!isEvm && !isBase58) {
           setError("Address doesn't look like a Solen Base58 or a Base 0x address.");
           return null;
         }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          setError("Enter a valid email for the receipt + delivery confirmation.");
+          return null;
+        }
         if (!usd || usd < MIN) { setError(`Minimum order is ${fmtUsd(MIN)}.`); return null; }
-        return { dest, usd };
+        return { dest, usd, email };
       }
 
       async function createOrder(rail) {
@@ -1250,29 +1263,23 @@
           const res = await fetch(`${PRESALE_API}/order`, {
             method: "POST",
             headers: { "content-type": "application/json" },
-            body: JSON.stringify({ destination: v.dest, usdAmount: v.usd, rail }),
+            body: JSON.stringify({ destination: v.dest, usdAmount: v.usd, rail, email: v.email }),
           });
           const j = await res.json();
           if (!res.ok) {
             setError(j.error === "cap_reached" ? "Cap reached — round is full."
                   : j.error === "below_minimum" ? `Minimum order is ${fmtUsd(MIN)}.`
                   : j.error === "bad_destination" ? "Address didn't validate server-side."
+                  : j.error === "email_required" ? "Enter a valid email for the receipt + delivery confirmation."
                   : `Couldn't start order: ${j.detail || j.error || "unknown"}.`);
             return;
           }
           const o = j.order;
           localStorage.setItem(LS_LAST, JSON.stringify({ id: o.id, rail, t: Date.now() }));
-          // Try a new tab first so the user keeps this page; fall back
-          // to a same-tab redirect if popup blockers refuse.
-          const w = window.open(o.redirectUrl, "_blank", "noopener");
-          if (!w) { window.location.href = o.redirectUrl; return; }
-          setStatus(
-            `Order <strong>${o.id.slice(0, 8)}</strong> opened in a new tab.<br>` +
-            `Once payment confirms, ${fmtSolen(o.solenQty)} SOLEN will be sent to ` +
-            `<code>${o.destination.slice(0, 8)}…${o.destination.slice(-6)}</code>. ` +
-            `<a href="#" id="checkOrderLink">Refresh status</a>`,
-          );
-          attachStatusPoll(o.id);
+          // Same-tab redirect. The order id is in localStorage so when
+          // the buyer returns to solenchain.io after paying, the
+          // status panel rehydrates automatically.
+          window.location.href = o.redirectUrl;
         } catch (e) {
           setError("Network error talking to presale backend.");
         } finally {
