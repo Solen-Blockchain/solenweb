@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <g fill="#3DDC84">
+    <!-- antennae -->
+    <path d="M70 64 L84 86" stroke="#3DDC84" stroke-width="6" stroke-linecap="round"/>
+    <path d="M186 64 L172 86" stroke="#3DDC84" stroke-width="6" stroke-linecap="round"/>
+    <!-- head -->
+    <path d="M64 96 C64 84 73 76 84 76 L172 76 C183 76 192 84 192 96 L192 128 L64 128 Z"/>
+    <!-- eyes -->
+    <circle cx="96" cy="106" r="6" fill="#0a0e17"/>
+    <circle cx="160" cy="106" r="6" fill="#0a0e17"/>
+    <!-- body -->
+    <rect x="72" y="136" width="112" height="64" rx="6"/>
+    <!-- arms -->
+    <rect x="44" y="136" width="20" height="56" rx="10"/>
+    <rect x="192" y="136" width="20" height="56" rx="10"/>
+    <!-- legs -->
+    <rect x="92" y="200" width="20" height="28" rx="10"/>
+    <rect x="144" y="200" width="20" height="28" rx="10"/>
+  </g>
+</svg>
