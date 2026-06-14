@@ -1581,6 +1581,35 @@ a:hover { color: var(--gold-light); }
 .team-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
 .team-card p { color: var(--text-dim); font-size: .9rem; margin: 0; }
 
+/* Featured CEO card + contact buttons */
+.team-featured {
+  max-width: 440px; margin: 0 auto 28px; text-align: center;
+  background: var(--bg-card);
+  border: 1px solid rgba(245, 166, 35, .22);
+  border-radius: var(--radius); padding: 34px 28px;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, .3);
+}
+.team-avatar-lg { width: 120px; height: 120px; margin-bottom: 16px; }
+.team-featured h3 { font-size: 1.45rem; font-weight: 800; margin-bottom: 4px; }
+.team-role {
+  color: var(--gold); font-weight: 700; font-size: .82rem;
+  letter-spacing: .12em; text-transform: uppercase; margin: 0 0 20px;
+}
+.team-contacts { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.team-contact {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: .82rem; font-weight: 600; color: var(--text-dim);
+  background: rgba(255, 255, 255, .04); border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 8px; padding: 7px 13px; text-decoration: none; transition: all .2s;
+}
+.team-contact:hover {
+  color: var(--text); border-color: rgba(245, 166, 35, .4);
+  background: rgba(245, 166, 35, .08); transform: translateY(-1px);
+}
+.team-contact svg { width: 15px; height: 15px; flex: 0 0 auto; }
+.team-contacts-sm { margin-top: 14px; }
+.team-contacts-sm .team-contact { font-size: .78rem; padding: 6px 11px; }
+
 /* FAQ */
 .faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
 .faq-item {
@@ -1767,4 +1796,88 @@ a:hover { color: var(--gold-light); }
 @media (max-width: 768px) {
   .validator-card-grid { grid-template-columns: 1fr; gap: 20px; }
   .validator-stats { grid-template-columns: 1fr; }
+}
+
+/* ===== AI AGENTS SPOTLIGHT ===== */
+.agents {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(168, 85, 247, 0.16);
+  border-bottom: 1px solid rgba(77, 212, 224, 0.12);
+}
+.agents::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 820px 440px at 80% 6%,  rgba(168, 85, 247, 0.26), transparent 60%),
+    radial-gradient(ellipse 760px 420px at 12% 98%, rgba(77, 212, 224, 0.20), transparent 60%);
+  animation: agentsGlow 9s ease-in-out infinite alternate;
+}
+@keyframes agentsGlow { from { opacity: .68; transform: translateY(6px); } to { opacity: 1; transform: translateY(-8px); } }
+.agents .container { position: relative; z-index: 1; }
+.agents-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: .72rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--accent-violet);
+  background: linear-gradient(135deg, rgba(168, 85, 247, .18), rgba(77, 212, 224, .12));
+  border: 1px solid rgba(168, 85, 247, .34);
+  padding: 6px 15px; border-radius: 999px; margin-bottom: 18px;
+}
+.agents h2.section-title {
+  background: linear-gradient(135deg, #fff 26%, var(--accent-violet) 72%, var(--accent-cool));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.agents-layout {
+  display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 40px;
+  align-items: center; margin-top: 40px;
+}
+@media (max-width: 880px) { .agents-layout { grid-template-columns: 1fr; gap: 28px; } }
+.agents-features { display: grid; gap: 15px; }
+.agents-feature {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: rgba(26, 30, 39, .6); border: 1px solid rgba(255, 255, 255, .06);
+  border-radius: 14px; padding: 16px 18px; transition: border-color .25s, transform .25s;
+}
+.agents-feature:hover { border-color: rgba(168, 85, 247, .42); transform: translateY(-2px); }
+.agents-feature .fi { flex: 0 0 auto; width: 30px; height: 30px; margin-top: 2px; color: var(--accent-cool); }
+.agents-feature h4 { font-size: 1rem; margin: 0 0 4px; color: var(--text); }
+.agents-feature p { font-size: .9rem; color: var(--text-dim); line-height: 1.55; margin: 0; }
+.agents-code {
+  background: #0e1016; border: 1px solid rgba(77, 212, 224, .2);
+  border-radius: 16px; padding: 22px 24px; margin: 0; overflow-x: auto;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: .82rem; line-height: 1.8; color: #cfd3df;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .45), 0 0 0 1px rgba(168, 85, 247, .07);
+}
+.agents-code .c { color: #6b7280; }
+.agents-code .k { color: var(--accent-violet); }
+.agents-code .s { color: var(--gold-light); }
+.agents-code .f { color: var(--accent-cool); }
+.agents-cta { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 38px; }
+
+/* hero spotlight badge */
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 9px; margin: 0 auto 22px;
+  font-size: .8rem; font-weight: 700; color: var(--text);
+  background: linear-gradient(135deg, rgba(168, 85, 247, .2), rgba(77, 212, 224, .14));
+  border: 1px solid rgba(168, 85, 247, .36); border-radius: 999px; padding: 7px 17px;
+  transition: transform .2s, box-shadow .2s;
+}
+.hero-badge:hover { color: var(--text); transform: translateY(-1px); box-shadow: 0 8px 30px rgba(168, 85, 247, .28); }
+.hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-cool); box-shadow: 0 0 10px var(--accent-cool); animation: badgePulse 2.2s ease-in-out infinite; }
+@keyframes badgePulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
+/* nav "AI Agents" highlight */
+.nav-new { color: var(--accent-violet) !important; font-weight: 700; }
+.nav-new::after {
+  content: "NEW"; font-size: .52rem; font-weight: 800; letter-spacing: .08em;
+  vertical-align: super; margin-left: 5px; color: var(--accent-cool);
+}
+
+/* grant → spend → revoke lifecycle (Learn › AI Agents tab) */
+.agent-step-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%; margin-bottom: 14px;
+  font-weight: 800; font-size: 1rem; color: #11141b;
+  background: linear-gradient(135deg, var(--accent-violet), var(--accent-cool));
+  box-shadow: 0 6px 20px rgba(168, 85, 247, .3);
 }

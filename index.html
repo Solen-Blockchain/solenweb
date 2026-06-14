@@ -45,6 +45,7 @@
         <a href="https://docs.solenchain.io" target="_blank" rel="noopener">Docs</a>
         <a href="https://solenscan.io" target="_blank" rel="noopener">Explorer</a>
         <a href="bridge.html">Bridge</a>
+        <a href="#agents" class="nav-new">AI Agents</a>
         <a href="#downloads">Downloads</a>
         <a href="https://blog.solenchain.io" target="_blank" rel="noopener">Blog</a>
         <div class="nav-dropdown">
@@ -125,12 +126,60 @@
     <div class="hero-glow"></div>
     <div class="container hero-content">
       <img src="solenlogo.png" alt="Solen" class="hero-logo">
+      <a href="#agents" class="hero-badge"><span class="dot"></span>New — AI agents, enforced by consensus &rarr;</a>
       <h1>The Settlement Layer<br>for the Modular Future</h1>
-      <p class="hero-sub">A high-performance L1 blockchain purpose-built for rollup settlement, smart accounts, and intent-driven execution.</p>
+      <p class="hero-sub">A high-performance L1 blockchain purpose-built for rollup settlement, smart accounts, intent-driven execution &mdash; and AI agents that transact within consensus-enforced limits.</p>
       <div class="hero-actions">
         <a href="#technology" class="btn btn-primary">Learn More</a>
         <a href="https://docs.solenchain.io" class="btn btn-outline" target="_blank" rel="noopener">Read the Docs</a>
         <a href="Solen_Investor_Information.pdf" class="btn btn-outline" target="_blank" rel="noopener">Investor Info</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI AGENTS SPOTLIGHT -->
+  <section class="section section-dark agents" id="agents">
+    <div class="container" style="text-align:center;">
+      <span class="agents-eyebrow">&#10022; Agent-Native</span>
+      <h2 class="section-title">AI agents, enforced by consensus</h2>
+      <p class="section-sub">Grant an AI agent a session key with a spending budget, an allowlist of contracts, and an expiry &mdash; and the chain itself enforces every limit. No custodial middleman, no exposure of your main key. The agent literally cannot exceed or widen its own cage.</p>
+
+      <div class="agents-layout" style="text-align:left;">
+        <div class="agents-features">
+          <div class="agents-feature">
+            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+            <div><h4>Consensus-enforced limits</h4><p>Lifetime budget, per-op cap, allowed targets and methods, and an expiry height &mdash; enforced in consensus, not by a backend you have to trust.</p></div>
+          </div>
+          <div class="agents-feature">
+            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4.5 13.5H11l-1 8.5L19.5 10.5H13z"/></svg>
+            <div><h4>Gasless by design</h4><p>Paymaster sponsorship lets agents transact with zero native balance. Fund the work, not the wallet.</p></div>
+          </div>
+          <div class="agents-feature">
+            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="7.5" r="3.6"/><path d="M10.2 10.2l8 8m-2.4.6l2-2m-4.2-1.4l2-2"/></svg>
+            <div><h4>Scoped session keys</h4><p>Grant and revoke agents from your wallet in a click. The agent holds a scoped key &mdash; never your main one &mdash; and can't widen its scope.</p></div>
+          </div>
+          <div class="agents-feature">
+            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+            <div><h4>Sub-call lockdown</h4><p>Optionally bound the entire call tree, so an agent&rsquo;s operations stay confined to exactly the contracts you approve &mdash; transitively.</p></div>
+          </div>
+        </div>
+
+        <pre class="agents-code"><span class="k">import</span> { <span class="f">SolenAgent</span> } <span class="k">from</span> <span class="s">"@solen/agent-sdk"</span>;
+
+<span class="c">// Owner grants a scoped, budgeted key (from the wallet)</span>
+<span class="k">const</span> agent = <span class="k">await</span> <span class="f">SolenAgent</span>.<span class="f">create</span>({
+  rpcUrl, chainId, owner,
+  sessionSecretKey,   <span class="c">// budget · targets · expiry</span>
+});
+
+<span class="c">// The agent acts — gasless, only within its limits</span>
+<span class="k">await</span> agent.<span class="f">transfer</span>(recipient, <span class="s">1n</span> * SOLEN);
+<span class="c">// ↳ rejected on-chain if it exceeds the budget</span></pre>
+      </div>
+
+      <div class="agents-cta">
+        <a href="https://docs.solenchain.io" class="btn btn-primary" target="_blank" rel="noopener">Read the Docs</a>
+        <a href="https://github.com/Solen-Blockchain" class="btn btn-outline" target="_blank" rel="noopener">View the SDK</a>
       </div>
     </div>
   </section>
@@ -142,6 +191,7 @@
         <div class="tab-bar" role="tablist">
           <button class="tab-btn active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
           <button class="tab-btn" data-tab="why" role="tab" aria-selected="false">Why Solen</button>
+          <button class="tab-btn" data-tab="agents" role="tab" aria-selected="false">AI Agents</button>
           <button class="tab-btn" data-tab="technology" role="tab" aria-selected="false">Technology</button>
           <button class="tab-btn" data-tab="performance" role="tab" aria-selected="false">Performance</button>
           <button class="tab-btn" data-tab="team" role="tab" aria-selected="false">Team</button>
@@ -281,6 +331,32 @@
         <p class="comparison-note">Comparison reflects each chain's default protocol behavior at the L1 level. App-level workarounds and proposed standards are not counted.</p>
       </div>
 
+      <!-- AI AGENTS -->
+      <div class="tab-panel" id="tab-agents" role="tabpanel">
+        <h2 class="section-title">AI Agents</h2>
+        <p class="section-sub">Solen lets an AI agent act on your behalf with limits the chain enforces. You delegate a <strong>scoped session key</strong> &mdash; never your main key &mdash; and consensus guarantees the agent can only do what you allowed, for as long as you allow it. The lifecycle is three steps:</p>
+
+        <div class="grid grid-3">
+          <div class="card">
+            <span class="agent-step-num">1</span>
+            <h3>Grant</h3>
+            <p>From your wallet or a dapp, mint a session key and scope it: a lifetime SOLEN budget, a per-operation cap, an allowlist of contracts and methods, and an expiry height &mdash; with optional sub-call lockdown. You sign the grant with your account; the agent receives only the scoped key.</p>
+          </div>
+          <div class="card">
+            <span class="agent-step-num">2</span>
+            <h3>Spend</h3>
+            <p>The agent transacts autonomously through the agent SDK, gasless via a paymaster. Every operation is validated against its limits <em>in consensus</em> &mdash; anything over budget, off the allowlist, or past expiry is rejected on-chain, not by a backend you have to trust.</p>
+          </div>
+          <div class="card">
+            <span class="agent-step-num">3</span>
+            <h3>Revoke</h3>
+            <p>Remove the agent at any time in one click, and watch its remaining budget and limits live on-chain. Keys also expire automatically at the block height you set, so an agent&rsquo;s authority is always bounded.</p>
+          </div>
+        </div>
+
+        <p class="section-sub" style="margin-top:28px;">Because the rules live in consensus, a compromised agent key can&rsquo;t widen its own scope, drain your account, or touch a contract you didn&rsquo;t approve. <a class="link" href="#agents">See the overview &rarr;</a></p>
+      </div>
+
       <!-- TECHNOLOGY -->
       <div class="tab-panel" id="tab-technology" role="tabpanel">
         <h2 class="section-title">Architecture</h2>
@@ -415,21 +491,39 @@
       <div class="tab-panel" id="tab-team" role="tabpanel">
         <h2 class="section-title">Team</h2>
         <p class="section-sub">A small team focused on shipping. Builders first.</p>
+        <!-- CEO (featured) -->
+        <div class="team-featured">
+          <div class="team-avatar team-avatar-photo team-avatar-lg"><img src="porter.jpg" alt="Porter"></div>
+          <h3>Porter</h3>
+          <p class="team-role">CEO</p>
+          <div class="team-contacts">
+            <a class="team-contact" href="https://www.linkedin.com/in/porter-stovall-983b41404" target="_blank" rel="noopener" aria-label="Porter on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21h-4z"/></svg>LinkedIn</a>
+            <a class="team-contact" href="mailto:porter@solenchain.io"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Email</a>
+            <a class="team-contact" href="https://t.me/porter_solen" target="_blank" rel="noopener" aria-label="Porter on Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.6l-3.3 15.56c-.25 1.1-.9 1.37-1.83.85l-5.05-3.72-2.44 2.35c-.27.27-.5.5-1.02.5l.36-5.16L17.5 7.2c.4-.36-.09-.56-.62-.2L6.9 13.36 1.9 11.8c-1.09-.34-1.11-1.09.23-1.61L20.5 3.05c.9-.34 1.69.2 1.44 1.55z"/></svg>Telegram</a>
+          </div>
+        </div>
+
         <div class="team-grid">
-          <a class="team-card team-card-link" href="https://www.linkedin.com/in/porter-stovall-983b41404" target="_blank" rel="noopener">
-            <div class="team-avatar team-avatar-photo"><img src="porter.jpg" alt="Porter"></div>
-            <h3>Porter</h3>
-            <p>Team Lead</p>
-          </a>
           <div class="team-card">
             <div class="team-avatar"><span>D</span></div>
             <h3>David</h3>
-            <p>Lead BD &amp; Planning</p>
+            <p>VP Business Planning</p>
           </div>
           <div class="team-card">
             <div class="team-avatar"><span>P</span></div>
             <h3>Pierre</h3>
-            <p>Lead Developer</p>
+            <p>VP Engineering</p>
+            <div class="team-contacts team-contacts-sm">
+              <a class="team-contact" href="mailto:dev@solenchain.io"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Email</a>
+            </div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar"><span>A</span></div>
+            <h3>Ann</h3>
+            <p>VP Business Development</p>
+            <div class="team-contacts team-contacts-sm">
+              <a class="team-contact" href="mailto:ann@solenchain.io"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Email</a>
+            </div>
           </div>
         </div>
         <p class="team-recruit">
