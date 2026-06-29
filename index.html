@@ -184,6 +184,49 @@
     </div>
   </section>
 
+  <!-- QUANTUM-READY SPOTLIGHT -->
+  <section class="section section-dark agents" id="quantum">
+    <div class="container" style="text-align:center;">
+      <span class="agents-eyebrow">&#10022; Quantum-Ready</span>
+      <h2 class="section-title">Ready for the post-quantum era</h2>
+      <p class="section-sub">Opt in to NIST-standardized post-quantum signatures and protect any account against future quantum computers &mdash; today, with one command and no change of address. Made practical by smart accounts; classical signing stays the default.</p>
+
+      <div class="agents-layout" style="text-align:left;">
+        <div class="agents-features">
+          <div class="agents-feature">
+            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="9" ry="3.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(120 12 12)"/></svg>
+            <div><h4>NIST-standardized</h4><p>ML-DSA-65 (FIPS&nbsp;204), the NIST post-quantum signature standard, built into the protocol &mdash; not a bolt-on. Hashing and key storage are already quantum-safe.</p></div>
+          </div>
+          <div class="agents-feature">
+            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5-8 4.5-8-4.5z"/><path d="M4 12l8 4.5 8-4.5"/><path d="M4 16.5l8 4.5 8-4.5"/></svg>
+            <div><h4>Hybrid mode</h4><p>Require <em>both</em> a classical and a post-quantum signature &mdash; an attacker must break both schemes to forge. Defense-in-depth for the transition.</p></div>
+          </div>
+          <div class="agents-feature">
+            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 4v4h-4"/></svg>
+            <div><h4>Upgrade in place</h4><p>One command rotates an account to post-quantum auth with the <strong>same address</strong> &mdash; no fund migration, unlike chains where the address is a hash of the key.</p></div>
+          </div>
+          <div class="agents-feature">
+            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="5"/><circle cx="15" cy="12" r="5"/></svg>
+            <div><h4>Cross-verified</h4><p>The Rust and TypeScript signers are proven byte-for-byte compatible against committed test vectors &mdash; so a wallet-signed quantum transaction is accepted by every node.</p></div>
+          </div>
+        </div>
+
+        <pre class="agents-code"><span class="c"># Upgrade any account to post-quantum auth &mdash; same address</span>
+<span class="f">solen</span> key quantum-upgrade myaccount
+
+<span class="c"># ...or hybrid: Ed25519 + ML-DSA-65, both required</span>
+<span class="f">solen</span> key quantum-upgrade myaccount <span class="k">--hybrid</span>
+
+<span class="c"># Classical stays the default; post-quantum is opt-in, per account.</span></pre>
+      </div>
+
+      <div class="agents-cta">
+        <a href="https://docs.solenchain.io/architecture/post-quantum/" class="btn btn-primary" target="_blank" rel="noopener">Read the Docs</a>
+        <a href="https://github.com/Solen-Blockchain" class="btn btn-outline" target="_blank" rel="noopener">View the SDK</a>
+      </div>
+    </div>
+  </section>
+
   <!-- LEARN — TABBED SECTION -->
   <section class="tabs-section" id="learn">
     <div class="tab-bar-wrap">
