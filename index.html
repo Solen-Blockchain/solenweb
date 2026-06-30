@@ -46,6 +46,7 @@
         <a href="https://solenscan.io" target="_blank" rel="noopener">Explorer</a>
         <a href="bridge.html">Bridge</a>
         <a href="#agents" class="nav-new">AI Agents</a>
+        <a href="#mining" class="nav-new">Mining</a>
         <a href="#downloads">Downloads</a>
         <a href="https://blog.solenchain.io" target="_blank" rel="noopener">Blog</a>
         <div class="nav-dropdown">
@@ -223,6 +224,48 @@
       <div class="agents-cta">
         <a href="https://docs.solenchain.io/architecture/post-quantum/" class="btn btn-primary" target="_blank" rel="noopener">Read the Docs</a>
         <a href="https://github.com/Solen-Blockchain" class="btn btn-outline" target="_blank" rel="noopener">View the SDK</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MINING POOL SPOTLIGHT -->
+  <section class="section section-dark agents" id="mining">
+    <div class="container" style="text-align:center;">
+      <span class="agents-eyebrow">&#10022; Mining Pool</span>
+      <h2 class="section-title">Earn SOLEN with your hashrate</h2>
+      <p class="section-sub">Solen is proof-of-stake, so you don&rsquo;t mine SOLEN directly. Point Scrypt miners &mdash; or rented hashrate &mdash; at the pool, and your proof-of-work earns a proportional distribution of SOLEN, paid out automatically. A distribution you have to <em>earn</em> &mdash; not an airdrop.</p>
+
+      <div class="agents-layout" style="text-align:left;">
+        <div class="agents-features">
+          <div class="agents-feature">
+            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M8.4 12.2l2.4 2.4 4.8-5"/></svg>
+            <div><h4>Earned, not airdropped</h4><p>Your proof-of-work is the qualification. SOLEN is distributed in proportion to the work you contribute &mdash; so recipients value what they mined, instead of dumping a free drop.</p></div>
+          </div>
+          <div class="agents-feature">
+            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+            <div><h4>Market-linked rate</h4><p>The payout rate floats with the market &mdash; pegged to a USD target via the live SOLEN price &mdash; so what you earn stays fair as conditions move.</p></div>
+          </div>
+          <div class="agents-feature">
+            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg>
+            <div><h4>Automatic payouts</h4><p>Rewards accrue and are sent straight to your SOLEN address once you cross the minimum &mdash; no claiming, no custody, no sign-up.</p></div>
+          </div>
+          <div class="agents-feature">
+            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 18a9 9 0 1 1 17 0"/><path d="M12 13l4-3.5"/><circle cx="12" cy="13" r="1.2" fill="currentColor" stroke="none"/></svg>
+            <div><h4>Live dashboard</h4><p>Track your hashrate, pending and paid SOLEN, and full payout history in real time &mdash; every payout links straight to the block explorer.</p></div>
+          </div>
+        </div>
+
+        <pre class="agents-code"><span class="c"># Point any Scrypt miner at the pool</span>
+<span class="f">url</span>    stratum+tcp://stratum.solenchain.io:3333
+<span class="f">user</span>   &lt;your_SOLEN_address&gt;.rig1
+<span class="f">pass</span>   x
+
+<span class="c"># Scrypt &middot; rewards paid automatically to your SOLEN address</span></pre>
+      </div>
+
+      <div class="agents-cta">
+        <a href="https://pool.solenchain.io" class="btn btn-primary" target="_blank" rel="noopener">Start Mining</a>
+        <a href="https://pool.solenchain.io" class="btn btn-outline" target="_blank" rel="noopener">Live Dashboard</a>
       </div>
     </div>
   </section>
