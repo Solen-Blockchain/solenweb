@@ -1800,16 +1800,23 @@ a:hover { color: var(--gold-light); }
 
 /* ===== AI AGENTS SPOTLIGHT ===== */
 .agents {
+  /* spotlight accent palette — overridden per section below */
+  --spot-a: #a855f7; --spot-a-rgb: 168, 85, 247;
+  --spot-b: #4dd4e0; --spot-b-rgb: 77, 212, 224;
   position: relative;
   overflow: hidden;
-  border-top: 1px solid rgba(168, 85, 247, 0.16);
-  border-bottom: 1px solid rgba(77, 212, 224, 0.12);
+  border-top: 1px solid rgba(var(--spot-a-rgb), 0.16);
+  border-bottom: 1px solid rgba(var(--spot-b-rgb), 0.12);
 }
+/* per-section spotlight palettes (id wins over .agents defaults) */
+#agents  { --spot-a:#a855f7; --spot-a-rgb:168, 85, 247; --spot-b:#4dd4e0; --spot-b-rgb:77, 212, 224; }  /* violet + cyan */
+#quantum { --spot-a:#3b82f6; --spot-a-rgb:59, 130, 246; --spot-b:#22d3ee; --spot-b-rgb:34, 211, 238; }  /* blue + cyan  */
+#mining  { --spot-a:#ff8a00; --spot-a-rgb:255, 138, 0;  --spot-b:#fbbf24; --spot-b-rgb:251, 191, 36; }  /* orange + gold */
 .agents::before {
   content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
   background:
-    radial-gradient(ellipse 820px 440px at 80% 6%,  rgba(168, 85, 247, 0.26), transparent 60%),
-    radial-gradient(ellipse 760px 420px at 12% 98%, rgba(77, 212, 224, 0.20), transparent 60%);
+    radial-gradient(ellipse 820px 440px at 80% 6%,  rgba(var(--spot-a-rgb), 0.26), transparent 60%),
+    radial-gradient(ellipse 760px 420px at 12% 98%, rgba(var(--spot-b-rgb), 0.20), transparent 60%);
   animation: agentsGlow 9s ease-in-out infinite alternate;
 }
 @keyframes agentsGlow { from { opacity: .68; transform: translateY(6px); } to { opacity: 1; transform: translateY(-8px); } }
@@ -1817,13 +1824,13 @@ a:hover { color: var(--gold-light); }
 .agents-eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: .72rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase;
-  color: var(--accent-violet);
-  background: linear-gradient(135deg, rgba(168, 85, 247, .18), rgba(77, 212, 224, .12));
-  border: 1px solid rgba(168, 85, 247, .34);
+  color: var(--spot-a);
+  background: linear-gradient(135deg, rgba(var(--spot-a-rgb), .18), rgba(var(--spot-b-rgb), .12));
+  border: 1px solid rgba(var(--spot-a-rgb), .34);
   padding: 6px 15px; border-radius: 999px; margin-bottom: 18px;
 }
 .agents h2.section-title {
-  background: linear-gradient(135deg, #fff 26%, var(--accent-violet) 72%, var(--accent-cool));
+  background: linear-gradient(135deg, #fff 26%, var(--spot-a) 72%, var(--spot-b));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
 .agents-layout {
@@ -1837,21 +1844,21 @@ a:hover { color: var(--gold-light); }
   background: rgba(26, 30, 39, .6); border: 1px solid rgba(255, 255, 255, .06);
   border-radius: 14px; padding: 16px 18px; transition: border-color .25s, transform .25s;
 }
-.agents-feature:hover { border-color: rgba(168, 85, 247, .42); transform: translateY(-2px); }
-.agents-feature .fi { flex: 0 0 auto; width: 30px; height: 30px; margin-top: 2px; color: var(--accent-cool); }
+.agents-feature:hover { border-color: rgba(var(--spot-a-rgb), .42); transform: translateY(-2px); }
+.agents-feature .fi { flex: 0 0 auto; width: 30px; height: 30px; margin-top: 2px; color: var(--spot-b); }
 .agents-feature h4 { font-size: 1rem; margin: 0 0 4px; color: var(--text); }
 .agents-feature p { font-size: .9rem; color: var(--text-dim); line-height: 1.55; margin: 0; }
 .agents-code {
-  background: #0e1016; border: 1px solid rgba(77, 212, 224, .2);
+  background: #0e1016; border: 1px solid rgba(var(--spot-b-rgb), .2);
   border-radius: 16px; padding: 22px 24px; margin: 0; overflow-x: auto;
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   font-size: .82rem; line-height: 1.8; color: #cfd3df;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, .45), 0 0 0 1px rgba(168, 85, 247, .07);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .45), 0 0 0 1px rgba(var(--spot-a-rgb), .07);
 }
 .agents-code .c { color: #6b7280; }
-.agents-code .k { color: var(--accent-violet); }
+.agents-code .k { color: var(--spot-a); }
 .agents-code .s { color: var(--gold-light); }
-.agents-code .f { color: var(--accent-cool); }
+.agents-code .f { color: var(--spot-b); }
 .agents-cta { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 38px; }
 
 /* hero spotlight badge */
