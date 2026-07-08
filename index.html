@@ -1,1647 +1,877 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solen — The Settlement Layer for the Modular Future</title>
-  <meta name="description" content="Solen is a high-performance Layer 1 blockchain built for rollup settlement, smart accounts, and intent-driven execution.">
-  <meta name="keywords" content="Solen, blockchain, Layer 1, rollup, settlement, smart accounts, intents, DeFi, Web3, crypto, bit21, solenpoker, solenquest, blackjack, poker, cryptogram, on-chain games">
-  <meta name="author" content="Solen Foundation">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solen — The Settlement Layer for the Modular Future</title>
+<meta name="description" content="Solen is a high-performance Layer 1 blockchain built for rollup settlement, smart accounts, and intent-driven execution. 1,200+ TPS with sub-second finality.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://solenchain.io">
+<meta property="og:title" content="Solen — The Settlement Layer for the Modular Future">
+<meta property="og:description" content="High-performance L1 blockchain with native rollups, smart accounts, and intent-driven execution. 1,200+ TPS with sub-second finality.">
+<meta property="og:image" content="https://solenchain.io/solenlogo.png">
+<meta property="og:site_name" content="Solen">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@solenchain">
+<meta name="twitter:title" content="Solen — The Settlement Layer for the Modular Future">
+<meta name="twitter:description" content="High-performance L1 blockchain with native rollups, smart accounts, and intent-driven execution.">
+<meta name="twitter:image" content="https://solenchain.io/solenlogo.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="256x256" href="logo-256.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #F6F4EF; color: #20242B; font-family: 'IBM Plex Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--accent, #F5920F); }
+  ::selection { background: var(--accent, #F5920F); color: #0A0C10; }
+  @keyframes solenPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .45; transform: scale(.82); } }
+  @keyframes solenFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes solenSpin { to { transform: rotate(360deg); } }
+  @keyframes solenSpinRev { to { transform: rotate(-360deg); } }
+  .eco-card:hover, .game-card:hover, .wallet-card:hover, .social-pill:hover { border-color: color-mix(in oklab, var(--accent, #F5920F) 55%, transparent) !important; }
+  .eco-card:hover { background: #EFECE4 !important; }
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://solenchain.io">
-  <meta property="og:title" content="Solen — The Settlement Layer for the Modular Future">
-  <meta property="og:description" content="High-performance L1 blockchain with native rollups, smart accounts, and intent-driven execution. 1,200+ TPS with sub-second finality.">
-  <meta property="og:image" content="https://solenchain.io/solenlogo.png">
-  <meta property="og:site_name" content="Solen">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@solenchain">
-  <meta name="twitter:title" content="Solen — The Settlement Layer for the Modular Future">
-  <meta name="twitter:description" content="High-performance L1 blockchain with native rollups, smart accounts, and intent-driven execution.">
-  <meta name="twitter:image" content="https://solenchain.io/solenlogo.png">
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://solenchain.io">
-
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-  <link rel="apple-touch-icon" sizes="256x256" href="logo-256.png">
-  <link rel="stylesheet" href="style.css">
-
+  /* ===== Responsive ===== */
+  @media (max-width: 1024px) {
+    .dc-2col { grid-template-columns: 1fr !important; }
+    .dc-hero { grid-template-columns: 1fr !important; gap: 40px !important; }
+    .dc-hero-visual { display: none !important; }
+    .dcg5 { grid-template-columns: repeat(3, 1fr) !important; }
+    .dcg4 { grid-template-columns: repeat(2, 1fr) !important; }
+  }
+  @media (max-width: 720px) {
+    .dc-navlinks { display: none !important; }
+    .dcg3 { grid-template-columns: repeat(2, 1fr) !important; }
+    .dc-h1 { font-size: 42px !important; }
+    .dc-h2 { font-size: 32px !important; }
+    .dc-px { padding-left: 22px !important; padding-right: 22px !important; }
+    .dc-nav-cta { display: none !important; }
+  }
+  @media (max-width: 480px) {
+    .dcg5, .dcg4, .dcg3, .dcg2 { grid-template-columns: 1fr !important; }
+    .dc-stat-bl { padding-left: 0 !important; border-left: none !important; }
+  }
+</style>
 </head>
 <body>
+<div style="--accent: #F5920F; --head: 'Newsreader'; background: #F6F4EF; overflow: hidden;">
 
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">
-        <img src="solenlogo.png" alt="Solen" class="nav-logo-img">
-        <span class="nav-logo-text">Solen</span>
-      </a>
-      <div class="nav-links" id="navLinks">
-        <a href="https://docs.solenchain.io" target="_blank" rel="noopener">Docs</a>
-        <a href="https://solenscan.io" target="_blank" rel="noopener">Explorer</a>
-        <a href="bridge.html">Bridge</a>
-        <a href="#agents" class="nav-new">AI Agents</a>
-        <a href="#mining" class="nav-new">Mining</a>
-        <a href="#downloads">Downloads</a>
-        <a href="https://blog.solenchain.io" target="_blank" rel="noopener">Blog</a>
-        <div class="nav-dropdown">
-          <button class="nav-dropdown-btn">More <svg width="10" height="6" viewBox="0 0 10 6" fill="currentColor"><path d="M1 1l4 4 4-4"/></svg></button>
-          <div class="nav-dropdown-menu">
-            <a href="presale-swap.html">BSC Presale Swap</a>
-            <a href="#overview">Overview</a>
-            <a href="#why">Why Solen</a>
-            <a href="#technology">Technology</a>
-            <a href="#performance">Performance</a>
-            <a href="#team">Team</a>
-            <a href="#faq">FAQ</a>
-            <a href="#whitepaper">Whitepaper</a>
-            <a href="#tokenomics">Tokenomics</a>
-            <a href="#staking">Staking</a>
-            <a href="#ecosystem">Ecosystem</a>
-            <a href="#community">Community</a>
-            <a href="#games">Games</a>
-            <a href="Solen_Stress_Test_Report.pdf" target="_blank" rel="noopener">Stress Test Report</a>
-          </div>
-        </div>
+  <!-- ===== TICKER ===== -->
+  <div style="background: #14171C; color: #E7E3DA;">
+    <div class="dc-px" style="max-width: 1240px; margin: 0 auto; padding: 9px 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; flex-wrap: wrap;">
+      <div style="display: flex; align-items: center; gap: 16px; min-width: 0; overflow: hidden; white-space: nowrap;">
+        <span style="display: inline-flex; align-items: center; gap: 8px; letter-spacing: 0.04em;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #4ADE80; box-shadow: 0 0 10px #4ADE80; animation: solenPulse 2.4s ease-in-out infinite;"></span>MAINNET LIVE</span>
+        <span style="opacity: .3;">&#9474;</span>
+        <span style="color: #9AA0A8;">SOLEN <b style="color: #FF9E33; font-weight: 500;">$0.015</b></span>
+        <span style="color: #9AA0A8;">TPS <b style="color: #F6F4EF; font-weight: 500;">1,200+</b></span>
+        <span style="color: #9AA0A8;">FINALITY <b style="color: #F6F4EF; font-weight: 500;">&lt;1s</b></span>
       </div>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+      <a href="presale-swap.html" style="color: #FF9E33; letter-spacing: 0.02em; white-space: nowrap; flex-shrink: 0;">Buy SOLEN &#8594;</a>
+    </div>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <nav class="dc-px" style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; background: rgba(246,244,239,0.82); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(0,0,0,0.09);">
+    <a href="#top" style="display: flex; align-items: center; gap: 11px;">
+      <img src="solenlogo.png" alt="Solen" style="width: 30px; height: 30px; object-fit: contain;">
+      <span style="font-size: 20px; letter-spacing: -0.01em; font-weight: 600;">Solen</span>
+    </a>
+    <div class="dc-navlinks" style="display: flex; align-items: center; gap: 30px; font-size: 14.5px; color: #9AA0AB;">
+      <a href="#technology">Technology</a>
+      <a href="#agents">AI Agents</a>
+      <a href="#why">Why Solen</a>
+      <a href="#tokenomics">Tokenomics</a>
+      <a href="#staking">Staking</a>
+      <a href="#ecosystem">Ecosystem</a>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <a href="https://docs.solenchain.io" style="font-size: 14.5px; color: #9AA0AB;">Docs</a>
+      <a class="dc-nav-cta" href="Solen_Investor_Briefing.pdf" style="font-size: 14px; font-weight: 500; padding: 9px 17px; border-radius: 8px; border: 1px solid var(--accent, #F5920F); color: var(--accent, #F5920F);">Investor Briefing</a>
     </div>
   </nav>
 
-  <!-- COMMUNITY ALLOCATION ROUND -->
-  <!-- Hidden temporarily; bring back by removing the style="display:none" below. -->
-  <section class="allocation" id="allocation" style="display:none">
-    <div class="container allocation-inner">
-      <div class="allocation-header">
-        <div>
-          <span class="allocation-pill">Community Allocation · Live</span>
-          <div class="allocation-title" style="margin-top:10px">
-            Buy SOLEN at <span>$0.015</span>
-          </div>
-          <div class="allocation-sub">Native SOLEN or wSOLEN on Base — choose your destination address. Pay with card or crypto.</div>
+  <!-- ===== HERO ===== -->
+  <header id="top" class="dc-px" style="position: relative; max-width: 1240px; margin: 0 auto; padding: 92px 40px 40px;">
+    <div style="position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 900px; height: 520px; max-width: 100%; background: radial-gradient(50% 50% at 50% 40%, color-mix(in oklab, var(--accent, #F5920F) 16%, transparent), transparent 72%); filter: blur(30px); pointer-events: none; z-index: 0;"></div>
+    <div class="dc-hero" style="position: relative; z-index: 1; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center;">
+      <div>
+        <div style="display: inline-flex; align-items: center; gap: 9px; padding: 6px 13px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.14); background: rgba(0,0,0,0.04); font-size: 12.5px; letter-spacing: 0.04em; color: #3A3F47; font-family: 'IBM Plex Mono', monospace;">
+          <span style="width: 7px; height: 7px; border-radius: 50%; background: #4ADE80; box-shadow: 0 0 10px #4ADE80; animation: solenPulse 2.4s ease-in-out infinite;"></span>
+          MAINNET LIVE · SINCE APR 2026
         </div>
-        <div class="allocation-quote" id="allocationQuote" aria-live="polite">
-          <div>Price <strong>$0.015 / SOLEN</strong></div>
-          <div>Cap <strong>$250,000</strong></div>
-          <div id="quoteQty" style="display:none">You receive <span class="qty" id="quoteSolen">0</span> SOLEN</div>
-        </div>
-      </div>
-
-      <div class="allocation-progress">
-        <div class="allocation-bar"><div class="allocation-bar-fill" id="allocationBarFill"></div></div>
-        <div class="allocation-progress-text" id="allocationProgressText">
-          <strong>$0</strong> / $250,000 raised
+        <h1 class="dc-h1" style="font-family: var(--head, 'Newsreader'), Georgia, serif; font-weight: 500; font-size: 67px; line-height: 1.02; letter-spacing: -0.02em; margin: 20px 0 0; color: #191C22;">
+          The settlement layer<br>for the <span style="font-style: italic; color: var(--accent, #F5920F);">modular</span> future.
+        </h1>
+        <p style="max-width: 500px; font-size: 18px; line-height: 1.62; color: #5C626C; margin: 22px 0 0;">
+          A high-performance Layer 1 purpose-built for rollup settlement, smart accounts, and intent-driven execution — with sub-second finality and fees in fractions of a cent.
+        </p>
+        <div style="display: flex; gap: 13px; margin-top: 32px; flex-wrap: wrap;">
+          <a href="Solen_Investor_Briefing.pdf" style="display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; padding: 13px 24px; border-radius: 10px; background: var(--accent, #F5920F); color: #0A0C10;">Read the Investor Briefing →</a>
+          <a href="#technology" style="display: inline-flex; align-items: center; font-size: 15px; font-weight: 500; padding: 13px 24px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.18); color: #20242B;">Explore the technology</a>
         </div>
       </div>
 
-      <form class="allocation-form" id="allocationForm" autocomplete="off">
-        <input type="text" id="allocationDestination" class="allocation-input"
-               placeholder="Destination address — Solen native (Base58) or 0x on Base"
-               required>
-        <input type="email" id="allocationEmail" class="allocation-input"
-               placeholder="Email — for receipt + delivery confirmation"
-               autocomplete="email" required>
-        <input type="number" id="allocationAmount" class="allocation-amount"
-               placeholder="USD amount (min $50)"
-               min="50" step="1" required>
-        <div class="allocation-buttons">
-          <button type="button" id="payCardBtn" class="allocation-btn">Pay with Card</button>
-          <button type="button" id="payCryptoBtn" class="allocation-btn allocation-btn-outline">Pay with Crypto</button>
+      <div class="dc-hero-visual" style="position: relative; height: 460px; display: flex; align-items: center; justify-content: center;">
+        <!-- rings -->
+        <div style="position: absolute; top: 50%; left: 50%; width: 400px; height: 400px; transform: translate(-50%,-50%); border-radius: 50%; border: 1px solid color-mix(in oklab, var(--accent, #F5920F) 26%, transparent);">
+          <div style="position: absolute; inset: 0; animation: solenSpin 16s linear infinite;"><span style="position: absolute; top: -5px; left: 50%; transform: translateX(-50%); width: 10px; height: 10px; border-radius: 50%; background: var(--accent, #F5920F); box-shadow: 0 0 12px color-mix(in oklab, var(--accent, #F5920F) 70%, transparent);"></span></div>
         </div>
-      </form>
+        <div style="position: absolute; top: 50%; left: 50%; width: 278px; height: 278px; transform: translate(-50%,-50%); border-radius: 50%; border: 1px solid color-mix(in oklab, var(--accent, #F5920F) 34%, transparent);">
+          <div style="position: absolute; inset: 0; animation: solenSpinRev 11s linear infinite;"><span style="position: absolute; top: -4px; left: 50%; transform: translateX(-50%); width: 8px; height: 8px; border-radius: 50%; background: #191C22;"></span></div>
+        </div>
+        <div style="position: absolute; top: 50%; left: 50%; width: 168px; height: 168px; transform: translate(-50%,-50%); border-radius: 50%; border: 1px solid rgba(0,0,0,0.12);">
+          <div style="position: absolute; inset: 0; animation: solenSpin 8s linear infinite;"><span style="position: absolute; top: -4px; left: 50%; transform: translateX(-50%); width: 8px; height: 8px; border-radius: 50%; background: var(--accent, #F5920F);"></span></div>
+        </div>
+        <!-- center node -->
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 108px; height: 108px; border-radius: 50%; background: #FFFFFF; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 12px 40px rgba(0,0,0,0.12); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;">
+          <img src="solenlogo.png" alt="Solen" style="width: 36px; height: 36px; object-fit: contain;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; color: var(--accent, #F5920F);">SOLEN L1</span>
+        </div>
+        <!-- floating chips -->
+        <div style="position: absolute; top: 8%; left: -6%; background: #FFFFFF; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-radius: 12px; padding: 12px 16px; animation: solenFloat 5s ease-in-out infinite;">
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 26px; color: #191C22; line-height: 1;">1,200<span style="color: var(--accent, #F5920F);">+</span></div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #767B85; margin-top: 4px;">TPS &middot; LIVE</div>
+        </div>
+        <div style="position: absolute; bottom: 10%; right: -6%; background: #FFFFFF; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-radius: 12px; padding: 12px 16px; animation: solenFloat 6s ease-in-out infinite; animation-delay: .8s;">
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 26px; color: #191C22; line-height: 1;">&lt;1<span style="font-size: 16px; color: #767B85;">s</span></div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #767B85; margin-top: 4px;">FINALITY</div>
+        </div>
+        <div style="position: absolute; top: 46%; right: -4%; background: #14171C; color: #E7E3DA; border-radius: 999px; padding: 8px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.06em; box-shadow: 0 8px 24px rgba(0,0,0,0.14); animation: solenFloat 5.5s ease-in-out infinite; animation-delay: .4s;">BFT&nbsp;PoS</div>
+      </div>
+    </div>
+  </header>
 
-      <div class="allocation-error" id="allocationError"></div>
-      <div class="allocation-status" id="allocationStatus"></div>
+  <!-- ===== STATS BAND ===== -->
+  <div style="border-top: 1px solid rgba(0,0,0,0.10); border-bottom: 1px solid rgba(0,0,0,0.10); background: #FFFFFF; margin-top: 24px;">
+    <div class="dc-px dcg5" style="max-width: 1240px; margin: 0 auto; padding: 30px 40px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px;">
+      <div>
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 42px; color: #191C22; line-height: 1;">1,200<span style="color: var(--accent, #F5920F);">+</span></div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.06em; color: #767B85; margin-top: 9px;">TPS &middot; LIVE TESTNET</div>
+      </div>
+      <div class="dc-stat-bl" style="padding-left: 24px; border-left: 1px solid rgba(0,0,0,0.08);">
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 42px; color: #191C22; line-height: 1;">&lt;1<span style="font-size: 24px; color: #767B85;">s</span></div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.06em; color: #767B85; margin-top: 9px;">SINGLE-SLOT FINALITY</div>
+      </div>
+      <div class="dc-stat-bl" style="padding-left: 24px; border-left: 1px solid rgba(0,0,0,0.08);">
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 42px; color: #191C22; line-height: 1;">2B</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.06em; color: #767B85; margin-top: 9px;">FIXED SUPPLY</div>
+      </div>
+      <div class="dc-stat-bl" style="padding-left: 24px; border-left: 1px solid rgba(0,0,0,0.08);">
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 42px; color: #191C22; line-height: 1;">0%</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.06em; color: #767B85; margin-top: 9px;">LAUNCH INFLATION</div>
+      </div>
+      <div class="dc-stat-bl" style="padding-left: 24px; border-left: 1px solid rgba(0,0,0,0.08);">
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 42px; color: var(--accent, #F5920F); line-height: 1;">50%</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.06em; color: #767B85; margin-top: 9px;">FEES BURNED</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TRUST / LOGO STRIP ===== -->
+  <div class="dc-px" style="max-width: 1240px; margin: 30px auto 0; padding: 22px 40px; border-top: 1px solid rgba(0,0,0,0.08); border-bottom: 1px solid rgba(0,0,0,0.08); display: flex; align-items: center; gap: 40px; flex-wrap: wrap; justify-content: center;">
+    <span style="font-size: 12px; letter-spacing: 0.12em; color: #9AA0A8; font-family: 'IBM Plex Mono', monospace;">A LIVE ECOSYSTEM</span>
+    <span style="font-size: 15px; color: #696E78; font-weight: 500;">SolenSwap</span>
+    <span style="font-size: 15px; color: #696E78; font-weight: 500;">Launchpad</span>
+    <span style="font-size: 15px; color: #696E78; font-weight: 500;">Liquid Staking</span>
+    <span style="font-size: 15px; color: #696E78; font-weight: 500;">Cross-chain Bridge</span>
+    <span style="font-size: 15px; color: #696E78; font-weight: 500;">Mining Pool</span>
+    <span style="font-size: 15px; color: #696E78; font-weight: 500;">Block Explorer</span>
+  </div>
+
+  <!-- ===== WHAT IS SOLEN ===== -->
+  <section id="technology" class="dc-px" style="max-width: 1240px; margin: 0 auto; padding: 96px 40px 40px;">
+    <div style="max-width: 720px;">
+      <div style="font-size: 12.5px; letter-spacing: 0.14em; color: var(--accent, #F5920F); font-family: 'IBM Plex Mono', monospace; margin-bottom: 16px;">WHAT IS SOLEN</div>
+      <h2 class="dc-h2" style="font-family: var(--head, 'Newsreader'), serif; font-weight: 500; font-size: 42px; line-height: 1.1; letter-spacing: -0.01em; margin: 0; color: #191C22;">Modern blockchain primitives, shipped at the protocol level.</h2>
+      <p style="font-size: 17px; line-height: 1.6; color: #5C626C; margin: 18px 0 0;">Smart accounts, intents, native rollups, and consensus-enforced AI agents — built into the base layer, not bolted on as standards.</p>
+    </div>
+    <div class="dcg3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px;">
+      <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 26px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #F5920F);">01 · SMART ACCOUNTS</div>
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 22px; color: #191C22; margin: 12px 0 8px;">Smart by default</div>
+        <div style="font-size: 14.5px; line-height: 1.55; color: #696E78;">Every 32-byte account is programmable — social recovery, spending policies, and session keys built in at the protocol level.</div>
+      </div>
+      <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 26px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #F5920F);">02 · ROLLUP SETTLEMENT</div>
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 22px; color: #191C22; margin: 12px 0 8px;">Native settlement</div>
+        <div style="font-size: 14.5px; line-height: 1.55; color: #696E78;">Optimistic and ZK rollup batch commitments, proof verification, and cross-domain bridging — all as base-layer primitives.</div>
+      </div>
+      <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 26px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #F5920F);">03 · INTENT EXECUTION</div>
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 22px; color: #191C22; margin: 12px 0 8px;">Declare, don&rsquo;t direct</div>
+        <div style="font-size: 14.5px; line-height: 1.55; color: #696E78;">Solvers and bundlers compete to fulfil intents with optimal execution and MEV protection. State what you want, not how.</div>
+      </div>
+      <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 26px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #F5920F);">04 · AGENT-NATIVE</div>
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 22px; color: #191C22; margin: 12px 0 8px;">AI agents in consensus</div>
+        <div style="font-size: 14.5px; line-height: 1.55; color: #696E78;">Grant an agent a scoped, budgeted session key. The chain itself enforces every limit — it literally cannot widen its cage.</div>
+      </div>
+      <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 26px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #F5920F);">05 · QUANTUM-READY</div>
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 22px; color: #191C22; margin: 12px 0 8px;">Post-quantum, opt-in</div>
+        <div style="font-size: 14.5px; line-height: 1.55; color: #696E78;">NIST ML-DSA-65 signatures and a hybrid mode guard any account — upgraded in place, same address, no fund migration.</div>
+      </div>
+      <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 26px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #F5920F);">06 · WASM VM</div>
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 22px; color: #191C22; margin: 12px 0 8px;">Deterministic execution</div>
+        <div style="font-size: 14.5px; line-height: 1.55; color: #696E78;">A deterministic WASM virtual machine with parallel transaction execution and single-slot BFT finality under a second.</div>
+      </div>
     </div>
   </section>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-glow"></div>
-    <div class="container hero-content">
-      <img src="solenlogo.png" alt="Solen" class="hero-logo">
-      <a href="#agents" class="hero-badge"><span class="dot"></span>New — AI agents, enforced by consensus &rarr;</a>
-      <h1>The Settlement Layer<br>for the Modular Future</h1>
-      <p class="hero-sub">A high-performance L1 blockchain purpose-built for rollup settlement, smart accounts, intent-driven execution &mdash; and AI agents that transact within consensus-enforced limits.</p>
-      <div class="hero-actions">
-        <a href="#technology" class="btn btn-primary">Learn More</a>
-        <a href="https://docs.solenchain.io" class="btn btn-outline" target="_blank" rel="noopener">Read the Docs</a>
-        <a href="Solen_Investor_Briefing.pdf" class="btn btn-outline" target="_blank" rel="noopener">Investor Info</a>
+  <!-- ===== AI AGENTS ===== -->
+  <section id="agents" style="position: relative; background: #101319; overflow: hidden;">
+    <div style="position: absolute; top: -140px; right: -80px; width: 620px; height: 520px; background: radial-gradient(50% 50% at 50% 50%, color-mix(in oklab, var(--accent, #F5920F) 34%, transparent), transparent 70%); filter: blur(40px); opacity: 0.5; pointer-events: none;"></div>
+    <div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 34px 34px; opacity: 0.5; pointer-events: none;"></div>
+    <div class="dc-px" style="position: relative; max-width: 1240px; margin: 0 auto; padding: 100px 40px;">
+      <div style="max-width: 760px; margin-bottom: 46px;">
+        <div style="display: inline-flex; align-items: center; gap: 9px; padding: 5px 13px; border-radius: 999px; border: 1px solid rgba(255,158,51,0.35); background: rgba(255,158,51,0.10); font-size: 12px; letter-spacing: 0.12em; color: #FF9E33; font-family: 'IBM Plex Mono', monospace; margin-bottom: 20px;">&#10022; AGENT-NATIVE</div>
+        <h2 class="dc-h2" style="font-family: var(--head, 'Newsreader'), serif; font-weight: 500; font-size: 46px; line-height: 1.08; letter-spacing: -0.015em; margin: 0; color: #F4F1EA;">AI agents, enforced by <span style="font-style: italic; color: #FF9E33;">consensus.</span></h2>
+        <p style="font-size: 17px; line-height: 1.62; color: #A8ADB6; margin: 20px 0 0;">Grant an agent a session key with a spending budget, an allowlist of contracts, and an expiry — and the chain itself enforces every limit. No custodial middleman, no exposure of your main key. The agent literally cannot widen its own cage.</p>
       </div>
-    </div>
-  </section>
 
-  <!-- AI AGENTS SPOTLIGHT -->
-  <section class="section section-dark agents" id="agents">
-    <div class="container" style="text-align:center;">
-      <span class="agents-eyebrow">&#10022; Agent-Native</span>
-      <h2 class="section-title">AI agents, enforced by consensus</h2>
-      <p class="section-sub">Grant an AI agent a session key with a spending budget, an allowlist of contracts, and an expiry &mdash; and the chain itself enforces every limit. No custodial middleman, no exposure of your main key. The agent literally cannot exceed or widen its own cage.</p>
-
-      <div class="agents-layout" style="text-align:left;">
-        <div class="agents-features">
-          <div class="agents-feature">
-            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
-            <div><h4>Consensus-enforced limits</h4><p>Lifetime budget, per-op cap, allowed targets and methods, and an expiry height &mdash; enforced in consensus, not by a backend you have to trust.</p></div>
+      <div class="dc-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          <div style="display: flex; gap: 18px;">
+            <div style="flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,158,51,0.5); background: rgba(255,158,51,0.08); display: flex; align-items: center; justify-content: center; font-family: var(--head, 'Newsreader'), serif; font-size: 18px; color: #FF9E33;">1</div>
+            <div>
+              <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 22px; color: #F4F1EA; margin-bottom: 6px;">Grant</div>
+              <div style="font-size: 14.5px; line-height: 1.55; color: #9AA0AB;">From your wallet, mint a session key and scope it: a lifetime budget, per-op cap, an allowlist of contracts and methods, and an expiry height — with optional sub-call lockdown. You sign the grant; the agent receives only the scoped key.</div>
+            </div>
           </div>
-          <div class="agents-feature">
-            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4.5 13.5H11l-1 8.5L19.5 10.5H13z"/></svg>
-            <div><h4>Gasless by design</h4><p>Paymaster sponsorship lets agents transact with zero native balance. Fund the work, not the wallet.</p></div>
+          <div style="display: flex; gap: 18px;">
+            <div style="flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,158,51,0.5); background: rgba(255,158,51,0.08); display: flex; align-items: center; justify-content: center; font-family: var(--head, 'Newsreader'), serif; font-size: 18px; color: #FF9E33;">2</div>
+            <div>
+              <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 22px; color: #F4F1EA; margin-bottom: 6px;">Spend</div>
+              <div style="font-size: 14.5px; line-height: 1.55; color: #9AA0AB;">The agent transacts autonomously through the SDK, gasless via a paymaster. Every operation is validated against its limits in consensus — anything over budget, off the allowlist, or past expiry is rejected on-chain.</div>
+            </div>
           </div>
-          <div class="agents-feature">
-            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="7.5" r="3.6"/><path d="M10.2 10.2l8 8m-2.4.6l2-2m-4.2-1.4l2-2"/></svg>
-            <div><h4>Scoped session keys</h4><p>Grant and revoke agents from your wallet in a click. The agent holds a scoped key &mdash; never your main one &mdash; and can't widen its scope.</p></div>
-          </div>
-          <div class="agents-feature">
-            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
-            <div><h4>Sub-call lockdown</h4><p>Optionally bound the entire call tree, so an agent&rsquo;s operations stay confined to exactly the contracts you approve &mdash; transitively.</p></div>
+          <div style="display: flex; gap: 18px;">
+            <div style="flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,158,51,0.5); background: rgba(255,158,51,0.08); display: flex; align-items: center; justify-content: center; font-family: var(--head, 'Newsreader'), serif; font-size: 18px; color: #FF9E33;">3</div>
+            <div>
+              <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 22px; color: #F4F1EA; margin-bottom: 6px;">Revoke</div>
+              <div style="font-size: 14.5px; line-height: 1.55; color: #9AA0AB;">Remove the agent at any time in one click, and watch its remaining budget live on-chain. Keys also expire automatically at the block height you set, so an agent&rsquo;s authority is always bounded.</div>
+            </div>
           </div>
         </div>
+        <div style="border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; background: #0A0C10; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.4);">
+          <div style="display: flex; align-items: center; gap: 7px; padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.14);"></span>
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.14);"></span>
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.14);"></span>
+            <span style="margin-left: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #6B7280;">agent-sdk.ts</span>
+          </div>
+          <pre style="margin: 0; padding: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #C6CAD3; overflow-x: auto; white-space: pre;">import { SolenAgent } from "@solen/agent-sdk";
 
-        <pre class="agents-code"><span class="k">import</span> { <span class="f">SolenAgent</span> } <span class="k">from</span> <span class="s">"@solen/agent-sdk"</span>;
-
-<span class="c">// Owner grants a scoped, budgeted key (from the wallet)</span>
-<span class="k">const</span> agent = <span class="k">await</span> <span class="f">SolenAgent</span>.<span class="f">create</span>({
+// Owner grants a scoped, budgeted key (from the wallet)
+const agent = await SolenAgent.create({
   rpcUrl, chainId, owner,
-  sessionSecretKey,   <span class="c">// budget · targets · expiry</span>
+  sessionSecretKey,   // budget · targets · expiry
 });
 
-<span class="c">// The agent acts — gasless, only within its limits</span>
-<span class="k">await</span> agent.<span class="f">transfer</span>(recipient, <span class="s">1n</span> * SOLEN);
-<span class="c">// ↳ rejected on-chain if it exceeds the budget</span></pre>
-      </div>
-
-      <div class="agents-cta">
-        <a href="https://docs.solenchain.io" class="btn btn-primary" target="_blank" rel="noopener">Read the Docs</a>
-        <a href="https://github.com/Solen-Blockchain" class="btn btn-outline" target="_blank" rel="noopener">View the SDK</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- QUANTUM-READY SPOTLIGHT -->
-  <section class="section section-dark agents" id="quantum">
-    <div class="container" style="text-align:center;">
-      <span class="agents-eyebrow">&#10022; Quantum-Ready</span>
-      <h2 class="section-title">Ready for the post-quantum era</h2>
-      <p class="section-sub">Opt in to NIST-standardized post-quantum signatures and protect any account against future quantum computers &mdash; today, with one command and no change of address. Made practical by smart accounts; classical signing stays the default.</p>
-
-      <div class="agents-layout" style="text-align:left;">
-        <div class="agents-features">
-          <div class="agents-feature">
-            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="9" ry="3.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(120 12 12)"/></svg>
-            <div><h4>NIST-standardized</h4><p>ML-DSA-65 (FIPS&nbsp;204), the NIST post-quantum signature standard, built into the protocol &mdash; not a bolt-on. Hashing and key storage are already quantum-safe.</p></div>
-          </div>
-          <div class="agents-feature">
-            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5-8 4.5-8-4.5z"/><path d="M4 12l8 4.5 8-4.5"/><path d="M4 16.5l8 4.5 8-4.5"/></svg>
-            <div><h4>Hybrid mode</h4><p>Require <em>both</em> a classical and a post-quantum signature &mdash; an attacker must break both schemes to forge. Defense-in-depth for the transition.</p></div>
-          </div>
-          <div class="agents-feature">
-            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 4v4h-4"/></svg>
-            <div><h4>Upgrade in place</h4><p>One command rotates an account to post-quantum auth with the <strong>same address</strong> &mdash; no fund migration, unlike chains where the address is a hash of the key.</p></div>
-          </div>
-          <div class="agents-feature">
-            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="5"/><circle cx="15" cy="12" r="5"/></svg>
-            <div><h4>Cross-verified</h4><p>The Rust and TypeScript signers are proven byte-for-byte compatible against committed test vectors &mdash; so a wallet-signed quantum transaction is accepted by every node.</p></div>
-          </div>
+// The agent acts — gasless, only within its limits
+await agent.transfer(recipient, 1n * SOLEN);
+// ↳ rejected on-chain if it exceeds the budget</pre>
         </div>
-
-        <pre class="agents-code"><span class="c"># Upgrade any account to post-quantum auth &mdash; same address</span>
-<span class="f">solen</span> key quantum-upgrade myaccount
-
-<span class="c"># ...or hybrid: Ed25519 + ML-DSA-65, both required</span>
-<span class="f">solen</span> key quantum-upgrade myaccount <span class="k">--hybrid</span>
-
-<span class="c"># Classical stays the default; post-quantum is opt-in, per account.</span></pre>
       </div>
 
-      <div class="agents-cta">
-        <a href="https://docs.solenchain.io/architecture/post-quantum/" class="btn btn-primary" target="_blank" rel="noopener">Read the Docs</a>
-        <a href="https://github.com/Solen-Blockchain" class="btn btn-outline" target="_blank" rel="noopener">View the SDK</a>
+      <div class="dcg4" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px;">
+        <div style="border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; background: rgba(255,255,255,0.035); padding: 22px;">
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 17px; color: #F4F1EA; margin-bottom: 9px;">Consensus-enforced limits</div>
+          <div style="font-size: 13.5px; line-height: 1.5; color: #9AA0AB;">Lifetime budget, per-op cap, allowed targets, and an expiry height — enforced in consensus, not a backend you trust.</div>
+        </div>
+        <div style="border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; background: rgba(255,255,255,0.035); padding: 22px;">
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 17px; color: #F4F1EA; margin-bottom: 9px;">Gasless by design</div>
+          <div style="font-size: 13.5px; line-height: 1.5; color: #9AA0AB;">Paymaster sponsorship lets agents transact with zero native balance. Fund the work, not the wallet.</div>
+        </div>
+        <div style="border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; background: rgba(255,255,255,0.035); padding: 22px;">
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 17px; color: #F4F1EA; margin-bottom: 9px;">Scoped session keys</div>
+          <div style="font-size: 13.5px; line-height: 1.5; color: #9AA0AB;">Grant and revoke agents in a click. The agent holds a scoped key — never your main one — and can&rsquo;t widen it.</div>
+        </div>
+        <div style="border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; background: rgba(255,255,255,0.035); padding: 22px;">
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 17px; color: #F4F1EA; margin-bottom: 9px;">Sub-call lockdown</div>
+          <div style="font-size: 13.5px; line-height: 1.5; color: #9AA0AB;">Optionally bound the entire call tree, so operations stay confined to exactly the contracts you approve.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- MINING POOL SPOTLIGHT -->
-  <section class="section section-dark agents" id="mining">
-    <div class="container" style="text-align:center;">
-      <span class="agents-eyebrow">&#10022; Mining Pool</span>
-      <h2 class="section-title">Earn SOLEN with your hashrate</h2>
-      <p class="section-sub">Solen is proof-of-stake, so you don&rsquo;t mine SOLEN directly. Point Scrypt miners &mdash; or rented hashrate &mdash; at the pool, and your proof-of-work earns a proportional distribution of SOLEN, paid out automatically. A distribution you have to <em>earn</em> &mdash; not an airdrop.</p>
+  <!-- ===== QUANTUM ===== -->
+  <section id="quantum" class="dc-px" style="max-width: 1240px; margin: 0 auto; padding: 96px 40px;">
+    <div class="dc-2col" style="display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 48px; align-items: start;">
+      <div>
+        <div style="font-size: 12.5px; letter-spacing: 0.14em; color: var(--accent, #F5920F); font-family: 'IBM Plex Mono', monospace; margin-bottom: 16px;">&#10022; QUANTUM-READY</div>
+        <h2 class="dc-h2" style="font-family: var(--head, 'Newsreader'), serif; font-weight: 500; font-size: 40px; line-height: 1.1; letter-spacing: -0.01em; margin: 0; color: #191C22;">Ready for the post-quantum era.</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5C626C; margin: 18px 0 24px;">Opt in to NIST-standardized post-quantum signatures and protect any account against future quantum computers — today, with one command and no change of address. Classical signing stays the default.</p>
+        <div style="border: 1px solid rgba(0,0,0,0.11); border-radius: 14px; background: #ECE8DF; overflow: hidden;">
+          <pre style="margin: 0; padding: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #3A3F47; overflow-x: auto; white-space: pre;"># Upgrade any account to post-quantum auth — same address
+solen key quantum-upgrade myaccount
 
-      <div class="agents-layout" style="text-align:left;">
-        <div class="agents-features">
-          <div class="agents-feature">
-            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M8.4 12.2l2.4 2.4 4.8-5"/></svg>
-            <div><h4>Earned, not airdropped</h4><p>Your proof-of-work is the qualification. SOLEN is distributed in proportion to the work you contribute &mdash; so recipients value what they mined, instead of dumping a free drop.</p></div>
-          </div>
-          <div class="agents-feature">
-            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
-            <div><h4>Market-linked rate</h4><p>The payout rate floats with the market &mdash; pegged to a USD target via the live SOLEN price &mdash; so what you earn stays fair as conditions move.</p></div>
-          </div>
-          <div class="agents-feature">
-            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg>
-            <div><h4>Automatic payouts</h4><p>Rewards accrue and are sent straight to your SOLEN address once you cross the minimum &mdash; no claiming, no custody, no sign-up.</p></div>
-          </div>
-          <div class="agents-feature">
-            <svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 18a9 9 0 1 1 17 0"/><path d="M12 13l4-3.5"/><circle cx="12" cy="13" r="1.2" fill="currentColor" stroke="none"/></svg>
-            <div><h4>Live dashboard</h4><p>Track your hashrate, pending and paid SOLEN, and full payout history in real time &mdash; every payout links straight to the block explorer.</p></div>
-          </div>
+# ...or hybrid: Ed25519 + ML-DSA-65, both required
+solen key quantum-upgrade myaccount --hybrid</pre>
         </div>
-
-        <pre class="agents-code"><span class="c"># Point any Scrypt miner at the pool</span>
-<span class="f">url</span>    stratum+tcp://stratum.solenchain.io:3333
-<span class="f">user</span>   &lt;your_SOLEN_address&gt;.rig1
-<span class="f">pass</span>   x
-
-<span class="c"># Scrypt &middot; rewards paid automatically to your SOLEN address</span></pre>
       </div>
-
-      <div class="agents-cta">
-        <a href="https://pool.solenchain.io" class="btn btn-primary" target="_blank" rel="noopener">Start Mining</a>
-        <a href="https://pool.solenchain.io" class="btn btn-outline" target="_blank" rel="noopener">Live Dashboard</a>
+      <div class="dcg2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px;">
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 18px; color: #191C22; margin-bottom: 9px;">NIST-standardized</div>
+          <div style="font-size: 13.5px; line-height: 1.5; color: #696E78;">ML-DSA-65 (FIPS 204) built into the protocol — not a bolt-on. Hashing and key storage are already quantum-safe.</div>
+        </div>
+        <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px;">
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 18px; color: #191C22; margin-bottom: 9px;">Hybrid mode</div>
+          <div style="font-size: 13.5px; line-height: 1.5; color: #696E78;">Require both a classical and a post-quantum signature — an attacker must break both schemes to forge.</div>
+        </div>
+        <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px;">
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 18px; color: #191C22; margin-bottom: 9px;">Upgrade in place</div>
+          <div style="font-size: 13.5px; line-height: 1.5; color: #696E78;">One command rotates an account to post-quantum auth with the same address — no fund migration.</div>
+        </div>
+        <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px;">
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 18px; color: #191C22; margin-bottom: 9px;">Cross-verified</div>
+          <div style="font-size: 13.5px; line-height: 1.5; color: #696E78;">Rust and TypeScript signers are proven byte-for-byte compatible against committed test vectors.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- LEARN — TABBED SECTION -->
-  <section class="tabs-section" id="learn">
-    <div class="tab-bar-wrap">
-      <div class="container">
-        <div class="tab-bar" role="tablist">
-          <button class="tab-btn active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
-          <button class="tab-btn" data-tab="why" role="tab" aria-selected="false">Why Solen</button>
-          <button class="tab-btn" data-tab="agents" role="tab" aria-selected="false">AI Agents</button>
-          <button class="tab-btn" data-tab="technology" role="tab" aria-selected="false">Technology</button>
-          <button class="tab-btn" data-tab="performance" role="tab" aria-selected="false">Performance</button>
-          <button class="tab-btn" data-tab="team" role="tab" aria-selected="false">Team</button>
-          <button class="tab-btn" data-tab="faq" role="tab" aria-selected="false">FAQ</button>
-        </div>
+  <!-- ===== ARCHITECTURE ===== -->
+  <section id="architecture" style="background: #EFECE4; border-top: 1px solid rgba(0,0,0,0.08); border-bottom: 1px solid rgba(0,0,0,0.08);">
+    <div class="dc-px" style="max-width: 1000px; margin: 0 auto; padding: 96px 40px;">
+      <div style="text-align: center; margin-bottom: 44px;">
+        <div style="font-size: 12.5px; letter-spacing: 0.14em; color: var(--accent, #F5920F); font-family: 'IBM Plex Mono', monospace; margin-bottom: 16px;">ARCHITECTURE</div>
+        <h2 class="dc-h2" style="font-family: var(--head, 'Newsreader'), serif; font-weight: 500; font-size: 40px; line-height: 1.1; letter-spacing: -0.01em; margin: 0 auto; color: #191C22; max-width: 640px;">A modular Rust stack that settles to one L1.</h2>
+        <p style="font-size: 16px; line-height: 1.6; color: #5C626C; margin: 16px auto 0; max-width: 620px;">Rollups and app chains run their own logic and settle proofs to a unified settlement layer. Data availability is verifiable on-chain or via external DA.</p>
       </div>
-    </div>
-
-    <div class="container tab-panels">
-
-      <!-- OVERVIEW -->
-      <div class="tab-panel active" id="tab-overview" role="tabpanel">
-        <h2 class="section-title">What is Solen</h2>
-        <p class="section-sub">Solen is a high-performance Layer 1 blockchain built for rollup settlement, smart accounts, and intent-driven execution. Sub-second finality, fractions-of-a-cent fees, and a programmable account model that makes self-custody safer.</p>
-        <div class="grid grid-3">
-        <div class="card">
-          <div class="card-icon card-icon-batches">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="2" y1="21" x2="22" y2="21" stroke-linecap="round"/><rect class="batch batch-1" x="3"   y="3" width="5.5" height="3" rx=".8" fill="currentColor" stroke="none"/><rect class="batch batch-2" x="9.5" y="3" width="5.5" height="3" rx=".8" fill="currentColor" stroke="none"/><rect class="batch batch-3" x="16"  y="3" width="5.5" height="3" rx=".8" fill="currentColor" stroke="none"/></svg>
-          </div>
-          <h3>Rollup Settlement</h3>
-          <p>Native support for optimistic and ZK rollup batch commitments, proof verification, and cross-domain bridging — all at the protocol level.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon card-icon-scan">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle class="scan-ring" cx="12" cy="12" r="10" pathLength="100" stroke-dasharray="22 78"/><circle class="scan-pulse" cx="12" cy="12" r="6.5" opacity=".35"/><circle cx="12" cy="10" r="2.4" fill="currentColor" stroke="none"/><path d="M7 17.5c.8-2.5 2.7-3.7 5-3.7s4.2 1.2 5 3.7" stroke-linecap="round" fill="none"/></svg>
-          </div>
-          <h3>Smart Accounts</h3>
-          <p>Every account is a smart account — with programmable authentication, social recovery, spending policies, and session keys built in.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon card-icon-quantum">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 5.5v6.2c0 4.8 3.3 8.1 8 9.8 4.7-1.7 8-5 8-9.8V5.5L12 2.5Z"/><ellipse cx="12" cy="11.4" rx="4.4" ry="1.9"/><ellipse cx="12" cy="11.4" rx="4.4" ry="1.9" transform="rotate(60 12 11.4)"/><ellipse cx="12" cy="11.4" rx="4.4" ry="1.9" transform="rotate(120 12 11.4)"/><circle cx="12" cy="11.4" r="1.3" fill="currentColor" stroke="none"/></svg>
-          </div>
-          <h3>Quantum-Ready</h3>
-          <p>Opt-in post-quantum signatures (NIST ML-DSA-65, FIPS&nbsp;204) and a hybrid mode guard accounts against future quantum attacks — upgradeable per account, same address, no fund migration.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon card-icon-path">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="3.5" cy="20" r="1.7" fill="currentColor" stroke="none" opacity=".55"/><path class="intent-path" d="M3.5 20 Q 5 7 12 12 T 20.5 4" pathLength="100" stroke-linecap="round" stroke-dasharray="28 72"/><circle class="intent-target" cx="20.5" cy="4" r="2.2" fill="currentColor" stroke="none"/></svg>
-          </div>
-          <h3>Intent Execution</h3>
-          <p>Declare what you want, not how. Solvers and bundlers compete to fulfill intents with optimal execution and MEV protection.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon card-icon-bars">
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect class="bar bar-1" x="3"  y="2" width="4" height="20" rx="1"/><rect class="bar bar-2" x="10" y="2" width="4" height="20" rx="1"/><rect class="bar bar-3" x="17" y="2" width="4" height="20" rx="1"/></svg>
-          </div>
-          <h3>High Throughput</h3>
-          <p>Parallel transaction execution and optimized consensus deliver the performance rollups demand from their settlement layer.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon card-icon-network">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><line class="link link-1" x1="12" y1="12" x2="12" y2="4"/><line class="link link-2" x1="12" y1="12" x2="19.5" y2="17"/><line class="link link-3" x1="12" y1="12" x2="4.5" y2="17"/><circle class="hub" cx="12" cy="12" r="2.4" fill="currentColor"/><circle class="node node-1" cx="12" cy="4" r="1.8" fill="currentColor"/><circle class="node node-2" cx="19.5" cy="17" r="1.8" fill="currentColor"/><circle class="node node-3" cx="4.5" cy="17" r="1.8" fill="currentColor"/></svg>
-          </div>
-          <h3>Validator Security</h3>
-          <p>Proof-of-stake consensus with epoch-based rotation, slashing for misbehavior, and transparent reward distribution.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon card-icon-terminal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="2"/><line x1="2.5" y1="8" x2="21.5" y2="8"/><circle cx="5" cy="6" r=".55" fill="currentColor" stroke="none"/><circle cx="7" cy="6" r=".55" fill="currentColor" stroke="none"/><circle cx="9" cy="6" r=".55" fill="currentColor" stroke="none"/><path class="prompt" d="M5 12.5l2.2 2-2.2 2"/><line class="cursor" x1="9.5" y1="14.5" x2="14" y2="14.5" stroke-width="2"/></svg>
-          </div>
-          <h3>Developer First</h3>
-          <p>Comprehensive RPC API, TypeScript wallet SDK, devnet tooling, and a built-in block explorer to get building fast.</p>
-        </div>
-        </div>
-      </div>
-
-      <!-- WHY SOLEN — COMPARISON MATRIX -->
-      <div class="tab-panel" id="tab-why" role="tabpanel">
-        <h2 class="section-title">Why Solen</h2>
-        <p class="section-sub">Solen is the only L1 that combines native smart accounts &mdash; with consensus-enforced agent session keys &mdash; protocol-level intents, and native rollup settlement on a deterministic WASM VM. Other chains pick one or two of these; Solen builds on all of them.</p>
-        <div class="comparison-table-wrap">
-          <table class="comparison-table compare-matrix">
-            <thead>
-              <tr>
-                <th></th>
-                <th class="col-solen">Solen</th>
-                <th>Ethereum</th>
-                <th>Solana</th>
-                <th>Cosmos</th>
-                <th>Aptos</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="row-label">Smart accounts</td>
-                <td class="col-solen"><strong>Native, by default</strong></td>
-                <td>Opt-in (ERC-4337)</td>
-                <td>Not native</td>
-                <td>Not native</td>
-                <td>Native (resource accts)</td>
-              </tr>
-              <tr>
-                <td class="row-label">Post-quantum signatures</td>
-                <td class="col-solen"><strong>Opt-in ML-DSA-65 + hybrid</strong></td>
-                <td>Research stage</td>
-                <td>Not available</td>
-                <td>Not available</td>
-                <td>Not available</td>
-              </tr>
-              <tr>
-                <td class="row-label">Agent session keys</td>
-                <td class="col-solen"><strong>Native, consensus-enforced</strong></td>
-                <td>App-level (ERC-4337/7715)</td>
-                <td>App-level only</td>
-                <td>Not native</td>
-                <td>Not native</td>
-              </tr>
-              <tr>
-                <td class="row-label">Intent execution</td>
-                <td class="col-solen"><strong>Built into protocol</strong></td>
-                <td>App-level (CowSwap, UniswapX)</td>
-                <td>None</td>
-                <td>None</td>
-                <td>None</td>
-              </tr>
-              <tr>
-                <td class="row-label">Rollup support</td>
-                <td class="col-solen"><strong>Native settlement primitive</strong></td>
-                <td>External L2 ecosystem</td>
-                <td>Monolithic, no rollups</td>
-                <td>App-chain model (IBC)</td>
-                <td>Monolithic, no rollups</td>
-              </tr>
-              <tr>
-                <td class="row-label">Virtual machine</td>
-                <td class="col-solen"><strong>Deterministic WASM</strong></td>
-                <td>EVM bytecode</td>
-                <td>Sealevel / SBF</td>
-                <td>CosmWasm or custom</td>
-                <td>Move VM</td>
-              </tr>
-              <tr>
-                <td class="row-label">Finality</td>
-                <td class="col-solen"><strong>Single-slot BFT (&lt;1s)</strong></td>
-                <td>~13 min (Casper FFG)</td>
-                <td>Optimistic (~12s)</td>
-                <td>Single-block (Tendermint)</td>
-                <td>Single-slot BFT (&lt;1s)</td>
-              </tr>
-              <tr>
-                <td class="row-label">Account model</td>
-                <td class="col-solen"><strong>32-byte, smart by default</strong></td>
-                <td>20-byte EOA + contracts</td>
-                <td>Program / data accounts</td>
-                <td>20-byte (cosmos1...)</td>
-                <td>32-byte resource accts</td>
-              </tr>
-              <tr>
-                <td class="row-label">Governance</td>
-                <td class="col-solen"><strong>On-chain by default</strong></td>
-                <td>Off-chain (foundation)</td>
-                <td>Foundation-led</td>
-                <td>On-chain (per chain)</td>
-                <td>On-chain</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="comparison-note">Comparison reflects each chain's default protocol behavior at the L1 level. App-level workarounds and proposed standards are not counted.</p>
-      </div>
-
-      <!-- AI AGENTS -->
-      <div class="tab-panel" id="tab-agents" role="tabpanel">
-        <h2 class="section-title">AI Agents</h2>
-        <p class="section-sub">Solen lets an AI agent act on your behalf with limits the chain enforces. You delegate a <strong>scoped session key</strong> &mdash; never your main key &mdash; and consensus guarantees the agent can only do what you allowed, for as long as you allow it. The lifecycle is three steps:</p>
-
-        <div class="grid grid-3">
-          <div class="card">
-            <span class="agent-step-num">1</span>
-            <h3>Grant</h3>
-            <p>From your wallet or a dapp, mint a session key and scope it: a lifetime SOLEN budget, a per-operation cap, an allowlist of contracts and methods, and an expiry height &mdash; with optional sub-call lockdown. You sign the grant with your account; the agent receives only the scoped key.</p>
-          </div>
-          <div class="card">
-            <span class="agent-step-num">2</span>
-            <h3>Spend</h3>
-            <p>The agent transacts autonomously through the agent SDK, gasless via a paymaster. Every operation is validated against its limits <em>in consensus</em> &mdash; anything over budget, off the allowlist, or past expiry is rejected on-chain, not by a backend you have to trust.</p>
-          </div>
-          <div class="card">
-            <span class="agent-step-num">3</span>
-            <h3>Revoke</h3>
-            <p>Remove the agent at any time in one click, and watch its remaining budget and limits live on-chain. Keys also expire automatically at the block height you set, so an agent&rsquo;s authority is always bounded.</p>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 0;">
+        <div style="width: 100%; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px 24px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.1em; color: #8A8F98; margin-bottom: 14px;">EXECUTION DOMAINS</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <span style="font-size: 13.5px; color: #2E333B; padding: 8px 14px; border-radius: 8px; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.09);">ZK Rollups</span>
+            <span style="font-size: 13.5px; color: #2E333B; padding: 8px 14px; border-radius: 8px; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.09);">Optimistic Rollups</span>
+            <span style="font-size: 13.5px; color: #2E333B; padding: 8px 14px; border-radius: 8px; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.09);">App Chains</span>
+            <span style="font-size: 13.5px; color: #2E333B; padding: 8px 14px; border-radius: 8px; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.09);">Sovereign Rollups</span>
           </div>
         </div>
-
-        <p class="section-sub" style="margin-top:28px;">Because the rules live in consensus, a compromised agent key can&rsquo;t widen its own scope, drain your account, or touch a contract you didn&rsquo;t approve. <a class="link" href="#agents">See the overview &rarr;</a></p>
-      </div>
-
-      <!-- TECHNOLOGY -->
-      <div class="tab-panel" id="tab-technology" role="tabpanel">
-        <h2 class="section-title">Architecture</h2>
-        <p class="section-sub">A modular Rust stack: rollups and app chains run their own logic and settle proofs to a unified L1 that handles consensus, smart accounts, intents, and bridging. Data availability is verifiable on-chain or via external DA layers.</p>
-        <div class="arch-grid">
-          <div class="arch-layer">
-            <div class="arch-label">Execution Domains</div>
-            <div class="arch-items">
-              <span>ZK Rollups</span>
-              <span>Optimistic Rollups</span>
-              <span>App Chains</span>
-              <span>Sovereign Rollups</span>
-            </div>
+        <div style="color: #9AA0A8; font-size: 18px; padding: 8px 0;">&#8595;</div>
+        <div style="width: 100%; border: 1px solid color-mix(in oklab, var(--accent, #F5920F) 45%, transparent); border-radius: 14px; background: color-mix(in oklab, var(--accent, #F5920F) 8%, #FFFFFF); padding: 22px 24px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.1em; color: var(--accent, #F5920F); margin-bottom: 14px;">SOLEN L1 — SETTLEMENT LAYER</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <span style="font-size: 13.5px; color: #2E333B; padding: 8px 14px; border-radius: 8px; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.09);">BFT Consensus</span>
+            <span style="font-size: 13.5px; color: #2E333B; padding: 8px 14px; border-radius: 8px; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.09);">Smart Accounts</span>
+            <span style="font-size: 13.5px; color: #2E333B; padding: 8px 14px; border-radius: 8px; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.09);">Bridge Vaults</span>
+            <span style="font-size: 13.5px; color: #2E333B; padding: 8px 14px; border-radius: 8px; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.09);">Intent Engine</span>
+            <span style="font-size: 13.5px; color: #2E333B; padding: 8px 14px; border-radius: 8px; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.09);">WASM VM</span>
+            <span style="font-size: 13.5px; color: #2E333B; padding: 8px 14px; border-radius: 8px; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.09);">Governance</span>
           </div>
-          <div class="arch-arrow">&#8595;</div>
-          <div class="arch-layer arch-layer-highlight">
-            <div class="arch-label">Solen L1 &mdash; Settlement Layer</div>
-            <div class="arch-items">
-              <span>BFT Consensus</span>
-              <span>Smart Accounts</span>
-              <span>Bridge Vaults</span>
-              <span>Intent Engine</span>
-              <span>WASM VM</span>
-              <span>Governance</span>
-            </div>
-          </div>
-          <div class="arch-arrow">&#8595;</div>
-          <div class="arch-layer">
-            <div class="arch-label">Data Availability</div>
-            <div class="arch-items">
-              <span>On-chain DA</span>
-              <span>External DA Layers</span>
-            </div>
+        </div>
+        <div style="color: #9AA0A8; font-size: 18px; padding: 8px 0;">&#8595;</div>
+        <div style="width: 100%; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px 24px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.1em; color: #8A8F98; margin-bottom: 14px;">DATA AVAILABILITY</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <span style="font-size: 13.5px; color: #2E333B; padding: 8px 14px; border-radius: 8px; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.09);">On-chain DA</span>
+            <span style="font-size: 13.5px; color: #2E333B; padding: 8px 14px; border-radius: 8px; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.09);">External DA Layers</span>
           </div>
         </div>
       </div>
-
-      <!-- PERFORMANCE -->
-      <div class="tab-panel" id="tab-performance" role="tabpanel">
-        <h2 class="section-title">Built for Speed</h2>
-        <p class="section-sub">Benchmarked on a live 4-validator testnet with BFT consensus, full Ed25519 signature verification, and deterministic single-slot finality.</p>
-        <div class="perf-hero-number">
-        <span class="perf-big">1,200+</span>
-        <span class="perf-unit">TPS on live testnet</span>
-      </div>
-      <div class="perf-grid">
-        <div class="perf-card perf-card-highlight">
-          <div class="perf-value">&lt; 1s</div>
-          <div class="perf-label">Finality</div>
-          <div class="perf-detail">Single-slot BFT &mdash; deterministic, not probabilistic</div>
-        </div>
-        <div class="perf-card">
-          <div class="perf-value">5,000</div>
-          <div class="perf-label">Max ops per block</div>
-          <div class="perf-detail">Parallel signature verification, sequential state application</div>
-        </div>
-        <div class="perf-card">
-          <div class="perf-value">10K+</div>
-          <div class="perf-label">Ingestion rate</div>
-          <div class="perf-detail">Transactions accepted per second at the RPC layer</div>
-        </div>
-      </div>
-
-      <!-- Chain Comparison -->
-      <div class="comparison">
-        <h3 class="comparison-title">How Solen Compares</h3>
-        <div class="comparison-table-wrap">
-          <table class="comparison-table">
-            <thead>
-              <tr>
-                <th>Chain</th>
-                <th>TPS (Real-world)</th>
-                <th>Finality</th>
-                <th>Block Time</th>
-                <th>Consensus</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="comparison-highlight">
-                <td><strong>Solen</strong></td>
-                <td><strong>1,200+</strong></td>
-                <td><strong>&lt; 1s</strong></td>
-                <td><strong>~2s</strong></td>
-                <td>BFT PoS</td>
-              </tr>
-              <tr>
-                <td>Ethereum</td>
-                <td>~15</td>
-                <td>~13 min</td>
-                <td>12s</td>
-                <td>Gasper PoS</td>
-              </tr>
-              <tr>
-                <td>BNB Chain</td>
-                <td>~100-300</td>
-                <td>~7.5s</td>
-                <td>3s</td>
-                <td>PoSA</td>
-              </tr>
-              <tr>
-                <td>Solana</td>
-                <td>~3,000-4,000</td>
-                <td>~12s</td>
-                <td>0.4s</td>
-                <td>PoH + Tower BFT</td>
-              </tr>
-              <tr>
-                <td>Avalanche C</td>
-                <td>~350</td>
-                <td>~2s</td>
-                <td>2s</td>
-                <td>Snowman</td>
-              </tr>
-              <tr>
-                <td>Polygon PoS</td>
-                <td>~100-200</td>
-                <td>~2 min</td>
-                <td>2s</td>
-                <td>PoS + Checkpoints</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="comparison-note">Solen TPS measured on a 4-validator testnet with full BFT quorum, Ed25519 signature verification, and deterministic state application. Competitor numbers from public benchmarks and real-world usage.</p>
-        <div style="text-align: center; margin-top: 20px;">
-          <a href="Solen_Stress_Test_Report.pdf" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Full Stress Test Report (PDF)</a>
-        </div>
-      </div>
-      </div>
-
-      <!-- TEAM -->
-      <div class="tab-panel" id="tab-team" role="tabpanel">
-        <h2 class="section-title">Team</h2>
-        <p class="section-sub">A small team focused on shipping. Builders first.</p>
-        <!-- CEO (featured) -->
-        <div class="team-featured">
-          <div class="team-avatar team-avatar-photo team-avatar-lg"><img src="porter.jpg" alt="Porter"></div>
-          <h3>Porter</h3>
-          <p class="team-role">CEO</p>
-          <div class="team-contacts">
-            <a class="team-contact" href="https://www.linkedin.com/in/porter-stovall-983b41404" target="_blank" rel="noopener" aria-label="Porter on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21h-4z"/></svg>LinkedIn</a>
-            <a class="team-contact" href="mailto:porter@solenchain.io"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Email</a>
-            <a class="team-contact" href="https://t.me/porter_solen" target="_blank" rel="noopener" aria-label="Porter on Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.6l-3.3 15.56c-.25 1.1-.9 1.37-1.83.85l-5.05-3.72-2.44 2.35c-.27.27-.5.5-1.02.5l.36-5.16L17.5 7.2c.4-.36-.09-.56-.62-.2L6.9 13.36 1.9 11.8c-1.09-.34-1.11-1.09.23-1.61L20.5 3.05c.9-.34 1.69.2 1.44 1.55z"/></svg>Telegram</a>
-          </div>
-        </div>
-
-        <div class="team-grid">
-          <div class="team-card">
-            <div class="team-avatar"><span>D</span></div>
-            <h3>David</h3>
-            <p>VP Business Planning</p>
-          </div>
-          <div class="team-card">
-            <div class="team-avatar"><span>P</span></div>
-            <h3>Pierre</h3>
-            <p>VP Engineering</p>
-            <div class="team-contacts team-contacts-sm">
-              <a class="team-contact" href="mailto:dev@solenchain.io"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Email</a>
-              <a class="team-contact" href="https://t.me/DevSolen" target="_blank" rel="noopener" aria-label="Pierre on Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.6l-3.3 15.56c-.25 1.1-.9 1.37-1.83.85l-5.05-3.72-2.44 2.35c-.27.27-.5.5-1.02.5l.36-5.16L17.5 7.2c.4-.36-.09-.56-.62-.2L6.9 13.36 1.9 11.8c-1.09-.34-1.11-1.09.23-1.61L20.5 3.05c.9-.34 1.69.2 1.44 1.55z"/></svg>Telegram</a>
-            </div>
-          </div>
-          <div class="team-card">
-            <div class="team-avatar"><span>A</span></div>
-            <h3>Ann</h3>
-            <p>VP Business Development</p>
-            <div class="team-contacts team-contacts-sm">
-              <a class="team-contact" href="mailto:ann@solenchain.io"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Email</a>
-            </div>
-          </div>
-        </div>
-        <p class="team-recruit">
-          We are currently looking to expand our team. If you are a professional interested in joining our team, please <a href="#community">contact us</a>.
-        </p>
-      </div>
-
-      <!-- FAQ -->
-      <div class="tab-panel" id="tab-faq" role="tabpanel">
-        <h2 class="section-title">FAQ</h2>
-        <p class="section-sub">Common questions about Solen.</p>
-        <div class="faq-list">
-          <details class="faq-item">
-            <summary>What is Solen?</summary>
-            <p>Solen is a Layer 1 blockchain built for rollup settlement, smart accounts, and intent-driven execution. It uses BFT proof-of-stake consensus with single-slot finality and a deterministic WASM virtual machine.</p>
-          </details>
-          <details class="faq-item">
-            <summary>How is Solen different from Ethereum?</summary>
-            <p>Solen ships modern primitives &mdash; smart accounts, intents, native rollups &mdash; as protocol-level features instead of bolt-on standards. It also has sub-second finality (vs. Ethereum's ~13 minutes) and fees measured in fractions of a cent.</p>
-          </details>
-          <details class="faq-item">
-            <summary>How is Solen different from Solana?</summary>
-            <p>Solen is modular by design: rollups and app chains run their own logic and settle to a unified L1. Solana is monolithic. Solen also has native smart accounts and a built-in intent engine, neither of which Solana provides at the protocol level.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Where can I buy SOLEN?</summary>
-            <p>wSOLEN trades on Uniswap on Base, and native SOLEN trades on Qutrade. See the Ecosystem section below for direct links.</p>
-          </details>
-          <details class="faq-item">
-            <summary>How do I run a validator?</summary>
-            <p>See the validator setup guide in the docs at <a href="https://docs.solenchain.io/tools/running-a-node/" target="_blank" rel="noopener">docs.solenchain.io</a>.</p>
-          </details>
-        </div>
-      </div>
-
     </div>
   </section>
 
-  <!-- WHITEPAPER -->
-  <section class="section section-dark" id="whitepaper">
-    <div class="container whitepaper-section">
-      <h2 class="section-title">Whitepaper</h2>
-      <p class="section-sub">Read the technical design proposal behind Solen's modular settlement architecture.</p>
-      <div class="whitepaper-card">
-        <div class="whitepaper-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+  <!-- ===== WHY SOLEN / COMPARISON ===== -->
+  <section id="why" style="background: #EFECE4; border-top: 1px solid rgba(0,0,0,0.08); border-bottom: 1px solid rgba(0,0,0,0.08);">
+    <div class="dc-px" style="max-width: 1240px; margin: 0 auto; padding: 96px 40px;">
+      <div style="max-width: 760px; margin-bottom: 44px;">
+        <div style="font-size: 12.5px; letter-spacing: 0.14em; color: var(--accent, #F5920F); font-family: 'IBM Plex Mono', monospace; margin-bottom: 16px;">WHY SOLEN</div>
+        <h2 class="dc-h2" style="font-family: var(--head, 'Newsreader'), serif; font-weight: 500; font-size: 42px; line-height: 1.1; letter-spacing: -0.01em; margin: 0; color: #191C22;">The only L1 that combines all of them by default.</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5C626C; margin: 18px 0 0;">Other chains pick one or two. Comparison reflects each chain's default protocol behavior at the L1 level.</p>
+      </div>
+
+      <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+       <div style="min-width: 760px; border: 1px solid rgba(0,0,0,0.11); border-radius: 16px; overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 1.5fr repeat(5, 1fr); font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; background: rgba(0,0,0,0.04); border-bottom: 1px solid rgba(0,0,0,0.11);">
+          <div style="padding: 16px 18px; color: #8A8F98;"></div>
+          <div style="padding: 16px 14px; color: #0A0C10; background: var(--accent, #F5920F); font-weight: 600;">SOLEN</div>
+          <div style="padding: 16px 14px; color: #767B85;">Ethereum</div>
+          <div style="padding: 16px 14px; color: #767B85;">Solana</div>
+          <div style="padding: 16px 14px; color: #767B85;">Cosmos</div>
+          <div style="padding: 16px 14px; color: #767B85;">Aptos</div>
         </div>
-        <div class="whitepaper-info">
-          <h3>Solen: Toward an Internet-Native Settlement Ecosystem</h3>
-          <p>A proposal for a modular settlement network designed for native rollups, programmable accounts, bounded privacy, and intent-aware execution.</p>
-          <ul class="whitepaper-topics">
-            <li>Minimal Settlement Layer</li>
-            <li>Native Rollups &amp; Execution Domains</li>
-            <li>Smart Accounts by Default</li>
-            <li>Privacy &amp; Verifiable Identity</li>
-            <li>Intent-Oriented Transaction Flow</li>
-            <li>Governance &amp; Security Model</li>
-          </ul>
+        <div style="display: grid; grid-template-columns: 1.5fr repeat(5, 1fr); font-size: 13.5px; border-bottom: 1px solid rgba(0,0,0,0.08);">
+          <div style="padding: 16px 18px; color: #3A3F47; font-weight: 500;">Smart accounts</div>
+          <div style="padding: 16px 14px; color: #191C22; background: color-mix(in oklab, var(--accent, #F5920F) 9%, transparent); font-weight: 600;">Native, default</div>
+          <div style="padding: 16px 14px; color: #868C96;">Opt-in (4337)</div>
+          <div style="padding: 16px 14px; color: #868C96;">Not native</div>
+          <div style="padding: 16px 14px; color: #868C96;">Not native</div>
+          <div style="padding: 16px 14px; color: #868C96;">Resource accts</div>
         </div>
-        <div class="whitepaper-actions">
-          <a href="Solen_Whitepaper.pdf" class="btn btn-primary" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;vertical-align:middle;margin-right:8px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download PDF
+        <div style="display: grid; grid-template-columns: 1.5fr repeat(5, 1fr); font-size: 13.5px; border-bottom: 1px solid rgba(0,0,0,0.08);">
+          <div style="padding: 16px 18px; color: #3A3F47; font-weight: 500;">Agent session keys</div>
+          <div style="padding: 16px 14px; color: #191C22; background: color-mix(in oklab, var(--accent, #F5920F) 9%, transparent); font-weight: 600;">Consensus-enforced</div>
+          <div style="padding: 16px 14px; color: #868C96;">App-level</div>
+          <div style="padding: 16px 14px; color: #868C96;">App-level</div>
+          <div style="padding: 16px 14px; color: #868C96;">Not native</div>
+          <div style="padding: 16px 14px; color: #868C96;">Not native</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1.5fr repeat(5, 1fr); font-size: 13.5px; border-bottom: 1px solid rgba(0,0,0,0.08);">
+          <div style="padding: 16px 18px; color: #3A3F47; font-weight: 500;">Post-quantum sigs</div>
+          <div style="padding: 16px 14px; color: #191C22; background: color-mix(in oklab, var(--accent, #F5920F) 9%, transparent); font-weight: 600;">ML-DSA-65 + hybrid</div>
+          <div style="padding: 16px 14px; color: #868C96;">Research</div>
+          <div style="padding: 16px 14px; color: #868C96;">None</div>
+          <div style="padding: 16px 14px; color: #868C96;">None</div>
+          <div style="padding: 16px 14px; color: #868C96;">None</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1.5fr repeat(5, 1fr); font-size: 13.5px; border-bottom: 1px solid rgba(0,0,0,0.08);">
+          <div style="padding: 16px 18px; color: #3A3F47; font-weight: 500;">Intent execution</div>
+          <div style="padding: 16px 14px; color: #191C22; background: color-mix(in oklab, var(--accent, #F5920F) 9%, transparent); font-weight: 600;">In protocol</div>
+          <div style="padding: 16px 14px; color: #868C96;">App-level</div>
+          <div style="padding: 16px 14px; color: #868C96;">None</div>
+          <div style="padding: 16px 14px; color: #868C96;">None</div>
+          <div style="padding: 16px 14px; color: #868C96;">None</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1.5fr repeat(5, 1fr); font-size: 13.5px; border-bottom: 1px solid rgba(0,0,0,0.08);">
+          <div style="padding: 16px 18px; color: #3A3F47; font-weight: 500;">Rollup support</div>
+          <div style="padding: 16px 14px; color: #191C22; background: color-mix(in oklab, var(--accent, #F5920F) 9%, transparent); font-weight: 600;">Native primitive</div>
+          <div style="padding: 16px 14px; color: #868C96;">External L2</div>
+          <div style="padding: 16px 14px; color: #868C96;">Monolithic</div>
+          <div style="padding: 16px 14px; color: #868C96;">App-chains</div>
+          <div style="padding: 16px 14px; color: #868C96;">Monolithic</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1.5fr repeat(5, 1fr); font-size: 13.5px;">
+          <div style="padding: 16px 18px; color: #3A3F47; font-weight: 500;">Finality</div>
+          <div style="padding: 16px 14px; color: #191C22; background: color-mix(in oklab, var(--accent, #F5920F) 9%, transparent); font-weight: 600;">&lt;1s BFT</div>
+          <div style="padding: 16px 14px; color: #868C96;">~13 min</div>
+          <div style="padding: 16px 14px; color: #868C96;">~12s</div>
+          <div style="padding: 16px 14px; color: #868C96;">Single-block</div>
+          <div style="padding: 16px 14px; color: #868C96;">&lt;1s BFT</div>
+        </div>
+       </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PERFORMANCE ===== -->
+  <section id="performance" class="dc-px" style="max-width: 1240px; margin: 0 auto; padding: 96px 40px;">
+    <div class="dc-2col" style="display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: center;">
+      <div>
+        <div style="font-size: 12.5px; letter-spacing: 0.14em; color: var(--accent, #F5920F); font-family: 'IBM Plex Mono', monospace; margin-bottom: 16px;">PERFORMANCE</div>
+        <h2 class="dc-h2" style="font-family: var(--head, 'Newsreader'), serif; font-weight: 500; font-size: 42px; line-height: 1.1; letter-spacing: -0.01em; margin: 0; color: #191C22;">Built for speed — and proven on a live testnet.</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5C626C; margin: 18px 0 26px;">Benchmarked on a 4-validator testnet with full Ed25519 verification and deterministic single-slot finality.</p>
+        <a href="Solen_Stress_Test_Report.pdf" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 500; color: var(--accent, #F5920F); border-bottom: 1px solid color-mix(in oklab, var(--accent, #F5920F) 40%, transparent); padding-bottom: 3px;">Full stress-test report (PDF) →</a>
+      </div>
+      <div>
+        <div class="dcg2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+          <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px;">
+            <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 40px; color: #191C22; line-height: 1;">5,000</div>
+            <div style="font-size: 13px; color: #767B85; margin-top: 9px; line-height: 1.4;">Max operations per block</div>
+          </div>
+          <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px;">
+            <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 40px; color: #191C22; line-height: 1;">10K+</div>
+            <div style="font-size: 13px; color: #767B85; margin-top: 9px; line-height: 1.4;">Ingestion rate (tx/s at RPC)</div>
+          </div>
+          <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px;">
+            <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 40px; color: #191C22; line-height: 1;">~2s</div>
+            <div style="font-size: 13px; color: #767B85; margin-top: 9px; line-height: 1.4;">Block time</div>
+          </div>
+          <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px;">
+            <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 40px; color: #191C22; line-height: 1;">BFT</div>
+            <div style="font-size: 13px; color: #767B85; margin-top: 9px; line-height: 1.4;">Deterministic PoS consensus</div>
+          </div>
+        </div>
+        <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; overflow: hidden;">
+          <div style="display: flex; align-items: center; gap: 14px; padding: 12px 18px; border-bottom: 1px solid rgba(0,0,0,0.05);">
+            <span style="width: 74px; font-size: 13px; color: #191C22; font-weight: 600;">Solen</span>
+            <div style="flex: 1; height: 8px; border-radius: 4px; background: rgba(0,0,0,0.08); overflow: hidden;"><div style="height: 100%; width: 100%; background: var(--accent, #F5920F); border-radius: 4px;"></div></div>
+            <span style="width: 66px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #767B85;">1,200+</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; padding: 12px 18px; border-bottom: 1px solid rgba(0,0,0,0.05);">
+            <span style="width: 74px; font-size: 13px; color: #767B85; font-weight: 400;">Solana</span>
+            <div style="flex: 1; height: 8px; border-radius: 4px; background: rgba(0,0,0,0.08); overflow: hidden;"><div style="height: 100%; width: 86%; background: rgba(0,0,0,0.22); border-radius: 4px;"></div></div>
+            <span style="width: 66px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #767B85;">~3,500</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; padding: 12px 18px; border-bottom: 1px solid rgba(0,0,0,0.05);">
+            <span style="width: 74px; font-size: 13px; color: #767B85; font-weight: 400;">Avalanche</span>
+            <div style="flex: 1; height: 8px; border-radius: 4px; background: rgba(0,0,0,0.08); overflow: hidden;"><div style="height: 100%; width: 30%; background: rgba(0,0,0,0.18); border-radius: 4px;"></div></div>
+            <span style="width: 66px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #767B85;">~350</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; padding: 12px 18px;">
+            <span style="width: 74px; font-size: 13px; color: #767B85; font-weight: 400;">Ethereum</span>
+            <div style="flex: 1; height: 8px; border-radius: 4px; background: rgba(0,0,0,0.08); overflow: hidden;"><div style="height: 100%; width: 8%; background: rgba(0,0,0,0.14); border-radius: 4px;"></div></div>
+            <span style="width: 66px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #767B85;">~15</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TOKENOMICS ===== -->
+  <section id="tokenomics" style="background: #EFECE4; border-top: 1px solid rgba(0,0,0,0.08); border-bottom: 1px solid rgba(0,0,0,0.08);">
+    <div class="dc-px" style="max-width: 1240px; margin: 0 auto; padding: 96px 40px;">
+      <div style="max-width: 760px; margin-bottom: 44px;">
+        <div style="font-size: 12.5px; letter-spacing: 0.14em; color: var(--accent, #F5920F); font-family: 'IBM Plex Mono', monospace; margin-bottom: 16px;">TOKENOMICS</div>
+        <h2 class="dc-h2" style="font-family: var(--head, 'Newsreader'), serif; font-weight: 500; font-size: 42px; line-height: 1.1; letter-spacing: -0.01em; margin: 0; color: #191C22;">A fixed 2B supply, aligned for the long term.</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5C626C; margin: 18px 0 0;">Deflationary fee burn, no launch inflation, and only ~6.5% circulating at mainnet — everything else locked in on-chain vesting.</p>
+      </div>
+      <div class="dc-2col" style="display: grid; grid-template-columns: 1fr 1.1fr; gap: 40px;">
+        <div class="dcg2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-content: start;">
+          <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px;">
+            <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 32px; color: #191C22; line-height: 1;">2B</div>
+            <div style="font-size: 12.5px; color: #767B85; margin-top: 8px;">Fixed total supply</div>
+          </div>
+          <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px;">
+            <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 32px; color: #191C22; line-height: 1;">50%</div>
+            <div style="font-size: 12.5px; color: #767B85; margin-top: 8px;">Of fees burned permanently</div>
+          </div>
+          <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px;">
+            <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 32px; color: #191C22; line-height: 1;">0%</div>
+            <div style="font-size: 12.5px; color: #767B85; margin-top: 8px;">Inflation at launch</div>
+          </div>
+          <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px;">
+            <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 32px; color: #191C22; line-height: 1;">~6.5%</div>
+            <div style="font-size: 12.5px; color: #767B85; margin-top: 8px;">Circulating at mainnet</div>
+          </div>
+        </div>
+        <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 16px; background: #FFFFFF; padding: 26px;">
+          <div style="font-size: 12px; letter-spacing: 0.1em; color: #8A8F98; font-family: 'IBM Plex Mono', monospace; margin-bottom: 20px;">INITIAL DISTRIBUTION</div>
+          <div style="margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 7px;"><span style="color: #3A3F47;">Staking &amp; Validator Rewards</span><span style="font-family: 'IBM Plex Mono', monospace; color: #767B85;">25%</span></div>
+            <div style="height: 7px; border-radius: 4px; background: rgba(0,0,0,0.08); overflow: hidden;"><div style="height: 100%; width: 100%; background: var(--accent, #F5920F); opacity: 1; border-radius: 4px;"></div></div>
+          </div>
+          <div style="margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 7px;"><span style="color: #3A3F47;">Foundation Treasury</span><span style="font-family: 'IBM Plex Mono', monospace; color: #767B85;">20%</span></div>
+            <div style="height: 7px; border-radius: 4px; background: rgba(0,0,0,0.08); overflow: hidden;"><div style="height: 100%; width: 80%; background: var(--accent, #F5920F); opacity: 0.9; border-radius: 4px;"></div></div>
+          </div>
+          <div style="margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 7px;"><span style="color: #3A3F47;">Team &amp; Founders</span><span style="font-family: 'IBM Plex Mono', monospace; color: #767B85;">15%</span></div>
+            <div style="height: 7px; border-radius: 4px; background: rgba(0,0,0,0.08); overflow: hidden;"><div style="height: 100%; width: 60%; background: var(--accent, #F5920F); opacity: 0.8; border-radius: 4px;"></div></div>
+          </div>
+          <div style="margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 7px;"><span style="color: #3A3F47;">Ecosystem Fund</span><span style="font-family: 'IBM Plex Mono', monospace; color: #767B85;">15%</span></div>
+            <div style="height: 7px; border-radius: 4px; background: rgba(0,0,0,0.08); overflow: hidden;"><div style="height: 100%; width: 60%; background: var(--accent, #F5920F); opacity: 0.7; border-radius: 4px;"></div></div>
+          </div>
+          <div style="margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 7px;"><span style="color: #3A3F47;">Community &amp; Airdrops</span><span style="font-family: 'IBM Plex Mono', monospace; color: #767B85;">10%</span></div>
+            <div style="height: 7px; border-radius: 4px; background: rgba(0,0,0,0.08); overflow: hidden;"><div style="height: 100%; width: 40%; background: var(--accent, #F5920F); opacity: 0.6; border-radius: 4px;"></div></div>
+          </div>
+          <div style="margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 7px;"><span style="color: #3A3F47;">Early Investors</span><span style="font-family: 'IBM Plex Mono', monospace; color: #767B85;">5%</span></div>
+            <div style="height: 7px; border-radius: 4px; background: rgba(0,0,0,0.08); overflow: hidden;"><div style="height: 100%; width: 20%; background: var(--accent, #F5920F); opacity: 0.5; border-radius: 4px;"></div></div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 7px;"><span style="color: #3A3F47;">Genesis Validators</span><span style="font-family: 'IBM Plex Mono', monospace; color: #767B85;">5%</span></div>
+            <div style="height: 7px; border-radius: 4px; background: rgba(0,0,0,0.08); overflow: hidden;"><div style="height: 100%; width: 20%; background: var(--accent, #F5920F); opacity: 0.4; border-radius: 4px;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STAKING ===== -->
+  <section id="staking" class="dc-px" style="max-width: 1240px; margin: 0 auto; padding: 96px 40px;">
+    <div style="max-width: 760px; margin-bottom: 44px;">
+      <div style="font-size: 12.5px; letter-spacing: 0.14em; color: var(--accent, #F5920F); font-family: 'IBM Plex Mono', monospace; margin-bottom: 16px;">STAKING</div>
+      <h2 class="dc-h2" style="font-family: var(--head, 'Newsreader'), serif; font-weight: 500; font-size: 42px; line-height: 1.1; letter-spacing: -0.01em; margin: 0; color: #191C22;">Two ways to earn validator rewards.</h2>
+      <p style="font-size: 17px; line-height: 1.6; color: #5C626C; margin: 18px 0 0;">Pick the model that fits your style — direct delegation, or liquid staking that stays composable in DeFi.</p>
+    </div>
+    <div class="dcg2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+      <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 16px; background: #FFFFFF; padding: 30px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+          <span style="font-family: var(--head, 'Newsreader'), serif; font-size: 24px; color: #191C22;">Validator Delegation</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.08em; color: var(--accent, #F5920F); padding: 4px 9px; border-radius: 6px; border: 1px solid color-mix(in oklab, var(--accent, #F5920F) 40%, transparent);">NATIVE</span>
+        </div>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #5C626C; margin: 0 0 18px;">Delegate SOLEN directly to the validator of your choice. Simple, no wrapper token.</p>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px;">
+          <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #3A3F47;"><span style="color: var(--accent, #F5920F); flex-shrink: 0;">&#8226;</span>Pick the specific validator you back</div>
+          <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #3A3F47;"><span style="color: var(--accent, #F5920F); flex-shrink: 0;">&#8226;</span>Rewards auto-credit each epoch</div>
+          <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #3A3F47;"><span style="color: var(--accent, #F5920F); flex-shrink: 0;">&#8226;</span>Validator commission set per-operator</div>
+          <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #3A3F47;"><span style="color: var(--accent, #F5920F); flex-shrink: 0;">&#8226;</span>7-epoch unbonding on unstake</div>
+        </div>
+        <a href="https://docs.solenchain.io/tokenomics/staking/" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #F5920F);">How delegation works &#8594;</a>
+      </div>
+      <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 16px; background: #FFFFFF; padding: 30px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+          <span style="font-family: var(--head, 'Newsreader'), serif; font-size: 24px; color: #191C22;">Liquid Staking · stSOLEN</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.08em; color: var(--accent, #F5920F); padding: 4px 9px; border-radius: 6px; border: 1px solid color-mix(in oklab, var(--accent, #F5920F) 40%, transparent);">COMPOSABLE</span>
+        </div>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #5C626C; margin: 0 0 18px;">Deposit SOLEN, receive stSOLEN — a transferable receipt token that grows as the pool earns.</p>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px;">
+          <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #3A3F47;"><span style="color: var(--accent, #F5920F); flex-shrink: 0;">&#8226;</span>Round-robin across 11 genesis validators</div>
+          <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #3A3F47;"><span style="color: var(--accent, #F5920F); flex-shrink: 0;">&#8226;</span>Rewards compound automatically</div>
+          <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #3A3F47;"><span style="color: var(--accent, #F5920F); flex-shrink: 0;">&#8226;</span>10% protocol fee — 90% to stakers</div>
+          <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #3A3F47;"><span style="color: var(--accent, #F5920F); flex-shrink: 0;">&#8226;</span>stSOLEN is a composable SRC-20</div>
+        </div>
+        <a href="https://stake.solenchain.io" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent, #F5920F);">stake.solenchain.io &#8594;</a>
+      </div>
+    </div>
+    <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 16px; background: #EFECE4; padding: 30px; margin-top: 18px;">
+      <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 22px; flex-wrap: wrap;">
+        <span style="font-family: var(--head, 'Newsreader'), serif; font-size: 24px; color: #191C22;">Run a Validator</span>
+        <span style="font-size: 13px; color: #767B85;">Highest yield, highest commitment.</span>
+      </div>
+      <div class="dcg4" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+        <div>
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 26px; color: var(--accent, #F5920F); line-height: 1.1;">500K</div>
+          <div style="font-size: 12.5px; color: #767B85; margin-top: 6px; line-height: 1.4;">SOLEN minimum self-stake</div>
+        </div>
+        <div>
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 26px; color: var(--accent, #F5920F); line-height: 1.1;">10%</div>
+          <div style="font-size: 12.5px; color: #767B85; margin-top: 6px; line-height: 1.4;">Default commission (configurable)</div>
+        </div>
+        <div>
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 26px; color: var(--accent, #F5920F); line-height: 1.1;">24/7</div>
+          <div style="font-size: 12.5px; color: #767B85; margin-top: 6px; line-height: 1.4;">Node uptime expected</div>
+        </div>
+        <div>
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 26px; color: var(--accent, #F5920F); line-height: 1.1;">10% / 1% / 5%</div>
+          <div style="font-size: 12.5px; color: #767B85; margin-top: 6px; line-height: 1.4;">Slashing: double-sign / downtime / bad state</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ECOSYSTEM ===== -->
+  <section id="ecosystem" class="dc-px" style="max-width: 1240px; margin: 0 auto; padding: 96px 40px;">
+    <div style="max-width: 760px; margin-bottom: 44px;">
+      <div style="font-size: 12.5px; letter-spacing: 0.14em; color: var(--accent, #F5920F); font-family: 'IBM Plex Mono', monospace; margin-bottom: 16px;">ECOSYSTEM</div>
+      <h2 class="dc-h2" style="font-family: var(--head, 'Newsreader'), serif; font-weight: 500; font-size: 42px; line-height: 1.1; letter-spacing: -0.01em; margin: 0; color: #191C22;">Live products, shipping since day one.</h2>
+      <p style="font-size: 17px; line-height: 1.6; color: #5C626C; margin: 18px 0 0;">A full stack of infrastructure and applications already running on Solen mainnet.</p>
+    </div>
+    <div class="dcg4" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+      <a class="eco-card" href="https://solenswap.io" style="display: block; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px; transition: border-color .18s, background .18s;">
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 19px; color: #191C22;">SolenSwap</div>
+        <div style="font-size: 13.5px; line-height: 1.5; color: #696E78; margin-top: 8px;">Constant-product AMM for SOLEN and graduated launchpad tokens.</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent, #F5920F); margin-top: 14px;">solenswap.io →</div>
+      </a>
+      <a class="eco-card" href="https://launchpad.solenchain.io" style="display: block; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px; transition: border-color .18s, background .18s;">
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 19px; color: #191C22;">Launchpad</div>
+        <div style="font-size: 13.5px; line-height: 1.5; color: #696E78; margin-top: 8px;">Fair-launch tokens on a bonding curve with burned LP at graduation.</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent, #F5920F); margin-top: 14px;">launchpad.solenchain.io →</div>
+      </a>
+      <a class="eco-card" href="https://stake.solenchain.io" style="display: block; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px; transition: border-color .18s, background .18s;">
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 19px; color: #191C22;">Liquid Staking</div>
+        <div style="font-size: 13.5px; line-height: 1.5; color: #696E78; margin-top: 8px;">Deposit SOLEN, receive stSOLEN — stay liquid while you earn.</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent, #F5920F); margin-top: 14px;">stake.solenchain.io →</div>
+      </a>
+      <a class="eco-card" href="bridge.html" style="display: block; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px; transition: border-color .18s, background .18s;">
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 19px; color: #191C22;">Cross-chain Bridge</div>
+        <div style="font-size: 13.5px; line-height: 1.5; color: #696E78; margin-top: 8px;">Move SOLEN between Solen and Base — one click, non-custodial.</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent, #F5920F); margin-top: 14px;">Open bridge →</div>
+      </a>
+      <a class="eco-card" href="https://pool.solenchain.io" style="display: block; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px; transition: border-color .18s, background .18s;">
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 19px; color: #191C22;">Mining Pool</div>
+        <div style="font-size: 13.5px; line-height: 1.5; color: #696E78; margin-top: 8px;">Point Scrypt hashrate at the pool and earn SOLEN, paid automatically.</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent, #F5920F); margin-top: 14px;">pool.solenchain.io →</div>
+      </a>
+      <a class="eco-card" href="https://solenscan.io" style="display: block; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px; transition: border-color .18s, background .18s;">
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 19px; color: #191C22;">Block Explorer</div>
+        <div style="font-size: 13.5px; line-height: 1.5; color: #696E78; margin-top: 8px;">Browse blocks, transactions, accounts, and rollup commitments.</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent, #F5920F); margin-top: 14px;">solenscan.io →</div>
+      </a>
+      <a class="eco-card" href="https://rpc.solenchain.io" style="display: block; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px; transition: border-color .18s, background .18s;">
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 19px; color: #191C22;">Public RPC</div>
+        <div style="font-size: 13.5px; line-height: 1.5; color: #696E78; margin-top: 8px;">JSON-RPC endpoint for broadcast, queries, and subscriptions.</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent, #F5920F); margin-top: 14px;">rpc.solenchain.io →</div>
+      </a>
+      <a class="eco-card" href="https://docs.solenchain.io/tools/typescript-sdk/" style="display: block; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 22px; transition: border-color .18s, background .18s;">
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 19px; color: #191C22;">Wallet SDK</div>
+        <div style="font-size: 13.5px; line-height: 1.5; color: #696E78; margin-top: 8px;">TypeScript SDK for smart accounts, signing, and intent submission.</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent, #F5920F); margin-top: 14px;">docs.solenchain.io →</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== GAMES ===== -->
+  <section id="games" style="background: #EFECE4; border-top: 1px solid rgba(0,0,0,0.08); border-bottom: 1px solid rgba(0,0,0,0.08);">
+    <div class="dc-px" style="max-width: 1240px; margin: 0 auto; padding: 96px 40px;">
+      <div style="max-width: 760px; margin-bottom: 44px;">
+        <div style="font-size: 12.5px; letter-spacing: 0.14em; color: var(--accent, #F5920F); font-family: 'IBM Plex Mono', monospace; margin-bottom: 16px;">GAMES ON SOLEN</div>
+        <h2 class="dc-h2" style="font-family: var(--head, 'Newsreader'), serif; font-weight: 500; font-size: 42px; line-height: 1.1; letter-spacing: -0.01em; margin: 0; color: #191C22;">Real-stake games, settling on mainnet.</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5C626C; margin: 18px 0 0;">Provably fair, audited on-chain, and playable with the Solen Wallet.</p>
+      </div>
+      <div class="dcg3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;">
+        <a class="game-card" href="https://bit21.com" style="display: block; border: 1px solid rgba(0,0,0,0.10); border-radius: 16px; background: #FFFFFF; padding: 28px; transition: border-color .18s;">
+          <div style="width: 52px; height: 52px; border-radius: 12px; background: color-mix(in oklab, var(--accent, #F5920F) 14%, #FFFFFF); display: flex; align-items: center; justify-content: center; font-family: var(--head, 'Newsreader'), serif; font-size: 20px; color: var(--accent, #F5920F); margin-bottom: 18px;">21</div>
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 21px; color: #191C22; margin-bottom: 9px;">bit21 — Blackjack</div>
+          <div style="font-size: 14px; line-height: 1.55; color: #696E78;">Provably-fair multi-player Blackjack. 5 seats, 5-deck shoe re-shuffled every round, SOLEN-denominated bets.</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent, #F5920F); margin-top: 16px;">bit21.com &#8594;</div>
+        </a>
+        <a class="game-card" href="https://solenpoker.com" style="display: block; border: 1px solid rgba(0,0,0,0.10); border-radius: 16px; background: #FFFFFF; padding: 28px; transition: border-color .18s;">
+          <div style="width: 52px; height: 52px; border-radius: 12px; background: color-mix(in oklab, var(--accent, #F5920F) 14%, #FFFFFF); display: flex; align-items: center; justify-content: center; font-family: var(--head, 'Newsreader'), serif; font-size: 20px; color: var(--accent, #F5920F); margin-bottom: 18px;">&#9824;</div>
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 21px; color: #191C22; margin-bottom: 9px;">SolenPoker — NLHE</div>
+          <div style="font-size: 14px; line-height: 1.55; color: #696E78;">6-max No-Limit Hold&rsquo;em with commit-reveal shuffle. Snappy per-hand action, fully auditable post-game.</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent, #F5920F); margin-top: 16px;">solenpoker.com &#8594;</div>
+        </a>
+        <a class="game-card" href="https://solenquest.com" style="display: block; border: 1px solid rgba(0,0,0,0.10); border-radius: 16px; background: #FFFFFF; padding: 28px; transition: border-color .18s;">
+          <div style="width: 52px; height: 52px; border-radius: 12px; background: color-mix(in oklab, var(--accent, #F5920F) 14%, #FFFFFF); display: flex; align-items: center; justify-content: center; font-family: var(--head, 'Newsreader'), serif; font-size: 20px; color: var(--accent, #F5920F); margin-bottom: 18px;">X?Z?</div>
+          <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 21px; color: #191C22; margin-bottom: 9px;">SolenQuest — Cipher Race</div>
+          <div style="font-size: 14px; line-height: 1.55; color: #696E78;">One global cryptogram at a time. Every wrong guess feeds the pot; first to decode it wins.</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent, #F5920F); margin-top: 16px;">solenquest.com &#8594;</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WALLET + WHITEPAPER ===== -->
+  <section id="downloads" class="dc-px" style="max-width: 1240px; margin: 0 auto; padding: 96px 40px;">
+    <div class="dc-2col" style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start;">
+      <div>
+        <div style="font-size: 12.5px; letter-spacing: 0.14em; color: var(--accent, #F5920F); font-family: 'IBM Plex Mono', monospace; margin-bottom: 16px;">DOWNLOAD SOLEN WALLET</div>
+        <h2 class="dc-h2" style="font-family: var(--head, 'Newsreader'), serif; font-weight: 500; font-size: 34px; line-height: 1.12; letter-spacing: -0.01em; margin: 0 0 24px; color: #191C22;">One wallet for every Solen surface.</h2>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <a class="wallet-card" href="https://github.com/Solen-Blockchain/solenwallet/releases/latest" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 20px 24px; transition: border-color .18s;">
+            <div>
+              <div style="font-size: 17px; color: #191C22; font-weight: 500;">Desktop</div>
+              <div style="font-size: 13.5px; color: #696E78; margin-top: 4px;">Full wallet with smart accounts, passkey auth, and built-in staking.</div>
+            </div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #767B85; text-align: right; flex-shrink: 0;">Windows · macOS · Linux</div>
           </a>
-          <span class="whitepaper-meta">Version 0.1 &middot; March 2026 &middot; 7 pages</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TOKENOMICS -->
-  <section class="section" id="tokenomics">
-    <div class="container">
-      <h2 class="section-title">Tokenomics</h2>
-      <p class="section-sub">A fixed supply of 2 billion SOLEN tokens with a deflationary fee burn and no inflation at launch.</p>
-
-      <div class="token-header">
-        <div class="token-stat">
-          <span class="token-stat-value">2B</span>
-          <span class="token-stat-label">Total Supply</span>
-        </div>
-        <div class="token-stat">
-          <span class="token-stat-value">SOLEN</span>
-          <span class="token-stat-label">Token Symbol</span>
-        </div>
-        <div class="token-stat">
-          <span class="token-stat-value">50%</span>
-          <span class="token-stat-label">Fee Burn Rate</span>
-        </div>
-        <div class="token-stat">
-          <span class="token-stat-value">0%</span>
-          <span class="token-stat-label">Inflation at Launch</span>
-        </div>
-      </div>
-
-      <div class="token-distribution">
-        <h3 class="token-section-title">Initial Distribution</h3>
-        <div class="token-bars">
-          <div class="token-bar-row">
-            <span class="token-bar-label">Staking &amp; Validator Rewards</span>
-            <div class="token-bar-track"><div class="token-bar-fill" style="width:25%"></div></div>
-            <span class="token-bar-pct">25%</span>
-          </div>
-          <div class="token-bar-row">
-            <span class="token-bar-label">Foundation Treasury</span>
-            <div class="token-bar-track"><div class="token-bar-fill" style="width:20%"></div></div>
-            <span class="token-bar-pct">20%</span>
-          </div>
-          <div class="token-bar-row">
-            <span class="token-bar-label">Team &amp; Founders</span>
-            <div class="token-bar-track"><div class="token-bar-fill" style="width:15%"></div></div>
-            <span class="token-bar-pct">15%</span>
-          </div>
-          <div class="token-bar-row">
-            <span class="token-bar-label">Ecosystem Fund</span>
-            <div class="token-bar-track"><div class="token-bar-fill" style="width:15%"></div></div>
-            <span class="token-bar-pct">15%</span>
-          </div>
-          <div class="token-bar-row">
-            <span class="token-bar-label">Community &amp; Airdrops</span>
-            <div class="token-bar-track"><div class="token-bar-fill" style="width:10%"></div></div>
-            <span class="token-bar-pct">10%</span>
-          </div>
-          <div class="token-bar-row">
-            <span class="token-bar-label">Early Investors</span>
-            <div class="token-bar-track"><div class="token-bar-fill" style="width:5%"></div></div>
-            <span class="token-bar-pct">5%</span>
-          </div>
-          <div class="token-bar-row">
-            <span class="token-bar-label">Genesis Validators</span>
-            <div class="token-bar-track"><div class="token-bar-fill" style="width:5%"></div></div>
-            <span class="token-bar-pct">5%</span>
-          </div>
-          <div class="token-bar-row">
-            <span class="token-bar-label">Liquidity &amp; Market Making</span>
-            <div class="token-bar-track"><div class="token-bar-fill" style="width:5%"></div></div>
-            <span class="token-bar-pct">5%</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid grid-3 token-details">
-        <div class="card">
-          <h3>Staking</h3>
-          <p>Validators earn epoch rewards from a 500M pool distributed over 10 years. Delegators share rewards proportional to stake. 7-epoch unbonding period.</p>
-        </div>
-        <div class="card">
-          <h3>Fee Burn</h3>
-          <p>50% of all transaction fees are burned permanently, creating deflationary pressure. At high volume, burns can exceed reward issuance.</p>
-        </div>
-        <div class="card">
-          <h3>Governance</h3>
-          <p>Staked token holders vote on protocol parameters with 66.67% supermajority. 30% quorum required. Total supply cap requires a hard fork.</p>
-        </div>
-      </div>
-
-      <!-- Vesting Schedule -->
-      <div class="token-distribution" style="margin-top: 40px;">
-        <h3 class="token-section-title">Vesting &amp; Unlock Schedule</h3>
-        <p class="section-sub" style="max-width:700px; margin: 0 auto 24px;">All allocations are subject to on-chain vesting locks enforced by the protocol. Tokens are released gradually to ensure long-term alignment.</p>
-        <div class="vesting-table">
-          <div class="vesting-header">
-            <span>Allocation</span>
-            <span>Amount</span>
-            <span>Cliff</span>
-            <span>Vesting</span>
-            <span>At Launch</span>
-          </div>
-          <div class="vesting-row">
-            <span>Staking &amp; Validator Rewards</span>
-            <span>500M (25%)</span>
-            <span>None</span>
-            <span>10 years linear</span>
-            <span>0%</span>
-          </div>
-          <div class="vesting-row">
-            <span>Foundation Treasury</span>
-            <span>400M (20%)</span>
-            <span>6 months</span>
-            <span>4 years linear</span>
-            <span>0%</span>
-          </div>
-          <div class="vesting-row">
-            <span>Team &amp; Founders</span>
-            <span>300M (15%)</span>
-            <span>12 months</span>
-            <span>3 years linear</span>
-            <span>0%</span>
-          </div>
-          <div class="vesting-row">
-            <span>Ecosystem Fund</span>
-            <span>300M (15%)</span>
-            <span>3 months</span>
-            <span>3 years linear</span>
-            <span>0%</span>
-          </div>
-          <div class="vesting-row">
-            <span>Community &amp; Airdrops</span>
-            <span>200M (10%)</span>
-            <span>None</span>
-            <span>2 years linear</span>
-            <span>5%</span>
-          </div>
-          <div class="vesting-row">
-            <span>Early Investors</span>
-            <span>100M (5%)</span>
-            <span>6 months</span>
-            <span>2 years linear</span>
-            <span>0%</span>
-          </div>
-          <div class="vesting-row">
-            <span>Genesis Validators</span>
-            <span>100M (5%)</span>
-            <span>None</span>
-            <span>1 year linear</span>
-            <span>10%</span>
-          </div>
-          <div class="vesting-row">
-            <span>Liquidity &amp; Market Making</span>
-            <span>100M (5%)</span>
-            <span>None</span>
-            <span>Unlocked</span>
-            <span>100%</span>
-          </div>
-          <div class="vesting-row vesting-total">
-            <span>Total at Launch</span>
-            <span>2B (100%)</span>
-            <span></span>
-            <span></span>
-            <span>~6.5%</span>
-          </div>
-        </div>
-        <p style="text-align:center; font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 16px;">Only ~130M SOLEN (~6.5%) is circulating at mainnet launch. All other tokens are locked in on-chain vesting contracts.</p>
-      </div>
-
-      <div class="token-cta">
-        <a href="https://docs.solenchain.io/tokenomics/overview/" class="btn btn-outline" target="_blank" rel="noopener">Full Tokenomics Details &rarr;</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- STAKING -->
-  <section class="section section-dark" id="staking">
-    <div class="container">
-      <h2 class="section-title">Staking</h2>
-      <p class="section-sub">Two ways to earn validator rewards on Solen &mdash; pick the model that fits your style.</p>
-
-      <div class="grid grid-2">
-        <div class="card eco-card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
-              <rect x="4" y="9" width="16" height="9" rx="1.4" fill="currentColor" stroke="none" opacity=".18"/>
-              <rect x="4" y="9" width="16" height="9" rx="1.4"/>
-              <circle cx="8" cy="13.5" r="1" fill="currentColor" stroke="none"/>
-              <path d="M11 13h6"/>
-              <path d="M11 16h4"/>
-              <path d="M12 9V5m0 0-2.4 2.4M12 5l2.4 2.4"/>
-            </svg>
-          </div>
-          <h3>Validator Delegation</h3>
-          <p>Delegate SOLEN directly to the validator of your choice. Native, simple, no wrapper token.</p>
-          <ul class="feature-list">
-            <li>Pick the specific validator you back</li>
-            <li>Rewards auto-credit at each epoch boundary</li>
-            <li>Validator commission set per-operator</li>
-            <li>7-epoch unbonding window on unstake</li>
-          </ul>
-          <p class="card-note">Best for users who want direct control over which validator they support, or who run their own validator and want to self-stake.</p>
-          <a href="https://docs.solenchain.io/tokenomics/staking/" class="link" target="_blank" rel="noopener">How delegation works &rarr;</a>
-        </div>
-
-        <div class="card eco-card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 3c-3 4-6 6.8-6 10.5a6 6 0 0 0 12 0C18 9.8 15 7 12 3z" fill="currentColor" stroke="none" opacity=".25"/>
-              <path d="M12 3c-3 4-6 6.8-6 10.5a6 6 0 0 0 12 0C18 9.8 15 7 12 3z"/>
-              <path d="M9 13.2c.6.6 1.4.9 2.2.9.8 0 1.6-.3 2.2-.9.7-.6 1.4-.6 2 0"/>
-              <path d="M9.4 9.5c1-.9 2.1-.9 2.6 0 .5.9 1.6.9 2.6 0"/>
-            </svg>
-          </div>
-          <h3>Liquid Staking <span class="card-badge">stSOLEN</span></h3>
-          <p>Deposit SOLEN, receive <strong>stSOLEN</strong> &mdash; a transferable receipt token whose value grows as the pool earns rewards. Stay liquid while you stake.</p>
-          <ul class="feature-list">
-            <li>Round-robin delegation across 11 genesis validators</li>
-            <li>Rewards compound automatically into the rate</li>
-            <li>10% protocol fee &mdash; 90% goes to stakers</li>
-            <li>stSOLEN is a standard SRC-20 &mdash; transfer it, hold it, use it in DeFi</li>
-            <li>7-epoch unbonding queue on unstake</li>
-          </ul>
-          <p class="card-note">Best for users who want yield without picking validators, or who want their staked position to remain transferable and composable.</p>
-          <a href="https://stake.solenchain.io" class="link" target="_blank" rel="noopener">stake.solenchain.io &rarr;</a>
-        </div>
-      </div>
-
-      <div class="staking-compare">
-        <h3 class="staking-compare-title">Side by side</h3>
-        <table class="staking-compare-table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Validator Delegation</th>
-              <th>Liquid Staking (stSOLEN)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Receive a transferable token</td>
-              <td>No</td>
-              <td>Yes &mdash; stSOLEN</td>
-            </tr>
-            <tr>
-              <td>Pick the validator yourself</td>
-              <td>Yes, any validator</td>
-              <td>No &mdash; round-robin allowlist</td>
-            </tr>
-            <tr>
-              <td>Protocol fee on rewards</td>
-              <td>None (validator commission only)</td>
-              <td>10% (90% to stakers)</td>
-            </tr>
-            <tr>
-              <td>Compound rewards</td>
-              <td>Manual re-stake</td>
-              <td>Automatic via exchange-rate growth</td>
-            </tr>
-            <tr>
-              <td>Exit time</td>
-              <td>7 epochs (~24 min)</td>
-              <td>7 epochs unbonding queue</td>
-            </tr>
-            <tr>
-              <td>Use in DeFi</td>
-              <td>No</td>
-              <td>Yes &mdash; stSOLEN is composable</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="card eco-card validator-card">
-        <div class="validator-card-grid">
-          <div class="validator-card-left">
-            <div class="card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
-                <rect x="3" y="4" width="18" height="5" rx="1" fill="currentColor" stroke="none" opacity=".18"/>
-                <rect x="3" y="4" width="18" height="5" rx="1"/>
-                <rect x="3" y="11" width="18" height="5" rx="1" fill="currentColor" stroke="none" opacity=".18"/>
-                <rect x="3" y="11" width="18" height="5" rx="1"/>
-                <circle cx="6.5" cy="6.5" r=".7" fill="currentColor" stroke="none"/>
-                <circle cx="6.5" cy="13.5" r=".7" fill="currentColor" stroke="none"/>
-                <path d="M9 6.5h9M9 13.5h9"/>
-                <path d="M12 16v3M9 19h6"/>
-              </svg>
+          <a class="wallet-card" href="https://chromewebstore.google.com/detail/solen-wallet/ndidbjppgjbcmhnjmoeddbmjpgnpdlod" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 20px 24px; transition: border-color .18s;">
+            <div>
+              <div style="font-size: 17px; color: #191C22; font-weight: 500;">Browser Extension</div>
+              <div style="font-size: 13.5px; color: #696E78; margin-top: 4px;">Connect to any Solen dapp directly from your browser.</div>
             </div>
-            <h3>Run a Validator <span class="card-badge card-badge-violet">Advanced</span></h3>
-            <p>Operate a Solen node, sign blocks, and earn the full validator share of rewards plus delegator commission. Highest yield potential, highest commitment.</p>
-          </div>
-          <div class="validator-card-right">
-            <div class="validator-stats">
-              <div>
-                <span class="validator-stat-value">500,000 SOLEN</span>
-                <span class="validator-stat-label">minimum self-stake</span>
-              </div>
-              <div>
-                <span class="validator-stat-value">10%</span>
-                <span class="validator-stat-label">default commission (configurable)</span>
-              </div>
-              <div>
-                <span class="validator-stat-value">24/7</span>
-                <span class="validator-stat-label">node uptime expected</span>
-              </div>
-              <div>
-                <span class="validator-stat-value">Slashing risk</span>
-                <span class="validator-stat-label">10% double-sign · 1% downtime · 5% bad state root</span>
-              </div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #767B85; text-align: right; flex-shrink: 0;">Chrome</div>
+          </a>
+          <a class="wallet-card" href="solen-wallet.apk" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 20px 24px; transition: border-color .18s;">
+            <div>
+              <div style="font-size: 17px; color: #191C22; font-weight: 500;">Mobile</div>
+              <div style="font-size: 13.5px; color: #696E78; margin-top: 4px;">Approve dapp connections on the go with biometric unlock.</div>
             </div>
-            <ul class="feature-list">
-              <li>Earn validator + commission share of rewards</li>
-              <li>Set your own commission rate (in basis points)</li>
-              <li>Run on commodity hardware &mdash; small Linux box, decent network</li>
-              <li>Full setup + ops guide in the docs</li>
-            </ul>
-            <p class="card-note">Best for operators with the SOLEN to self-stake, the ops appetite to keep a node up around the clock, and the willingness to take on slashing risk for the highest yield.</p>
-            <a href="https://docs.solenchain.io/tools/running-a-node/" class="link" target="_blank" rel="noopener">Validator setup guide &rarr;</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ECOSYSTEM -->
-  <section class="section" id="ecosystem">
-    <div class="container">
-      <h2 class="section-title">Ecosystem</h2>
-      <p class="section-sub">Tools and infrastructure to build on Solen from day one.</p>
-      <div class="grid grid-2">
-        <div class="eco-card">
-          <div class="card-icon eco-icon-pool">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.531 12.469 6.619 20.38a1 1 0 1 1-3-3l7.912-7.912"/><path d="M15.686 4.314A12.5 12.5 0 0 0 5.461 2.958 1 1 0 0 0 5.58 4.71a22 22 0 0 1 6.318 3.393"/><path d="M17.689 6.317a12.5 12.5 0 0 1 1.357 10.225 1 1 0 0 1-1.751-.119 22 22 0 0 0-3.393-6.319"/></svg>
-          </div>
-          <h3>Mining Pool</h3>
-          <p>Point Scrypt hashrate at the pool and earn SOLEN. Solen is proof-of-stake, so this is <em>pseudo-mining</em> &mdash; your proof-of-work qualifies you for a SOLEN distribution proportional to the work you contribute, paid out automatically.</p>
-          <a href="https://pool.solenchain.io" class="link" target="_blank" rel="noopener">pool.solenchain.io &rarr;</a>
-        </div>
-        <div class="eco-card">
-          <div class="card-icon eco-icon-bridge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="4" cy="14" r="2.4" fill="currentColor" stroke="none"/><circle cx="20" cy="14" r="2.4" fill="currentColor" stroke="none"/><path d="M6.4 14 Q 12 4 17.6 14" stroke-linecap="round"/><circle class="bridge-dot" cx="0" cy="0" r="1.6" fill="currentColor" stroke="none"/></svg>
-          </div>
-          <h3>Cross-chain Bridge</h3>
-          <p>Move SOLEN between the Solen network and Base with a one-click, non-custodial bridge.</p>
-          <a href="bridge.html" class="link">Open Bridge &rarr;</a>
-        </div>
-        <div class="eco-card">
-          <div class="card-icon eco-icon-launch">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path class="rocket" d="M12 2c2.5 2.5 4 5.5 4 9v6h-8v-6c0-3.5 1.5-6.5 4-9z" fill="currentColor" stroke="none"/><path class="rocket" d="M8 13l-3 4h3z" fill="currentColor" stroke="none"/><path class="rocket" d="M16 13l3 4h-3z" fill="currentColor" stroke="none"/><circle cx="12" cy="9" r="1.2" fill="rgba(17,20,27,1)" stroke="none"/><path class="flame" d="M10 17l2 5 2-5z" fill="currentColor" stroke="none"/></svg>
-          </div>
-          <h3>Launchpad</h3>
-          <p>Fair-launch memecoins on a pump.fun-style bonding curve. Fixed supply, permanently-burned LP at graduation.</p>
-          <a href="https://launchpad.solenchain.io" class="link" target="_blank" rel="noopener">launchpad.solenchain.io &rarr;</a>
-        </div>
-        <div class="eco-card">
-          <div class="card-icon eco-icon-swap">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path class="swap-top" d="M4 9h14m-3-3 3 3-3 3"/><path class="swap-bot" d="M20 15H6m3-3-3 3 3 3"/></svg>
-          </div>
-          <h3>SolenSwap</h3>
-          <p>Constant-product AMM for SOLEN and graduated launchpad tokens. 0.3% pool fee, no routing.</p>
-          <a href="https://solenswap.io" class="link" target="_blank" rel="noopener">solenswap.io &rarr;</a>
-        </div>
-        <div class="eco-card">
-          <div class="card-icon eco-icon-explorer">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/><rect x="16" y="9" width="6" height="6" rx="1"/><circle class="lens-ring" cx="12" cy="12" r="3.4"/><line class="lens-handle" x1="14.4" y1="14.4" x2="17" y2="17" stroke-linecap="round"/></svg>
-          </div>
-          <h3>Block Explorer</h3>
-          <p>Browse blocks, transactions, accounts, and rollup commitments on the Solen network.</p>
-          <a href="https://solenscan.io" class="link" target="_blank" rel="noopener">solenscan.io &rarr;</a>
-        </div>
-        <div class="eco-card">
-          <div class="card-icon eco-icon-status">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12" opacity=".18"/><path class="ekg-path" pathLength="100" d="M2 12 H 7 L 9 6 L 11 18 L 13 9 L 15 12 H 22"/></svg>
-          </div>
-          <h3>Network Status</h3>
-          <p>Live network health: validator set, finality time, current TPS, and uptime — at a glance.</p>
-          <a href="https://solenscan.io/stats" class="link" target="_blank" rel="noopener">solenscan.io/stats &rarr;</a>
-        </div>
-        <div class="eco-card">
-          <div class="card-icon eco-icon-rpc">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="7" width="8" height="10" rx="1.5"/><line x1="10" y1="10" x2="14" y2="10" stroke-linecap="round" opacity=".5"/><line x1="10" y1="12" x2="14" y2="12" stroke-linecap="round"/><line x1="10" y1="14" x2="13" y2="14" stroke-linecap="round" opacity=".5"/><circle class="rpc-pkt rpc-pkt-1" cx="3" cy="12" r="1" fill="currentColor" stroke="none"/><circle class="rpc-pkt rpc-pkt-2" cx="3" cy="12" r="1" fill="currentColor" stroke="none"/></svg>
-          </div>
-          <h3>Public RPC</h3>
-          <p>JSON-RPC endpoint for transaction broadcast, state queries, and event subscriptions. No API key required.</p>
-          <a href="https://rpc.solenchain.io" class="link" target="_blank" rel="noopener">rpc.solenchain.io &rarr;</a>
-        </div>
-        <div class="eco-card">
-          <div class="card-icon eco-icon-docs">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M15 3v4h4"/><line class="doc-line line-1" pathLength="100" x1="8"  y1="11" x2="16" y2="11" stroke-linecap="round"/><line class="doc-line line-2" pathLength="100" x1="8"  y1="14" x2="16" y2="14" stroke-linecap="round"/><line class="doc-line line-3" pathLength="100" x1="8"  y1="17" x2="13" y2="17" stroke-linecap="round"/></svg>
-          </div>
-          <h3>Documentation</h3>
-          <p>Architecture deep-dives, smart-account guides, RPC reference, validator setup, and tokenomics — the canonical reference for builders.</p>
-          <a href="https://docs.solenchain.io" class="link" target="_blank" rel="noopener">docs.solenchain.io &rarr;</a>
-        </div>
-        <div class="eco-card">
-          <div class="card-icon eco-icon-sdk">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path class="brace brace-l" d="M8 5l-5 7 5 7"/><path class="brace brace-r" d="M16 5l5 7-5 7"/><line class="sdk-cursor" x1="11.5" y1="9" x2="11.5" y2="15" stroke-width="2.2"/></svg>
-          </div>
-          <h3>Wallet SDK</h3>
-          <p>TypeScript SDK for smart account creation, operation signing, and intent submission.</p>
-          <a href="https://docs.solenchain.io/tools/typescript-sdk/" class="link" target="_blank" rel="noopener">View Documentation &rarr;</a>
-        </div>
-        <div class="eco-card">
-          <div class="card-icon eco-icon-devnet">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3"   width="18" height="5" rx="1"/><rect x="3" y="9.5" width="18" height="5" rx="1"/><rect x="3" y="16"  width="18" height="5" rx="1"/><circle class="led led-1" cx="6"  cy="5.5"  r=".75" fill="currentColor" stroke="none"/><circle class="led led-2" cx="6"  cy="12"   r=".75" fill="currentColor" stroke="none"/><circle class="led led-3" cx="6"  cy="18.5" r=".75" fill="currentColor" stroke="none"/></svg>
-          </div>
-          <h3>Devnet</h3>
-          <p>Spin up a local Solen network in seconds for development and testing.</p>
-          <a href="https://docs.solenchain.io/tools/running-a-node/#quick-start" class="link" target="_blank" rel="noopener">Get Started &rarr;</a>
-        </div>
-        <div class="eco-card">
-          <div class="card-icon eco-icon-rollupkit">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect class="mod mod-3" x="4"  y="15"  width="16" height="4" rx="1"/><rect class="mod mod-2" x="6"  y="9.5" width="12" height="4" rx="1"/><rect class="mod mod-1" x="8"  y="4"   width="8"  height="4" rx="1"/></svg>
-          </div>
-          <h3>Rollup Kit</h3>
-          <p>Framework for deploying execution domains that settle to Solen with built-in bridging.</p>
-          <a href="https://docs.solenchain.io/architecture/rollups/" class="link" target="_blank" rel="noopener">Learn More &rarr;</a>
-        </div>
-      </div>
-
-      <div class="exchanges" id="exchanges" style="margin-top: 48px;">
-        <h3 class="token-section-title">Exchanges</h3>
-        <p class="wallet-sub" style="text-align:center;">Trade SOLEN on supported exchanges.</p>
-        <div class="wallet-buttons" style="justify-content:center;">
-          <a href="https://app.uniswap.org/explore/tokens/base/0x14c84e576eddb3e24b3da3659843b585285f9fd9?inputCurrency=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913" class="wallet-btn" target="_blank" rel="noopener" style="min-width:180px;">
-            <img src="uniswap-logo.png" alt="Uniswap" style="width:24px;height:24px;border-radius:50%;">
-            <span>Uniswap (Base)</span>
-          </a>
-          <a href="https://qutrade.io/en/?market=solen_usdt" class="wallet-btn" target="_blank" rel="noopener" style="min-width:180px;">
-            <img src="qutrade-logo.png" alt="Qutrade" style="width:24px;height:24px;border-radius:50%;">
-            <span>Qutrade</span>
-          </a>
-          <a href="https://cratex.io/exchange.php?pair=SOLEN/USDT" class="wallet-btn" target="_blank" rel="noopener" style="min-width:180px;">
-            <img src="cratex-logo.png" alt="Cratex" style="width:24px;height:24px;border-radius:50%;">
-            <span>Cratex</span>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #767B85; text-align: right; flex-shrink: 0;">Android (APK) · iOS soon</div>
           </a>
         </div>
       </div>
+      <div style="border: 1px solid rgba(0,0,0,0.11); border-radius: 16px; background: linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.03)); padding: 30px;">
+        <div style="font-size: 12.5px; letter-spacing: 0.14em; color: var(--accent, #F5920F); font-family: 'IBM Plex Mono', monospace; margin-bottom: 16px;">WHITEPAPER</div>
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 24px; line-height: 1.2; color: #191C22;">Toward an Internet-Native Settlement Ecosystem</div>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #5C626C; margin: 14px 0 20px;">The technical design behind Solen's modular settlement architecture — native rollups, programmable accounts, bounded privacy, and intent-aware execution.</p>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <a href="Solen_Whitepaper.pdf" style="display: inline-flex; align-items: center; justify-content: center; font-size: 14.5px; font-weight: 600; padding: 12px 20px; border-radius: 10px; background: var(--accent, #F5920F); color: #0A0C10;">Download Whitepaper (PDF)</a>
+          <a href="Solen_Investor_Briefing.pdf" style="display: inline-flex; align-items: center; justify-content: center; font-size: 14.5px; font-weight: 500; padding: 12px 20px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.18); color: #20242B;">Investor Briefing (PDF)</a>
+        </div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #9AA0A8; margin-top: 16px; text-align: center;">Version 0.1 · March 2026 · 7 pages</div>
+      </div>
+    </div>
+  </section>
 
-      <div class="wallet-download" id="downloads">
-        <h3 class="token-section-title">Download Solen Wallet</h3>
-        <p class="wallet-sub">One wallet for every Solen surface — desktop, browser, and mobile.</p>
-        <div class="wallet-platforms">
-
-          <div class="wallet-platform">
-            <h4 class="wallet-platform-title">Desktop</h4>
-            <p class="wallet-platform-desc">Full wallet with smart accounts, passkey auth, and built-in staking.</p>
-            <div class="wallet-buttons">
-              <a href="https://github.com/Solen-Blockchain/solenwallet/releases/latest" class="wallet-btn" target="_blank" rel="noopener">
-                <img src="windows-logo.svg" alt="" aria-hidden="true">
-                <span>Windows</span>
-              </a>
-              <a href="https://github.com/Solen-Blockchain/solenwallet/releases/latest" class="wallet-btn" target="_blank" rel="noopener">
-                <img src="apple-logo.svg" alt="" aria-hidden="true">
-                <span>macOS</span>
-              </a>
-              <a href="https://github.com/Solen-Blockchain/solenwallet/releases/latest" class="wallet-btn" target="_blank" rel="noopener">
-                <img src="linux-logo.svg" alt="" aria-hidden="true">
-                <span>Linux</span>
-              </a>
+  <!-- ===== TEAM ===== -->
+  <section id="team" style="background: #EFECE4; border-top: 1px solid rgba(0,0,0,0.08);">
+    <div class="dc-px" style="max-width: 1240px; margin: 0 auto; padding: 96px 40px;">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 44px;">
+        <div style="max-width: 620px;">
+          <div style="font-size: 12.5px; letter-spacing: 0.14em; color: var(--accent, #F5920F); font-family: 'IBM Plex Mono', monospace; margin-bottom: 16px;">TEAM</div>
+          <h2 class="dc-h2" style="font-family: var(--head, 'Newsreader'), serif; font-weight: 500; font-size: 42px; line-height: 1.1; letter-spacing: -0.01em; margin: 0; color: #191C22;">A small team, focused on shipping.</h2>
+        </div>
+        <a href="#community" style="font-size: 14.5px; color: var(--accent, #F5920F);">We're hiring — get in touch →</a>
+      </div>
+      <div class="dc-2col" style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 16px; align-items: stretch;">
+        <!-- Featured: Porter, primary contact -->
+        <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 16px; background: #FFFFFF; padding: 30px; display: flex; gap: 26px; align-items: center; flex-wrap: wrap;">
+          <div style="width: 132px; height: 132px; border-radius: 16px; overflow: hidden; flex-shrink: 0; background: color-mix(in oklab, var(--accent, #F5920F) 14%, #FFFFFF); border: 1px solid rgba(0,0,0,0.08);">
+            <img src="porter.jpg" alt="Porter" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+          <div>
+            <div style="display: inline-flex; align-items: center; gap: 7px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent, #F5920F); border: 1px solid color-mix(in oklab, var(--accent, #F5920F) 40%, transparent); padding: 4px 10px; border-radius: 999px; margin-bottom: 14px;">PRIMARY CONTACT</div>
+            <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 30px; color: #191C22; line-height: 1;">Porter Stovall</div>
+            <div style="font-size: 14px; color: #767B85; margin-top: 5px;">CEO &amp; Founder</div>
+            <p style="font-size: 14px; line-height: 1.55; color: #5C626C; margin: 14px 0 18px; max-width: 340px;">For partnerships, investment, and press — reach Porter directly.</p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <a href="https://www.linkedin.com/in/porter-stovall-983b41404" style="display: inline-flex; align-items: center; font-size: 13.5px; font-weight: 500; padding: 9px 16px; border-radius: 9px; background: var(--accent, #F5920F); color: #FFFFFF;">LinkedIn</a>
+              <a href="https://t.me/porter_solen" style="display: inline-flex; align-items: center; font-size: 13.5px; font-weight: 500; padding: 9px 16px; border-radius: 9px; border: 1px solid rgba(0,0,0,0.16); color: #20242B;">Telegram</a>
+              <a href="https://t.me/solenblockchain" style="display: inline-flex; align-items: center; font-size: 13.5px; font-weight: 500; padding: 9px 16px; border-radius: 9px; border: 1px solid rgba(0,0,0,0.16); color: #20242B;">Contact team</a>
             </div>
           </div>
-
-          <div class="wallet-platform">
-            <h4 class="wallet-platform-title">Browser Extension</h4>
-            <p class="wallet-platform-desc">Connect to any Solen dapp directly from your browser.</p>
-            <div class="wallet-buttons">
-              <a href="https://chromewebstore.google.com/detail/solen-wallet/ndidbjppgjbcmhnjmoeddbmjpgnpdlod" class="wallet-btn" target="_blank" rel="noopener">
-                <img src="chrome-logo.svg" alt="" aria-hidden="true">
-                <span>Chrome</span>
-              </a>
+        </div>
+        <!-- Other members -->
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="flex: 1; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 20px 22px; display: flex; align-items: center; gap: 15px;">
+            <div style="width: 46px; height: 46px; border-radius: 50%; background: color-mix(in oklab, var(--accent, #F5920F) 16%, #FFFFFF); display: flex; align-items: center; justify-content: center; font-family: var(--head, 'Newsreader'), serif; font-size: 19px; color: var(--accent, #F5920F); flex-shrink: 0;">P</div>
+            <div style="flex: 1;">
+              <div style="font-size: 16px; color: #191C22; font-weight: 500;">Pierre</div>
+              <div style="font-size: 13px; color: #767B85; margin-top: 2px;">VP Engineering</div>
+            </div>
+            <a href="https://t.me/DevSolen" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent, #F5920F); white-space: nowrap;">Telegram &#8594;</a>
+          </div>
+          <div style="flex: 1; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 20px 22px; display: flex; align-items: center; gap: 15px;">
+            <div style="width: 46px; height: 46px; border-radius: 50%; background: color-mix(in oklab, var(--accent, #F5920F) 16%, #FFFFFF); display: flex; align-items: center; justify-content: center; font-family: var(--head, 'Newsreader'), serif; font-size: 19px; color: var(--accent, #F5920F); flex-shrink: 0;">D</div>
+            <div style="flex: 1;">
+              <div style="font-size: 16px; color: #191C22; font-weight: 500;">David</div>
+              <div style="font-size: 13px; color: #767B85; margin-top: 2px;">VP Business Planning</div>
             </div>
           </div>
-
-          <div class="wallet-platform">
-            <h4 class="wallet-platform-title">Mobile</h4>
-            <p class="wallet-platform-desc">Approve dapp connections on the go with biometric unlock.</p>
-            <div class="wallet-buttons">
-              <a href="solen-wallet.apk" class="wallet-btn" download>
-                <img src="android-logo.svg" alt="" aria-hidden="true">
-                <span>Android (APK)</span>
-              </a>
-              <span class="wallet-btn wallet-btn-soon" aria-disabled="true">
-                <img src="apple-logo.svg" alt="" aria-hidden="true">
-                <span>iOS · coming soon</span>
-              </span>
+          <div style="flex: 1; border: 1px solid rgba(0,0,0,0.10); border-radius: 14px; background: #FFFFFF; padding: 20px 22px; display: flex; align-items: center; gap: 15px;">
+            <div style="width: 46px; height: 46px; border-radius: 50%; background: color-mix(in oklab, var(--accent, #F5920F) 16%, #FFFFFF); display: flex; align-items: center; justify-content: center; font-family: var(--head, 'Newsreader'), serif; font-size: 19px; color: var(--accent, #F5920F); flex-shrink: 0;">A</div>
+            <div style="flex: 1;">
+              <div style="font-size: 16px; color: #191C22; font-weight: 500;">Ann</div>
+              <div style="font-size: 13px; color: #767B85; margin-top: 2px;">VP Business Development</div>
             </div>
           </div>
-
-        </div>
-        <a href="https://github.com/Solen-Blockchain/solenwallet" class="wallet-source-link" target="_blank" rel="noopener">
-          <img src="github-logo.svg" alt="" aria-hidden="true">
-          <span>View source on GitHub</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- GAMES — real-stake dapps live on Solen mainnet -->
-  <section class="section section-dark" id="games">
-    <div class="container">
-      <h2 class="section-title">Games on Solen</h2>
-      <p class="section-sub">Real-stake games settling natively on the Solen mainnet — provably fair, audited on-chain, and playable with the Solen Wallet.</p>
-      <div class="grid grid-3">
-        <div class="eco-card">
-          <div class="card-icon eco-icon-bit21">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
-              <rect x="6" y="3" width="11" height="16" rx="1.6" fill="rgba(245,166,35,0.08)"/>
-              <rect x="8.5" y="5.5" width="11" height="16" rx="1.6" fill="rgba(245,166,35,0.18)"/>
-              <text x="14" y="16" fill="currentColor" stroke="none" font-family="ui-monospace, monospace" font-weight="800" font-size="7" text-anchor="middle">21</text>
-            </svg>
-          </div>
-          <h3>bit21 — Blackjack</h3>
-          <p>Provably-fair multi-player Blackjack. 5 seats per table, 5-deck shoe re-shuffled every round, SOLEN-denominated bets. Hit / stand / double, dealer stands on 17.</p>
-          <a href="https://bit21.com" class="link" target="_blank" rel="noopener">bit21.com &rarr;</a>
-        </div>
-        <div class="eco-card">
-          <div class="card-icon eco-icon-poker">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="12" cy="12" r="9" fill="rgba(77,212,224,0.10)"/>
-              <circle cx="12" cy="12" r="9"/>
-              <circle cx="12" cy="12" r="5" stroke-dasharray="2 1.6" opacity="0.55"/>
-              <circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/>
-            </svg>
-          </div>
-          <h3>SolenPoker — No-Limit Hold'em</h3>
-          <p>6-max NLHE with commit-reveal shuffle. Table buy-in / cash-out trust model so per-hand action stays snappy while every shuffle is fully auditable post-game.</p>
-          <a href="https://solenpoker.com" class="link" target="_blank" rel="noopener">solenpoker.com &rarr;</a>
-        </div>
-        <div class="eco-card">
-          <div class="card-icon eco-icon-cipher">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-              <rect x="3" y="9" width="3.6" height="6" rx="0.6" fill="rgba(168,85,247,0.18)"/>
-              <rect x="7.6" y="9" width="3.6" height="6" rx="0.6" fill="rgba(168,85,247,0.08)"/>
-              <rect x="12.2" y="9" width="3.6" height="6" rx="0.6" fill="rgba(168,85,247,0.18)"/>
-              <rect x="16.8" y="9" width="3.6" height="6" rx="0.6" fill="rgba(168,85,247,0.08)"/>
-              <text x="4.8" y="13.5" fill="currentColor" stroke="none" font-family="ui-monospace, monospace" font-weight="800" font-size="4.4" text-anchor="middle">X</text>
-              <text x="9.4" y="13.5" fill="currentColor" stroke="none" font-family="ui-monospace, monospace" font-weight="800" font-size="4.4" text-anchor="middle">?</text>
-              <text x="14" y="13.5" fill="currentColor" stroke="none" font-family="ui-monospace, monospace" font-weight="800" font-size="4.4" text-anchor="middle">Z</text>
-              <text x="18.6" y="13.5" fill="currentColor" stroke="none" font-family="ui-monospace, monospace" font-weight="800" font-size="4.4" text-anchor="middle">?</text>
-            </svg>
-          </div>
-          <h3>SolenQuest — Cipher Race</h3>
-          <p>One global cryptogram at a time. Every wrong guess feeds the pot; first to decode it wins. New round on every solve, hourly subsidy keeps the prize growing.</p>
-          <a href="https://solenquest.com" class="link" target="_blank" rel="noopener">solenquest.com &rarr;</a>
         </div>
       </div>
     </div>
   </section>
 
-  <div style="display:none"><!-- SOLENDEX SHOWCASE (hidden until ready) -->
-  <section class="section section-dark" id="solendex">
-    <div class="container">
-      <h2 class="section-title">SolenDEX</h2>
-      <p class="section-sub">A proof-of-concept L2 rollup order book DEX demonstrating Solen's native rollup settlement. Transactions are batched on L2 and committed to L1 with fraud proof verification.</p>
-      <div class="dex-showcase">
-        <img src="solendex.png" alt="SolenDEX — L2 Rollup Order Book DEX" class="dex-screenshot" loading="lazy">
-        <div class="dex-features">
-          <div class="dex-feature">
-            <strong>L2 Rollup</strong>
-            <span>Optimistic rollup with deterministic state replay and fraud proof challenger</span>
-          </div>
-          <div class="dex-feature">
-            <strong>Order Book</strong>
-            <span>Central limit order book with price-time priority matching, limit &amp; market orders</span>
-          </div>
-          <div class="dex-feature">
-            <strong>L1 Settlement</strong>
-            <span>Periodic batch commitments to Solen L1 with state root verification</span>
-          </div>
-          <div class="dex-feature">
-            <strong>Bridge</strong>
-            <span>Automatic deposit detection from L1 and withdrawal settlement back to L1</span>
-          </div>
-        </div>
-        <div class="dex-actions">
-          <a href="https://solendex.io" class="btn btn-primary" target="_blank" rel="noopener">View it in Action</a>
-          <a href="https://github.com/Solen-Blockchain/solendex" class="btn btn-outline" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="margin-right:6px;"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-            View Source Code
-          </a>
+  <!-- ===== COMMUNITY ===== -->
+  <section id="community" style="background: #EFECE4; border-top: 1px solid rgba(0,0,0,0.08);">
+    <div class="dc-px dc-2col" style="max-width: 1240px; margin: 0 auto; padding: 88px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+      <div>
+        <div style="font-size: 12.5px; letter-spacing: 0.14em; color: var(--accent, #F5920F); font-family: 'IBM Plex Mono', monospace; margin-bottom: 16px;">COMMUNITY</div>
+        <h2 class="dc-h2" style="font-family: var(--head, 'Newsreader'), serif; font-weight: 500; font-size: 36px; line-height: 1.1; letter-spacing: -0.01em; margin: 0 0 22px; color: #191C22;">Join the builders shaping Solen.</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+          <a class="social-pill" href="https://x.com/solenchain" style="font-size: 14px; padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.14); color: #3A3F47; transition: border-color .18s;">X (Twitter)</a>
+          <a class="social-pill" href="https://discord.com/invite/QGxv8bebJc" style="font-size: 14px; padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.14); color: #3A3F47; transition: border-color .18s;">Discord</a>
+          <a class="social-pill" href="https://t.me/solenblockchain" style="font-size: 14px; padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.14); color: #3A3F47; transition: border-color .18s;">Telegram</a>
+          <a class="social-pill" href="https://github.com/Solen-Blockchain" style="font-size: 14px; padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.14); color: #3A3F47; transition: border-color .18s;">GitHub</a>
+          <a class="social-pill" href="https://www.youtube.com/@solenchain" style="font-size: 14px; padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.14); color: #3A3F47; transition: border-color .18s;">YouTube</a>
         </div>
       </div>
-    </div>
-  </section>
-  </div><!-- END SOLENDEX -->
-
-  <!-- COMMUNITY -->
-  <section class="section section-dark" id="community">
-    <div class="container community-section">
-      <h2 class="section-title">Join the Community</h2>
-      <p class="section-sub">Connect with builders, validators, and contributors shaping the future of Solen.</p>
-      <div class="social-links">
-        <a href="https://x.com/solenchain" class="social-card" target="_blank" rel="noopener">
-          <img src="x-logo.svg" alt="" aria-hidden="true">
-          <span>X (Twitter)</span>
-        </a>
-        <a href="https://discord.com/invite/QGxv8bebJc" class="social-card" target="_blank" rel="noopener">
-          <img src="discord-logo.svg" alt="" aria-hidden="true">
-          <span>Discord</span>
-        </a>
-        <a href="https://t.me/solenblockchain" class="social-card" target="_blank" rel="noopener">
-          <img src="telegram-logo.svg" alt="" aria-hidden="true">
-          <span>Telegram</span>
-        </a>
-        <a href="https://github.com/Solen-Blockchain" class="social-card" target="_blank" rel="noopener">
-          <img src="github-logo.svg" alt="" aria-hidden="true">
-          <span>GitHub</span>
-        </a>
-        <a href="https://www.youtube.com/@solenchain" class="social-card" target="_blank" rel="noopener">
-          <img src="youtube-logo.svg" alt="" aria-hidden="true">
-          <span>YouTube</span>
-        </a>
+      <div style="border: 1px solid rgba(0,0,0,0.10); border-radius: 16px; background: #FFFFFF; padding: 30px;">
+        <div style="font-family: var(--head, 'Newsreader'), serif; font-size: 22px; color: #191C22;">Stay in the loop</div>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #5C626C; margin: 10px 0 20px;">Mainnet drops, allocation rounds, exchange listings, and ecosystem launches. Low volume, no spam.</p>
+        <form style="display: flex; gap: 10px;" onsubmit="return false;">
+          <input type="email" placeholder="you@email.com" style="flex: 1; min-width: 0; background: #ECE8DF; border: 1px solid rgba(0,0,0,0.14); border-radius: 10px; padding: 12px 14px; color: #20242B; font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; outline: none;">
+          <button type="submit" style="font-size: 14px; font-weight: 600; padding: 12px 22px; border-radius: 10px; background: var(--accent, #F5920F); color: #0A0C10; border: none; cursor: pointer; white-space: nowrap;">Subscribe</button>
+        </form>
       </div>
     </div>
   </section>
 
-  <!-- MAILING LIST -->
-  <section class="mailing" id="mailing">
-    <div class="container mailing-inner">
-      <div class="mailing-copy">
-        <h2 class="mailing-title">Stay in the loop</h2>
-        <p class="mailing-sub">Get a heads-up on new mainnet drops, allocation rounds, exchange listings, and ecosystem launches. Low volume, no spam.</p>
+  <!-- ===== FINAL CTA ===== -->
+  <section id="invest" class="dc-px" style="max-width: 1240px; margin: 0 auto; padding: 100px 40px;">
+    <div style="position: relative; border: 1px solid rgba(0,0,0,0.10); border-radius: 22px; background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.03)); padding: 64px 48px; text-align: center; overflow: hidden;">
+      <div style="position: absolute; bottom: -120px; left: 50%; transform: translateX(-50%); width: 700px; height: 340px; max-width: 100%; background: radial-gradient(50% 50% at 50% 50%, color-mix(in oklab, var(--accent, #F5920F) 22%, transparent), transparent 70%); filter: blur(24px); pointer-events: none;"></div>
+      <div style="position: relative;">
+        <img src="solenlogo.png" alt="Solen" style="width: 54px; height: 54px; object-fit: contain; animation: solenFloat 5s ease-in-out infinite;">
+        <h2 class="dc-h2" style="font-family: var(--head, 'Newsreader'), serif; font-weight: 500; font-size: 46px; line-height: 1.08; letter-spacing: -0.015em; margin: 22px 0 0; color: #191C22;">Back the settlement layer<br>for a modular world.</h2>
+        <p style="max-width: 500px; margin: 18px auto 0; font-size: 17px; line-height: 1.6; color: #5C626C;">Read the investor briefing, explore the network live, or join the community shaping Solen.</p>
+        <div style="display: flex; gap: 13px; justify-content: center; margin-top: 32px; flex-wrap: wrap;">
+          <a href="Solen_Investor_Briefing.pdf" style="font-size: 15px; font-weight: 600; padding: 13px 26px; border-radius: 10px; background: var(--accent, #F5920F); color: #0A0C10;">Read the Investor Briefing</a>
+          <a href="https://solenscan.io" style="font-size: 15px; font-weight: 500; padding: 13px 26px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.18); color: #20242B;">View the network live</a>
+        </div>
       </div>
-      <form class="mailing-form" id="mailingForm" autocomplete="off">
-        <input type="email" id="mailingEmail" class="mailing-input"
-               placeholder="you@email.com"
-               autocomplete="email" required>
-        <button type="submit" class="mailing-btn" id="mailingBtn">Subscribe</button>
-        <div class="mailing-feedback" id="mailingFeedback"></div>
-      </form>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <img src="solenlogo.png" alt="Solen" class="footer-logo">
-        <span>Solen</span>
+  <!-- ===== FOOTER ===== -->
+  <footer style="border-top: 1px solid rgba(0,0,0,0.09);">
+    <div class="dc-px" style="max-width: 1240px; margin: 0 auto; padding: 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: 11px;">
+        <img src="solenlogo.png" alt="Solen" style="width: 26px; height: 26px; object-fit: contain;">
+        <span style="font-size: 16px; font-weight: 600;">Solen</span>
+        <span style="font-size: 13px; color: #9AA0A8; margin-left: 8px;">© 2026 Solen Foundation</span>
       </div>
-      <div class="footer-links">
-        <a href="https://docs.solenchain.io" target="_blank" rel="noopener">Docs</a>
-        <a href="https://solenscan.io" target="_blank" rel="noopener">Explorer</a>
-        <a href="https://github.com/Solen-Blockchain" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://x.com/solenchain" target="_blank" rel="noopener">X</a>
-        <a href="https://discord.com/invite/QGxv8bebJc" target="_blank" rel="noopener">Discord</a>
-        <a href="https://t.me/solenblockchain" target="_blank" rel="noopener">Telegram</a>
-        <a href="https://www.youtube.com/@solenchain" target="_blank" rel="noopener">YouTube</a>
-        <a href="privacy.html">Privacy Policy</a>
+      <div style="display: flex; gap: 24px; font-size: 14px; color: #767B85; flex-wrap: wrap;">
+        <a href="https://docs.solenchain.io">Docs</a>
+        <a href="https://solenscan.io">Explorer</a>
+        <a href="https://github.com/Solen-Blockchain">GitHub</a>
+        <a href="https://x.com/solenchain">X</a>
+        <a href="https://discord.com/invite/QGxv8bebJc">Discord</a>
+        <a href="privacy.html">Privacy</a>
       </div>
-      <p class="footer-copy">&copy; 2026 Solen Foundation. All rights reserved.</p>
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"></script>
-  <script>
-    const toggle = document.getElementById('navToggle');
-    const links = document.getElementById('navLinks');
-    toggle.addEventListener('click', () => {
-      links.classList.toggle('open');
-      toggle.classList.toggle('open');
-    });
-    document.querySelectorAll('.nav-links a').forEach(a => {
-      a.addEventListener('click', () => {
-        links.classList.remove('open');
-        toggle.classList.remove('open');
-      });
-    });
-    // Sticky nav background
-    window.addEventListener('scroll', () => {
-      document.querySelector('.nav').classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    // Tab switching
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabPanels = document.querySelectorAll('.tab-panel');
-    const tabIds = Array.from(tabBtns).map(b => b.dataset.tab);
-
-    function activateTab(name, opts = {}) {
-      if (!tabIds.includes(name)) return false;
-      tabBtns.forEach(b => {
-        const on = b.dataset.tab === name;
-        b.classList.toggle('active', on);
-        b.setAttribute('aria-selected', on ? 'true' : 'false');
-      });
-      tabPanels.forEach(p => {
-        p.classList.toggle('active', p.id === 'tab-' + name);
-      });
-      if (opts.scroll) {
-        const sticky = document.querySelector('.tab-bar-wrap');
-        const target = document.getElementById('learn');
-        if (target && sticky) {
-          const navH = document.querySelector('.nav').offsetHeight;
-          const y = target.getBoundingClientRect().top + window.scrollY - navH;
-          window.scrollTo({ top: y, behavior: 'smooth' });
-        }
-      }
-      return true;
-    }
-
-    tabBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const name = btn.dataset.tab;
-        activateTab(name);
-        history.replaceState(null, '', '#' + name);
-      });
-    });
-
-    // Hijack nav/dropdown anchors that point to a tab — switch tab + scroll to bar
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      const hash = a.getAttribute('href').slice(1);
-      if (tabIds.includes(hash)) {
-        a.addEventListener('click', e => {
-          e.preventDefault();
-          activateTab(hash, { scroll: true });
-          history.replaceState(null, '', '#' + hash);
-        });
-      }
-    });
-
-    // Initial deep-link
-    const initial = location.hash.slice(1);
-    if (initial && tabIds.includes(initial)) {
-      activateTab(initial);
-    }
-    window.addEventListener('hashchange', () => {
-      const h = location.hash.slice(1);
-      if (tabIds.includes(h)) activateTab(h);
-    });
-
-  </script>
-
-  <!-- Community Allocation Round — banner logic -->
-  <script>
-    (function () {
-      const PRESALE_API = "https://presale.solenchain.io/api/presale";
-      const PRICE = 0.015;
-      const CAP = 250000;
-      const MIN = 50;
-      const LS_LAST = "solen-presale:last-order";
-
-      const $ = (id) => document.getElementById(id);
-      const formEl = $("allocationForm");
-      const destEl = $("allocationDestination");
-      const emailEl = $("allocationEmail");
-      const amtEl  = $("allocationAmount");
-      const cardBtn = $("payCardBtn");
-      const cryptoBtn = $("payCryptoBtn");
-      const errEl = $("allocationError");
-      const statusEl = $("allocationStatus");
-      const barEl  = $("allocationBarFill");
-      const progEl = $("allocationProgressText");
-      const quoteRow = $("quoteQty");
-      const quoteSolen = $("quoteSolen");
-
-      // Block default form submission (Enter in an input would otherwise
-      // try to GET the page itself with the form fields appended).
-      formEl.addEventListener("submit", (e) => e.preventDefault());
-
-      const fmtUsd = (n) => "$" + Number(n).toLocaleString("en-US", { maximumFractionDigits: 0 });
-      const fmtSolen = (n) => Number(n).toLocaleString("en-US", { maximumFractionDigits: 2 });
-
-      function setError(msg) {
-        if (!msg) { errEl.style.display = "none"; errEl.textContent = ""; return; }
-        errEl.textContent = msg;
-        errEl.style.display = "block";
-      }
-      function setStatus(html) {
-        if (!html) { statusEl.style.display = "none"; statusEl.innerHTML = ""; return; }
-        statusEl.innerHTML = html;
-        statusEl.style.display = "block";
-      }
-
-      function updateQuote() {
-        const usd = Number(amtEl.value);
-        if (!usd || usd <= 0) { quoteRow.style.display = "none"; return; }
-        quoteRow.style.display = "";
-        quoteSolen.textContent = fmtSolen(usd / PRICE);
-      }
-      amtEl.addEventListener("input", updateQuote);
-
-      async function refreshStats() {
-        try {
-          const r = await fetch(`${PRESALE_API}/stats`, { cache: "no-store" });
-          if (!r.ok) throw new Error(`stats ${r.status}`);
-          const j = await r.json();
-          const raised = j.raisedUsd ?? 0;
-          const pct = Math.min(100, (raised / CAP) * 100);
-          barEl.style.width = pct.toFixed(1) + "%";
-          progEl.innerHTML = `<strong>${fmtUsd(raised)}</strong> / ${fmtUsd(CAP)} raised · ${j.buyers ?? 0} buyer${(j.buyers ?? 0) === 1 ? "" : "s"}`;
-        } catch {
-          // Backend not reachable yet — leave the static placeholder text.
-        }
-      }
-      refreshStats();
-      setInterval(refreshStats, 30000);
-
-      function validate() {
-        setError("");
-        const dest = destEl.value.trim();
-        const email = emailEl.value.trim();
-        const usd = Number(amtEl.value);
-        if (!dest) { setError("Enter a destination address."); return null; }
-        const isEvm = /^0x[0-9a-fA-F]{40}$/.test(dest);
-        const isBase58 = /^[1-9A-HJ-NP-Za-km-z]{32,50}$/.test(dest);
-        if (!isEvm && !isBase58) {
-          setError("Address doesn't look like a Solen Base58 or a Base 0x address.");
-          return null;
-        }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          setError("Enter a valid email for the receipt + delivery confirmation.");
-          return null;
-        }
-        if (!usd || usd < MIN) { setError(`Minimum order is ${fmtUsd(MIN)}.`); return null; }
-        return { dest, usd, email };
-      }
-
-      async function createOrder(rail) {
-        const v = validate();
-        if (!v) return;
-        cardBtn.disabled = true; cryptoBtn.disabled = true;
-        try {
-          const res = await fetch(`${PRESALE_API}/order`, {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({ destination: v.dest, usdAmount: v.usd, rail, email: v.email }),
-          });
-          const j = await res.json();
-          if (!res.ok) {
-            setError(j.error === "cap_reached" ? "Cap reached — round is full."
-                  : j.error === "below_minimum" ? `Minimum order is ${fmtUsd(MIN)}.`
-                  : j.error === "bad_destination" ? "Address didn't validate server-side."
-                  : j.error === "email_required" ? "Enter a valid email for the receipt + delivery confirmation."
-                  : `Couldn't start order: ${j.detail || j.error || "unknown"}.`);
-            return;
-          }
-          const o = j.order;
-          localStorage.setItem(LS_LAST, JSON.stringify({ id: o.id, rail, t: Date.now() }));
-          // Same-tab redirect. The order id is in localStorage so when
-          // the buyer returns to solenchain.io after paying, the
-          // status panel rehydrates automatically.
-          window.location.href = o.redirectUrl;
-        } catch (e) {
-          setError("Network error talking to presale backend.");
-        } finally {
-          cardBtn.disabled = false; cryptoBtn.disabled = false;
-        }
-      }
-      cardBtn.addEventListener("click", () => createOrder("fiat"));
-      cryptoBtn.addEventListener("click", () => createOrder("crypto"));
-
-      function attachStatusPoll(orderId) {
-        let attempts = 0;
-        const poll = async () => {
-          attempts++;
-          try {
-            const r = await fetch(`${PRESALE_API}/order/${orderId}`, { cache: "no-store" });
-            const j = await r.json();
-            const o = j.order;
-            if (!o) return;
-            if (o.status === "distributed") {
-              setStatus(
-                `✓ <strong>Paid + delivered.</strong> ${fmtSolen(o.solenQty)} SOLEN sent to ` +
-                `<code>${o.destination.slice(0, 8)}…${o.destination.slice(-6)}</code>` +
-                (o.distributedTxid ? ` · tx <code>${o.distributedTxid.slice(0, 10)}…</code>` : ""),
-              );
-              refreshStats();
-              return;
-            }
-            if (o.status === "paid") {
-              setStatus(`Payment received. Sending ${fmtSolen(o.solenQty)} SOLEN…`);
-            }
-            if (attempts < 120) setTimeout(poll, 5000);
-          } catch {
-            if (attempts < 120) setTimeout(poll, 8000);
-          }
-        };
-        poll();
-      }
-
-      // Rehydrate the last order if we have one — handy if the user
-      // returns to the page after paying on paygate.
-      try {
-        const last = JSON.parse(localStorage.getItem(LS_LAST) || "null");
-        if (last && last.id && Date.now() - last.t < 24 * 3600 * 1000) {
-          attachStatusPoll(last.id);
-        }
-      } catch { /* ignore */ }
-    })();
-  </script>
-
-  <!-- Mailing list signup -->
-  <script>
-    (function () {
-      const API = "https://presale.solenchain.io/api/mailing-list/subscribe";
-      const form = document.getElementById("mailingForm");
-      const emailEl = document.getElementById("mailingEmail");
-      const btn = document.getElementById("mailingBtn");
-      const fb = document.getElementById("mailingFeedback");
-      if (!form) return;
-
-      function setFeedback(msg, kind) {
-        fb.className = "mailing-feedback" + (kind ? " " + kind : "");
-        fb.textContent = msg || "";
-      }
-
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const email = (emailEl.value || "").trim();
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          setFeedback("Enter a valid email address.", "err");
-          return;
-        }
-        btn.disabled = true;
-        setFeedback("Subscribing…", "");
-        try {
-          const res = await fetch(API, {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({ email, source: "solenchain.io" }),
-          });
-          const j = await res.json();
-          if (!res.ok) {
-            setFeedback(j.error === "bad_email"
-              ? "That doesn't look like a valid email."
-              : "Couldn't subscribe — try again.", "err");
-            return;
-          }
-          if (j.alreadySubscribed) {
-            setFeedback("You're already on the list ✓", "ok");
-          } else {
-            setFeedback("Subscribed — thanks!", "ok");
-            emailEl.value = "";
-          }
-        } catch {
-          setFeedback("Network error — try again.", "err");
-        } finally {
-          btn.disabled = false;
-        }
-      });
-    })();
-  </script>
+</div>
 </body>
 </html>
