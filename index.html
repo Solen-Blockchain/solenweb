@@ -109,7 +109,7 @@
           The settlement layer<br>for the <span style="font-style: italic; color: var(--accent, #F5920F);">modular</span> future.
         </h1>
         <p style="max-width: 500px; font-size: 18px; line-height: 1.62; color: #5C626C; margin: 22px 0 0;">
-          A high-performance Layer 1 purpose-built for rollup settlement, smart accounts, and intent-driven execution — with sub-second finality and fees in fractions of a cent.
+          A high-performance Layer 1 purpose-built for rollup settlement, smart accounts, and intent-driven execution — with sub-second finality, fees in fractions of a cent, and opt-in post-quantum security built into the protocol.
         </p>
         <div style="display: flex; gap: 13px; margin-top: 32px; flex-wrap: wrap;">
           <a href="Solen_Investor_Briefing.pdf" style="display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; padding: 13px 24px; border-radius: 10px; background: var(--accent, #F5920F); color: #0A0C10;">Read the Investor Briefing →</a>
@@ -143,6 +143,7 @@
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #767B85; margin-top: 4px;">FINALITY</div>
         </div>
         <div style="position: absolute; top: 46%; right: -4%; background: #14171C; color: #E7E3DA; border-radius: 999px; padding: 8px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.06em; box-shadow: 0 8px 24px rgba(0,0,0,0.14); animation: solenFloat 5.5s ease-in-out infinite; animation-delay: .4s;">BFT&nbsp;PoS</div>
+        <div style="position: absolute; bottom: 20%; left: -9%; display: inline-flex; align-items: center; gap: 7px; background: #14171C; color: #E7E3DA; border-radius: 999px; padding: 8px 15px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.06em; box-shadow: 0 8px 24px rgba(0,0,0,0.14); animation: solenFloat 6.2s ease-in-out infinite; animation-delay: .9s;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #22D3EE; box-shadow: 0 0 10px #22D3EE;"></span>QUANTUM-SAFE</div>
       </div>
     </div>
   </header>
@@ -307,7 +308,11 @@ await agent.transfer(recipient, 1n * SOLEN);
       <div>
         <div style="font-size: 12.5px; letter-spacing: 0.14em; color: var(--accent, #F5920F); font-family: 'IBM Plex Mono', monospace; margin-bottom: 16px;">&#10022; QUANTUM-READY</div>
         <h2 class="dc-h2" style="font-family: var(--head, 'Newsreader'), serif; font-weight: 500; font-size: 40px; line-height: 1.1; letter-spacing: -0.01em; margin: 0; color: #191C22;">Ready for the post-quantum era.</h2>
-        <p style="font-size: 17px; line-height: 1.6; color: #5C626C; margin: 18px 0 24px;">Opt in to NIST-standardized post-quantum signatures and protect any account against future quantum computers — today, with one command and no change of address. Classical signing stays the default.</p>
+        <p style="font-size: 17px; line-height: 1.6; color: #5C626C; margin: 18px 0 22px;">Opt in to NIST-standardized post-quantum signatures and protect any account against future quantum computers — today, with one command and no change of address. Classical signing stays the default.</p>
+        <div style="border-left: 3px solid var(--accent, #F5920F); background: color-mix(in oklab, var(--accent, #F5920F) 7%, transparent); border-radius: 0 12px 12px 0; padding: 15px 20px; margin-bottom: 24px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.1em; color: var(--accent, #F5920F); margin-bottom: 7px;">WHY IT MATTERS</div>
+          <div style="font-size: 14.5px; line-height: 1.6; color: #3A3F47;">&ldquo;Harvest now, decrypt later&rdquo; attackers are already recording on-chain data to break it once quantum hardware arrives. Solen is one of the only <strong style="color: #191C22;">live L1s</strong> where any account can be quantum-hardened <em>today</em> — no fork, no migration, no new address.</div>
+        </div>
         <div style="border: 1px solid rgba(0,0,0,0.11); border-radius: 14px; background: #ECE8DF; overflow: hidden;">
           <pre style="margin: 0; padding: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #3A3F47; overflow-x: auto; white-space: pre;"># Upgrade any account to post-quantum auth — same address
 solen key quantum-upgrade myaccount
