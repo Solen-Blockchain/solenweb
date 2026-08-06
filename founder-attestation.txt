@@ -1,0 +1,25 @@
+Solen — Founder Key Attestation (v1)
+====================================
+
+I, Porter Stovall, CEO & Founder of Solen Inc. — a corporation organized under
+the laws of the State of Wyoming, USA (Secretary of State Filing ID
+2026-002015126) — attest that I personally control the Solen account identified
+below, and that it is the founder/deployer account of the Solen blockchain
+(chain id 1, https://solenchain.io).
+
+Founder account (Solen id):   <FILL: FOUNDER_ACCOUNT_ID>
+Ed25519 public key (hex):     <FILL: FOUNDER_PUBLIC_KEY_HEX>
+Public identity:              Porter Stovall
+LinkedIn:                     https://www.linkedin.com/in/porter-stovall-983b41404
+Legal entity:                 Solen Inc. (Wyoming, USA) — Filing ID 2026-002015126
+Issued (UTC):                 2026-08-06
+Nonce:                        4351e88618bd8c776c3385e066528512
+
+This statement is signed with the Ed25519 private key of the account above using
+standard RFC 8032 Ed25519 over the exact UTF-8 bytes of this file. Anyone may:
+  1. verify the signature (founder-attestation.sig) against the Ed25519 public
+     key listed above, and
+  2. confirm that this public key is the on-chain authentication key of the
+     founder account via the public Solen RPC.
+Together these prove that the named, legally-incorporated founder controls the
+Solen founder key — without revealing any private key material.
